@@ -108,6 +108,7 @@ class RequestDet {
     this.matName,
     this.scale,
     this.qty,
+    this.reqQty,
     this.balqty,
     this.stockqty,
     this.detRemarks,
@@ -120,6 +121,7 @@ class RequestDet {
   String? matName;
   String? scale;
   double? qty;
+  double? reqQty;
   double? balqty;
   double? stockqty;
   String? detRemarks;
@@ -132,6 +134,7 @@ class RequestDet {
     scale: json["scaleName"],
     scaleId: json["scaleID"],
     qty: json["qty"],
+    reqQty: json["reqQty"],
     balqty: (json["balQty"] as num?)?.toDouble(),
     stockqty: (json["stockQty"] as num?)?.toDouble(),
     detRemarks: json["remarks"],
@@ -145,6 +148,7 @@ class RequestDet {
     "scaleName": scale,
     "scaleID": scaleId,
     "qty": qty,
+    "reqQty": reqQty,
     "balQty": balqty,
     "stockQty": stockqty,
     "remarks": detRemarks,

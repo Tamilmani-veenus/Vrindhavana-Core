@@ -408,6 +408,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
         materialTableModel.scaleId = element.scaleId;
         materialTableModel.reqDetId = element.reqDetId;
         materialTableModel.qty = 0;
+        materialTableModel.reqQty = element.reqQty;
         materialTableModel.balqty = element.balqty;
         materialTableModel.desc=Addwork_descControllers[i].value.text;
         materialTableModel.remarks=Addwork_remarksControllers[i].value.text;
@@ -422,6 +423,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
         materialTableModel.scaleId = element.scaleId!;
         materialTableModel.reqDetId = element.reqDetId!;
         materialTableModel.qty = double.parse(Addwork_qtyControllers[i].value.text);
+        materialTableModel.reqQty = element.reqQty;
         // materialTableModel.balqty = element.balqty;
         materialTableModel.desc=Addwork_descControllers[i].value.text;
         materialTableModel.remarks=Addwork_remarksControllers[i].value.text;
@@ -516,6 +518,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
   List<MMatReqMasLink>? getRequestDet(materialReqOrdMasid) {
     getRequestDetList.value.clear();
     Material_itemview_GetDbList.value.forEach((element) {
+      print("SSSSSSSS....${element.reqQty}");
       if (element.qty > 0) {
         var list = MMatReqMasLink(
           id: element.reqDetId,
@@ -524,7 +527,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
           qty: element.qty,
           scaleId: element.scaleId,
           siteId: siteController.selectedsiteId.value,
-          reqQty: element.qty,
+          reqQty: isSubmit ? element.qty : isResubmit ? element.qty : isVerify ? element.reqQty : element.reqQty,
           remarks: element.remarks,
           reqDescription: element.desc,
         );

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -129,6 +131,7 @@ class MrnPreApprovalController extends GetxController {
 
   //---------Get itemlist from local DB---------------
   getMaterialsItemlist_TableDatas() async {
+    MaterialAppr_itemview_GetDbList.value = [];
     var MatAppList =
         await materialapprlistService.Material_ApprovalItemlist_table_readAll();
     MatAppList.forEach((getdatas) {
@@ -334,6 +337,7 @@ class MrnPreApprovalController extends GetxController {
         mMatReqMasLink: getsaveDetList.value.isEmpty
             ? attendanceListDet(reqId)
             : getsaveDetList.value));
+    print("DDDDDD....${jsonEncode(body)}");
     final list = await Mrn_Req_provider.SaveMaterialScreenEntryAPI(
         body, reqId, mrn_request_controller.saveButton.value, context);
 
@@ -363,7 +367,7 @@ class MrnPreApprovalController extends GetxController {
           id: element.reqDetId,
           materialReqOrdMasid: reqId,
           materialId: element.materialid,
-          qty: element.reqqty,
+          qty: element.appqty,
           scaleId: element.scaleId,
           siteId: siteController.selectedsiteId.value,
           reqQty: element.reqqty,
