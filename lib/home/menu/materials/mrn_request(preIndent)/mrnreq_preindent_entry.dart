@@ -48,8 +48,7 @@ class _MRNRequest_PreIndent_EntryScreenState extends State<MRNRequest_PreIndent_
           projectController.projectname.text = element.projectName;
           siteController.Sitename.text = element.siteName;
           mrnRequest_PreIndent_Controller.preparedbyController.text = element.preparedbyName;
-          mrnRequest_PreIndent_Controller.ReqTypeController.text =
-              element.purchaseType.toString();
+          mrnRequest_PreIndent_Controller.ReqTypeController.text = element.purchaseType == "PO" ? "General Items" : "Asset Materials";
           mrnRequest_PreIndent_Controller.ReqType.value = element.purchaseVal.toString();
           mrnRequest_PreIndent_Controller.RemarksController.text = element.reqRemarks;
         });
@@ -775,7 +774,6 @@ class _MRNRequest_PreIndent_EntryScreenState extends State<MRNRequest_PreIndent_
                           } else {
                             SubmitAlert(context);
                           }
-                          mrnRequest_PreIndent_Controller.screenCheck == "PendingScreen" ? Navigator.pop(context) : "";
                         } else {}
                       },
                     ),

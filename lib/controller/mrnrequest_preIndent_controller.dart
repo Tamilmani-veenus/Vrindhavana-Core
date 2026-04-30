@@ -302,6 +302,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
       materiallist.scaleId = user['scaleId'];
       materiallist.reqDetId = user['reqDetId'];
       materiallist.qty = user['qty'];
+      materiallist.reqQty = user['reqQty'];
       materiallist.balqty = user['balqty'];
       materiallist.remarks = user['remarks'];
       materiallist.desc = user['desc'];
@@ -490,7 +491,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
     final list = await MRNRequest_PreIndent_Provider.SaveMaterialPreIndentEntryAPII(body, id, saveButton.value, context);
     if (list != null) {
       if (list["success"] == true) {
-        if (saveButton.value == RequestConstant.VERIFY) {
+        if (saveButton.value == RequestConstant.VERIFY || saveButton.value == RequestConstant.APPROVAL) {
           BaseUtitiles.showToast(list["message"]);
           await pendingListController.getPendingList();
           BaseUtitiles.popMultiple(context, count: 4);
@@ -547,6 +548,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
         materialTableModel.scaleId = val.scaleId;
         materialTableModel.reqDetId = val.reqDetId;
         materialTableModel.qty = val.qty!;
+        materialTableModel.reqQty = val.reqQty!;
         materialTableModel.balqty = val.balqty!;
         materialTableModel.remarks = val.detRemarks!;
         materialTableModel.desc = val.detDescription;
@@ -602,6 +604,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
         materialTableModel.scaleId = val.scaleId!;
         materialTableModel.reqDetId = val.reqDetId!;
         materialTableModel.qty = val.qty!;
+        materialTableModel.reqQty = val.reqQty!;
         materialTableModel.balqty = val.balqty!;
         materialTableModel.remarks = val.detRemarks!;
         materialTableModel.desc = val.detDescription;
