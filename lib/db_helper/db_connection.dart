@@ -65,7 +65,7 @@ class DatabaseConnection {
     String materialApprovalListTable = "CREATE TABLE materialApprovalListTable (id INTEGER PRIMARY KEY UNIQUE,materialid INTEGER,reqDetId INTEGER,materialname TEXT,scale TEXT,balqty REAL,reqqty REAL,appqty REAL,apptype TEXT,tranfromprjid TEXT,tranfromprjname TEXT,remarks TEXT,desc TEXT,scaleId INTEGER)";
     await database.execute(materialApprovalListTable);
 
-    String materialListTable = "CREATE TABLE materialListTable (id INTEGER PRIMARY KEY UNIQUE,materialid INTEGER,material TEXT,scale TEXT,balqty REAL,qty REAL,stockqty REAL,remarks TEXT,desc TEXT,scaleId INTEGER,reqDetId INTEGER)";
+    String materialListTable = "CREATE TABLE materialListTable (id INTEGER PRIMARY KEY UNIQUE,materialid INTEGER,material TEXT,scale TEXT,balqty REAL,qty REAL,reqQty REAL,stockqty REAL,remarks TEXT,desc TEXT,scaleId INTEGER,reqDetId INTEGER)";
     await database.execute(materialListTable);
 
     String consumItemListTable = "CREATE TABLE consumItemListTable (id INTEGER PRIMARY KEY UNIQUE,materialid INTEGER,material TEXT,scale TEXT,stockqty REAL,usageqty REAL,scaleId INTEGER,reqDetId INTEGER)";
@@ -146,8 +146,11 @@ class DatabaseConnection {
       await database.execute(
           "ALTER TABLE subcontAttendanceDet ADD COLUMN reqDetId INTEGER"
       );
+      await database.execute(
+          "ALTER TABLE materialListTable ADD COLUMN reqQty INTEGER"
+      );
     }
 
 
-}
+  }
 }

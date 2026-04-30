@@ -251,6 +251,7 @@ class MRN_Request_Controller extends GetxController {
       materiallist.scale = user['scale'];
       materiallist.stockqty = user['stockqty'];
       materiallist.qty = user['qty'];
+      materiallist.reqQty = user["reqQty"];
       materiallist.scaleId = user['scaleId'];
       materiallist.reqDetId = user['reqDetId'];
       materiallist.remarks = user['remarks'];
@@ -293,6 +294,7 @@ class MRN_Request_Controller extends GetxController {
         materialTableModel.material = element.material!;
         materialTableModel.scale = element.scale!;
         materialTableModel.qty = double.parse("0");
+        materialTableModel.reqQty = element.reqQty;
         materialTableModel.stockqty = element.stockqty;
         materialTableModel.scaleId = element.scaleId;
         materialTableModel.reqDetId = element.reqDetId;
@@ -310,6 +312,7 @@ class MRN_Request_Controller extends GetxController {
         materialTableModel.reqDetId = element.reqDetId!;
         materialTableModel.qty =
             double.parse(Addwork_qtyControllers[i].value.text);
+        materialTableModel.reqQty = element.reqQty;
         // materialTableModel.balqty = element.balqty;
         materialTableModel.stockqty = element.stockqty;
         materialTableModel.desc = Addwork_descControllers[i].value.text;
@@ -403,6 +406,8 @@ class MRN_Request_Controller extends GetxController {
   List<MMatReqMasLink>? getRequestDet(materialReqOrdMasid) {
     getRequestDetList.value.clear();
     Material_itemview_GetDbList.value.forEach((element) {
+      print("VVVVVVVVV...${element.reqQty}");
+
       if (element.qty > 0) {
         var list = MMatReqMasLink(
           id: element.reqDetId,
@@ -412,7 +417,7 @@ class MRN_Request_Controller extends GetxController {
           qty: element.qty,
           scaleId: element.scaleId,
           siteId: siteController.selectedsiteId.value,
-          reqQty: element.qty,
+          reqQty: isSubmit || isResubmit ? element.qty : isVerify ? element.reqQty : element.qty,
           remarks: element.remarks,
           reqDescription: element.desc,
         );
@@ -433,6 +438,7 @@ class MRN_Request_Controller extends GetxController {
         materialTableModel.material = val.matName!;
         materialTableModel.scale = val.scale!;
         materialTableModel.qty = val.qty;
+        materialTableModel.reqQty = val.reqQty;
         materialTableModel.scaleId = val.scaleId;
         materialTableModel.reqDetId = val.reqDetId;
         // materialTableModel.balqty = val.balqty!;
@@ -516,6 +522,7 @@ class MRN_Request_Controller extends GetxController {
         materialTableModel.material = val.matName!;
         materialTableModel.scale = val.scale!;
         materialTableModel.qty = val.qty!;
+        materialTableModel.reqQty = val.reqQty!;
         materialTableModel.scaleId = val.scaleId!;
         materialTableModel.reqDetId = val.reqDetId!;
         // materialTableModel.balqty = val.balqty!;

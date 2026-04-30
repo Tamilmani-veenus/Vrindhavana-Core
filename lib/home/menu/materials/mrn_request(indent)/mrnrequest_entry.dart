@@ -112,7 +112,7 @@ class _MRNRequest_Indent_EntryState extends State<MRNRequest_Indent_Entry> {
           projectController.projectname.text = element.projectName;
           siteController.Sitename.text = element.siteName;
           mrn_request_controller.preparedbyController.text = element.preparedbyName;
-          mrn_request_controller.ReqTypeController.text = element.purchaseType.toString();
+          mrn_request_controller.ReqTypeController.text = element.purchaseType == "PO" ? "General Items" : "Asset Materials";
           mrn_request_controller.ReqType.value = element.purchaseVal.toString();
           mrn_request_controller.RemarksController.text = element.reqRemarks;
         });

@@ -136,6 +136,7 @@ class MrnFinalApprovalController extends GetxController{
   /// ------------ Get itemlist from local DB ---------------
 
   getFinalApp_MaterialsItemlist_TableDatas() async {
+    MaterialFinalAppr_itemview_GetDbList.value = [];
     var MatAppList = await materialFinalapprlistService.Material_ApprovalItemlist_table_readAll();
     MatAppList.forEach((getdatas){
       var materialapprlist =  Materialapprlist();
@@ -304,7 +305,7 @@ class MrnFinalApprovalController extends GetxController{
           id: element.reqDetId,
           materialReqOrdMasid: reqId,
           materialId: element.materialid,
-          qty: element.reqqty,
+          qty: element.appqty,
           scaleId: element.scaleId,
           siteId: siteController.selectedsiteId.value,
           reqQty: element.reqqty,
