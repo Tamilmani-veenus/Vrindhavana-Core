@@ -124,8 +124,8 @@ class SiteVoucher_Controller extends GetxController {
       sitevoucherItemListTableModel.paytype = commonVoucherController.detVocType;
       amt = double.parse(DetAmount.text).round();
       sitevoucherItemListTableModel.amt = amt.toDouble();
-      sitevoucherItemListTableModel.TdsPer = double.parse(Tds.text);
-      sitevoucherItemListTableModel.TdsAmt = double.parse(Tdsamount.text);
+      sitevoucherItemListTableModel.TdsPer = double.parse(Tds.text==""?"0":Tds.text);
+      sitevoucherItemListTableModel.TdsAmt = double.parse(Tdsamount.text==""?"0":Tdsamount.text);
       netAmount = double.parse(NetAmount.text).round();
       sitevoucherItemListTableModel.NetAmt = netAmount.toDouble();
       for (var element in Sitevoucher_itemview_GetDbList.value) {
