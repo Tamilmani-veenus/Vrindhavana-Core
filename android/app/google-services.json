@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "677951071137",
+    "project_id": "vrindhavana-b14fe",
+    "storage_bucket": "vrindhavana-b14fe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677951071137:android:63203a73e5ff0d8e5fe1e0",
+        "android_client_info": {
+          "package_name": "com.veenus.vrindhavana"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWpFVl9QxNZlfNWgyOzEVNq6xjnc2AZ-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
