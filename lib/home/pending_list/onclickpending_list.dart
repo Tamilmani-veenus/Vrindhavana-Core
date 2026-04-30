@@ -3918,7 +3918,7 @@ class _SiteRequestVerificationState extends State<SiteRequestVerification> {
                                           Expanded(
                                               flex: 3,
                                               child: Text(
-                                                "Purchase Type",
+                                                "Purchase \nType",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black,

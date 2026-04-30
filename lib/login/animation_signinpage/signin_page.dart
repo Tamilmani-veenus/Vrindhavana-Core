@@ -13,7 +13,7 @@ class SignInPage extends StatefulWidget {
 
   static Future<void> checkVersion(BuildContext context) async {
      final newVersion = NewVersionPlus(
-       androidId: 'com.veenus.skconstructions',
+       androidId: 'com.veenus.vrindhavana',
      );
 
     final status = await newVersion.getVersionStatus();
@@ -25,7 +25,7 @@ class SignInPage extends StatefulWidget {
         allowDismissal: false,
         dialogTitle: "Update App?",
         dialogText:
-        "A new version of Sample is available!\n\n"
+        "A new version of Vrindhavana Properties is available!\n\n"
             "Version ${status.storeVersion} is now available!",
         updateButtonText: "UPDATE NOW",
       );
