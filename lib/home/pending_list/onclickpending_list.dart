@@ -167,7 +167,7 @@ class _OnclickPendingListState extends State<OnclickPendingList> {
                             height:
                                 BaseUtitiles.getheightofPercentage(context, 80),
                             child: ListView.builder(
-                                padding: EdgeInsets.zero,
+                                padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                                 physics: BouncingScrollPhysics(),
                                 itemCount: widget
                                     .pendingListController.mainlist.length,
@@ -702,7 +702,7 @@ class _WorkPreApprovalState extends State<WorkPreApproval> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.value.length,
                         itemBuilder: (context, index) {
@@ -1007,7 +1007,7 @@ class _MrnVerficationState extends State<MrnVerfication> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -2056,7 +2056,7 @@ class _MrnPreApprovalState extends State<MrnPreApproval> {
                     ),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -2618,7 +2618,7 @@ class _MrnPreApproval_AMState extends State<MrnPreApproval_AM> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -3183,7 +3183,7 @@ class _MrnFinalApprovalState extends State<MrnFinalApproval> {
                     margin: const EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: const BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -4157,7 +4157,7 @@ class _StoreTransferPendingState extends State<StoreTransferPending> {
                 margin: EdgeInsets.only(left: 6, right: 6),
                 height: BaseUtitiles.getheightofPercentage(context, 88),
                 child: ListView.builder(
-                    padding: EdgeInsets.zero,
+                    padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                     physics: BouncingScrollPhysics(),
                     itemCount: pendingListController.mainlist.length,
                     itemBuilder: (context, index) {
@@ -4532,7 +4532,7 @@ class _DirectTransferVerifyApproveState
                     margin: const EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: const BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -5078,7 +5078,7 @@ class _PendingPOState extends State<PendingPO> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: widget.pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -7223,7 +7223,7 @@ class _PoVerificationState extends State<PoVerification> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -7804,7 +7804,7 @@ class _PoPreApprovalState extends State<PoPreApproval> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -8354,7 +8354,7 @@ class _PoApprovalDesignState extends State<PoApprovalDesign> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -8930,7 +8930,7 @@ class _WorkOrderState extends State<WorkOrder> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 75),
                     child: ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {

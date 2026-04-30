@@ -52,7 +52,7 @@ class _InternetLostConnectionState extends State<InternetLostConnection> {
     ScreenUtil.init(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sample App"),
+        title: const Text("Vrindhavana Properties"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios), // You can use any icon you want here
           onPressed: () {
