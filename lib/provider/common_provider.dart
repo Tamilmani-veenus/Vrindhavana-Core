@@ -13,6 +13,7 @@ import '../models/materialwise_subhead_dropdown_model.dart';
 import '../models/nmr_billno_model.dart';
 import '../models/nmrwklybill_deduction_save_model.dart';
 import '../models/payfor_model.dart';
+import '../models/paymenttype_model.dart';
 import '../models/paymode_model.dart';
 import '../models/project_dropdownlist_model.dart';
 import '../models/sitedropdownresponse_model.dart';
@@ -484,20 +485,24 @@ class CommonProvider {
     }
   }
 
-  static Future<List> getPaymodetype() async {
-    List responseData = [];
-    await ApiManager.getAPICall(ApiConstant.GETPAYMODEDROPDOWNLIST).then(
-        (value) {
-      responseData = payModereponseFromJson(value);
-      if (responseData != null && responseData.length > 0) {
-        return responseData;
-      }
-    }, onError: (error) {
-      print(error);
-      print("Error == $error");
-      BaseUtitiles.showToast('Something went wrong..');
-    });
-    return responseData;
+  static Future<PayModeReponse?> getPaymodetype() async {
+    try {
+      final value = await ApiManager.getAPICall(ApiConstant.GETPAYMODEDROPDOWNLIST);
+      return payModeReponseFromJson(value);
+    } catch (e) {
+      print("Error == $e");
+      return null;
+    }
+  }
+
+  static Future<PaymentTypeReponse?> getPaymentTypeListAPI() async {
+    try {
+      final value = await ApiManager.getAPICall(ApiConstant.GETPAYMENTDROPDOWNLIST);
+      return paymentTypeReponseFromJson(value);
+    } catch (e) {
+      print("Error == $e");
+      return null;
+    }
   }
 
   static Future<PayforReponse?> getPayforType() async {

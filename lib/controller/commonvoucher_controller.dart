@@ -38,7 +38,7 @@ class CommonVoucherController extends GetxController{
   RxString SaveButton=RequestConstant.SAVE.obs;
 
   bool check=false;
-  
+
   final Accountname=new TextEditingController();
   final namethrough=new TextEditingController();
   RxList getaccdropDownvalue=[].obs;
@@ -57,6 +57,7 @@ class CommonVoucherController extends GetxController{
   final Paymodename=new TextEditingController();
   RxList getpaymodedropDownvalue=[].obs;
   RxList paymodeList=[].obs;
+  RxList paymentTypeList=[].obs;
   RxList PaymodeDropdownName=[].obs;
   RxInt selectedPaymodeId = 0.obs;
   RxString selectedPaymodeName = "".obs;
@@ -125,11 +126,11 @@ class CommonVoucherController extends GetxController{
       BaseUtitiles.showToast('Something went wrong..');
     }
   }
-  
-  
+
+
   checkDuplicateAccountName(String value,BuildContext context){
     check=false;
-    getaccdropDownvalue.value.forEach((element) { 
+    getaccdropDownvalue.value.forEach((element) {
       if(value.toUpperCase()==element.accName){
         check=true;
         return;
@@ -213,20 +214,46 @@ class CommonVoucherController extends GetxController{
     AccPayforname.text=selectedAccpayName.value;
   }
 
-  //---Paymode--
-  Future getPaymodeList(BuildContext context) async {
-    getpaymodedropDownvalue.value= await CommonProvider.getPaymodetype();
 
-    getpaymodedropDownvalue.value.forEach((element) {
-      return PaymodeDropdownName.value.add(element.paymode);
-    });
-    // showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return PaymodeShowPopup(list:getpaymodedropDownvalue.value);
-    //     });
+  Future getPaymodeList() async {
+    getpaymodedropDownvalue.value.clear();
+    final value = await CommonProvider.getPaymodetype();
+    if (value != null) {
+      if(value.success == true){
+        if(value.result!.isNotEmpty){
+          getpaymodedropDownvalue.value = value.result!;
+        } else {
+          BaseUtitiles.showToast("No Record Found..");
+        }
+      }
+      else {
+        BaseUtitiles.showToast(value.message ?? 'Something went wrong..');
+      }
+    }
+    else{
+      BaseUtitiles.showToast('Something went wrong..');
+    }
   }
 
+  Future getPaymentTypeList() async {
+    paymentTypeList.value.clear();
+    final value = await CommonProvider.getPaymentTypeListAPI();
+    if (value != null) {
+      if(value.success == true){
+        if(value.result!.isNotEmpty){
+          paymentTypeList.value = value.result!;
+        } else {
+          BaseUtitiles.showToast("No Record Found..");
+        }
+      }
+      else {
+        BaseUtitiles.showToast(value.message ?? 'Something went wrong..');
+      }
+    }
+    else{
+      BaseUtitiles.showToast('Something went wrong..');
+    }
+  }
 
   setSelectedPaymodeID(String value) {
     if (getpaymodedropDownvalue.value.length>0) {

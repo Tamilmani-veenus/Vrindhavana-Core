@@ -817,13 +817,12 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                         child: ConstIcons.modeofpay),
                                   ),
                                   onTap: () async {
-                                    await commonVoucherController.getPaymodeList(context);
-                                    setState(() {
+                                    await commonVoucherController.getPaymodeList();
                                       bottomsheetControllers.ModeofPay(
                                           context,
                                           commonVoucherController
                                               .getpaymodedropDownvalue.value);
-                                    });
+
                                   },
                                   validator: (value) {
                                     if (value!.isEmpty ||

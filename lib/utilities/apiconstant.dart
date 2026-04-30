@@ -152,12 +152,13 @@ class ApiConstant{
   static String GET_TRANSBETSITE_ENTRYLIST = BASE_URL_CORE + "api/MaterialSitetosite/GetAllSitetoSiteMas";
   static String GETCASHBOOK_SITE = BASE_URL + "api/Report/GetCashBookSite";
   static String GETCASHBOOK_STAFF = BASE_URL + "api/Report/GetCashBookStaff";
-  static String GETACCOUNTTYPEDROPDOWNLIST = BASE_URL + "api/CommonFile/GetAccType";
+  static String GETACCOUNTTYPEDROPDOWNLIST = BASE_URL_CORE + "api/SiteVoucher/GetAccountType";
   static String GETACCOUNTTYPEDROPDOWNLISTADVREQ = BASE_URL + "api/CommonFile/GetAccTypeAdvReq";
   static String GetADVREQ_SITEWIEPAYMENTLIST = BASE_URL + "api/AdvRequisitionVoucher/GetAdvreq_sitewisePayment";
-  static String GETPAYMODEDROPDOWNLIST = BASE_URL + "api/CommonFile/GetPayMode";
-  static String GETPAYFORDROPDOWNLIST = BASE_URL + "api/CommonFile/GetPayFor";
-  static String ACCOUNTNAMEDROPDWONLISTAPI = BASE_URL + "api/CommonFile/GetAccName";
+  static String GETPAYMODEDROPDOWNLIST = BASE_URL_CORE + "api/GenericMaster/GetPaymentMode";
+  static String GETPAYMENTDROPDOWNLIST = BASE_URL_CORE + "api/SiteVoucher/GetPaymentTypeDet";
+  static String GETPAYFORDROPDOWNLIST = BASE_URL_CORE + "api/SiteVoucher/GetAccountPayFor";
+  static String ACCOUNTNAMEDROPDWONLISTAPI = BASE_URL_CORE + "api/SiteVoucher/GetAccountName";
   static String STAFFDROPDWONLISTAPI = BASE_URL_CORE + "api/StaffRequisition/GetStaffDd";
   static String GET_ADVREQ_ENTRY_LIST = BASE_URL + "api/AdvRequisitionVoucher/GetVoucherProjectEntryList";
   static String GETSITEVOC_ENTRY_LIST = BASE_URL_CORE + "api/SiteVoucher/GetAllAccountSiteVoucher";
