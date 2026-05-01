@@ -1082,29 +1082,74 @@ class _TrasferBetweenProjects_EntryState
                         _formkey.currentState!.save();
                         if (transferBW_project_Controller.ItemGetTableListdata.isEmpty) {
                           Fluttertoast.showToast(msg: "Please add items");
-                        } else {
-                          bool hasInvalid = false;
-                          for (int i = 0;
-                          i < transferBW_project_Controller.ItemGetTableListdata.length; i++) {
-                            final controller = transferBW_project_Controller.Itemlist_TransQty_ListController[i];
-                            final text = controller.text.trim();
-                            if (text.isEmpty) {
-                              hasInvalid = true;
-                              break;
+                        } else{
+                          if(transferBW_project_Controller.type.value == "Against Mrn Approval" || transferBW_project_Controller.type.value == "Against Transfer Request"){
+                            bool hasAtLeastOneValid = false;
+
+                            for (int i = 0; i < transferBW_project_Controller.ItemGetTableListdata.length; i++) {
+                              final controller = transferBW_project_Controller.Itemlist_TransQty_ListController[i];
+                              final text = controller.text.trim();
+
+                              if (text.isEmpty) continue;
+
+                              final value = double.tryParse(text);
+
+                              if (value != null && value > 0) {
+                                hasAtLeastOneValid = true;
+                                break;
+                              }
                             }
-                            final value = double.tryParse(text);
-                            if (value == null || value <= 0) {
-                              hasInvalid = true;
-                              break;
+
+                            if (!hasAtLeastOneValid) {
+                              BaseUtitiles.showToast("Transfer Qty Should Not be Zero or Empty");
+                              return;
+                            }
+                          }else {
+                            bool hasInvalid = false;
+                            for (int i = 0; i < transferBW_project_Controller.ItemGetTableListdata.length; i++) {
+                              final controller = transferBW_project_Controller.Itemlist_TransQty_ListController[i];
+                              final text = controller.text.trim();
+                              if (text.isEmpty) {
+                                hasInvalid = true;
+                                break;
+                              }
+                              final value = double.tryParse(text);
+                              if (value == null || value <= 0) {
+                                hasInvalid = true;
+                                break;
+                              }
+                            }
+                            if (hasInvalid) {
+                              BaseUtitiles.showToast("Transfer Qty Should Not be Zero or Empty");
+                              return;
                             }
                           }
-                          if (hasInvalid) {
-                            BaseUtitiles.showToast(
-                                "Transfer Qty Should Not be Zero or Empty");
-                          } else {
-                            SubmitAlert(context);
-                          }
+                          SubmitAlert(context);
+
                         }
+                          // else {
+                        //   bool hasInvalid = false;
+                        //   for (int i = 0;
+                        //   i < transferBW_project_Controller.ItemGetTableListdata.length; i++) {
+                        //     final controller = transferBW_project_Controller.Itemlist_TransQty_ListController[i];
+                        //     final text = controller.text.trim();
+                        //     if (text.isEmpty) {
+                        //       hasInvalid = true;
+                        //       break;
+                        //     }
+                        //     final value = double.tryParse(text);
+                        //     if (value == null || value <= 0) {
+                        //       hasInvalid = true;
+                        //       break;
+                        //     }
+                        //   }
+                        //   if (hasInvalid) {
+                        //     BaseUtitiles.showToast(
+                        //         "Transfer Qty Should Not be Zero or Empty");
+                        //   } else {
+                        //     SubmitAlert(context);
+                        //   }
+                        // }
                       }
                     },
                   ),

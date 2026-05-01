@@ -332,7 +332,9 @@ class MrnPreApprovalController extends GetxController {
         preApproveBy: int.parse(loginController.EmpId()),
         preApproveDate:
             BaseUtitiles().convertToUtcIso(mrnpre_RequestDateText.text),
+        verifyStatus: "Y",
         preApproveStatus: "Y",
+        approveStatus: "N",
         approveRemarks: mrnpre_ApprovalremarksText.text,
         mMatReqMasLink: getsaveDetList.value.isEmpty
             ? attendanceListDet(reqId)
@@ -376,6 +378,7 @@ class MrnPreApprovalController extends GetxController {
           refProjectId: int.tryParse(element.tranfromprjid),
           preApproveType: element.apptype,
           preApproveStatus: "Y",
+          approveStatus: "N"
         );
         getsaveDetList.value.add(list);
       }
