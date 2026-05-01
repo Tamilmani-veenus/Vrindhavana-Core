@@ -38,9 +38,10 @@ class Sitevoucher_provider{
   static Future<dynamic> SaveSitevoucherScreenEntryAPI(SitevoucherSaveRequest data, List<File> imagesPath, saveButton,id) async {
     try {
       final url = saveButton == RequestConstant.RESUBMIT
-          ? "${ApiConstant.PUT_SITEVOUCHER_UPDATE_API}/$id"
+          ? "${ApiConstant.PUT_SITEVOUCHER_UPDATE_API}?id=$id"
           : ApiConstant.SITEVOUCHER_SAVE;
 
+      print('API url: ${url}');
 
       final request = http.MultipartRequest(
         saveButton == RequestConstant.RESUBMIT ? 'PUT' : 'POST',
@@ -141,75 +142,17 @@ class Sitevoucher_provider{
 
   ///--EditAPI
 
-  static Future<List<SitevouchereditResponse>> Sitevoucher_entryList_editAPI(int VocId) async {
-    var data = null;
-    await ApiManager.getAPICall("${ApiConstant.GET_SITEVOUCHER_EDIT_API}?VocId=$VocId").then((value) {
-      final res = sitevouchereditResponseFromJson(value);
-      if (res != null && res.length > 0) {
-        data = res;
-        return data;
-      }
-    }, onError: (error) {
-      print(error);
-      BaseUtitiles.showToast(RequestConstant.SOMETHINGWENT_WRONG+error);
-    });
-    return data;
-  }
-
-  /// Sending multiple image provider.....
-
-  Future<InwardImageRes> sendMultipleImageProvider(SiteVocImagePayload data,List<File> imagesPath) async {
-    const String contentType = "application/json; charset=utf-8";
+  static Future<SitevouchereditResponse?> Sitevoucher_entryList_editAPI(int VocId) async {
     try {
-      var request = http.MultipartRequest('POST', Uri.parse(ApiConstant.SITEVOCIMAGE_SAVEAPI));
-      if (kDebugMode) {
-        print("Calling API: ${ApiConstant.SITEVOCIMAGE_SAVEAPI}");
-      }
-      Map<String, dynamic> bodyData = data.toJson();
-      for (var i = 0; i < imagesPath.length; i++) {
-        print("Index value :: $i");
-        var imageFile = imagesPath[i];
-        request.files.add(
-          await http.MultipartFile.fromPath(
-            'VocFile',
-            imageFile.path,
-            contentType: MediaType('image', 'jpeg'),
-            filename: 'image_$i.jpeg',
-          ),
-        );
-      }
-      for (var field in bodyData.keys) {
-        var value = bodyData[field];
-        if (value is String || value is num) {
-          request.fields[field] = value.toString();
-        }
-      }
-      request.headers["content-type"] = contentType;
-      var response = await http.Response.fromStream(await request.send());
-      if (kDebugMode) {
-        print("Request Data :: ${request.fields}");
-        print("Request Data :: ${request.files}");
-      }
-      if (response.statusCode == 200) {
-        if (kDebugMode) {
-          print("Status code ::: ${response.statusCode}");
-        }
-        await getResponse(response);
-        return InwardImageRes.fromJson(jsonDecode(response.body.toString()));
-      } else if(response.statusCode == 500) {
-        if (kDebugMode) {
-          print("Status code ::: ${response.statusCode}");
-        }
-        await getResponse(response);
-        throw Exception('Failed to upload images: ${response.reasonPhrase}');
-      } else {
-        await getResponse(response);
-        throw Exception('Failed to upload images: ${response.reasonPhrase}');
-      }
-    } on SocketException {
-      throw Exception(RequestConstant.NOINTERNETCONNECTION);
+      final value = await ApiManager.getAPICall("${ApiConstant.GET_SITEVOUCHER_EDIT_API}?id=$VocId");
+      print('API Response: ${value}');
+      return sitevouchereditResponseFromJson(value);
+    } catch (error) {
+      print("Error == $error");
+      return null;
     }
   }
+
 
   /// Getting multiple image provider.....
 

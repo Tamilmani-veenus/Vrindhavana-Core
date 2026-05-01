@@ -1468,7 +1468,6 @@ class BottomsheetControllers {
                     },
                     textInputAction: TextInputAction.search,
                     onChanged: (value)  {
-                      // commonVoucherController.payforNamelist.value=BaseUtitiles.acPayForNamePopupAlert(value,widget.list);
                       list=BaseUtitiles.acPayForNamePopupAlert(value,commonVoucherController.getPayfordropDownvalue.value);
                     },
                   ),
@@ -1517,6 +1516,7 @@ class BottomsheetControllers {
                           commonVoucherController.AccPayforname.text = list[index].acPayForName.toString();
                           searchcontroller.text = "";
                           Navigator.pop(context);
+                          print("wwwwwwwww...${commonVoucherController.selectedAccPayId.value}");
                         },
                       ),
                       Divider(),
