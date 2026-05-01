@@ -22,7 +22,7 @@ class ApiConfig {
       print("IP_URL $APIURL");
     } else {
       APIURL = DEFAULT_BASE_URL_CORE;
-      WebURL = "${LIVE_ENDPOINT_CORE}ERPNEW/";
+      WebURL = "${LIVE_ENDPOINT_CORE}ERPNEWUI/";
       print("Using default base URL: $APIURL");
     }
   }
@@ -143,6 +143,8 @@ class ApiConstant{
   static String GETINWARD_ENTRY_LIST = BASE_URL_CORE + "api/MaterialInward/GetAllMaterialInward";
   static String GETMATERIALINWARD_ALLDATAS = BASE_URL_CORE + "api/MaterialInward/GetInwardPendingById";
   static String GETINWARDSTATUSCHECKAPI = BASE_URL_CORE + "api/MaterialInward/InwardMobilecheck";
+  static String GETTRANSFERSTATUSCHECKAPI = BASE_URL_CORE + "api/MaterialTransfer/checkForUpdateAndDelete";
+
   static String GETTRANSPROJECT_ENTRY_LIST = BASE_URL_CORE + "api/MaterialTransfer/GetAllTransBetweenProject";
   static String GET_MATTRANSREQ_LIST = BASE_URL_CORE + "api/MaterialTransferRequest/GetAllMaterialTransferRequestMas";
   static String GETFROMPROJECTDROPDOWNLIST = BASE_URL + "api/MaterialTransferProject/GetFromProject";
@@ -330,6 +332,7 @@ class ApiConstant{
   // static String PUNCH_OUT = BASE_URL + "api/StaffPunching/PUTStaffPunchOutUpdate";
   static String PUNCH_OUT = BASE_URL + "api/StaffPunching/PutPunchOutUploadStaffImageSave";
   static String PROJECT_NAME_TRANSFER = BASE_URL_CORE + "api/GenericMaster/ToProDiff";
+  static String TOPROJECT_NAME_TRANSFER = BASE_URL_CORE + "api/GenericMaster/GetAllToPro";
   static String PUT_MATERIALREQUEST_PREINDENT_UPDATE_API = BASE_URL_CORE + "api/SiteRequest/UpdatePreIndent";
   static String PUT_PENDING_QUOTE_API = BASE_URL_CORE + "api/MaterialQuote/SubmitQuote";
   static String PUT_QUOTE_REVERT_API = BASE_URL_CORE + "api/MaterialQuote/RevertQuote";

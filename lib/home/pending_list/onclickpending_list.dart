@@ -5480,7 +5480,7 @@ class _InwardPendingState extends State<InwardPending> {
                     margin: EdgeInsets.all(6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -9412,7 +9412,7 @@ class _TransferPendingState extends State<TransferPending> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.value.length,
                         itemBuilder: (context, index) {
@@ -11015,7 +11015,7 @@ class _TransferACKPendingState extends State<TransferACKPending> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 80),
                     child: Obx(() => ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.value.length,
                         itemBuilder: (context, index) {
@@ -13987,7 +13987,7 @@ class _StaffRequisitionVerifyState extends State<StaffRequisitionVerify> {
                     margin: EdgeInsets.only(left: 6, right: 6),
                     height: BaseUtitiles.getheightofPercentage(context, 88),
                     child: ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                         physics: BouncingScrollPhysics(),
                         itemCount: pendingListController.mainlist.length,
                         itemBuilder: (context, index) {
@@ -15925,7 +15925,7 @@ class _QuotePendingState extends State<QuotePending> {
                       margin: EdgeInsets.only(left: 6, right: 6, bottom: 16),
                       height: BaseUtitiles.getheightofPercentage(context, 84),
                       child: Obx(() => ListView.builder(
-                          padding: EdgeInsets.zero,
+                          padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                           physics: BouncingScrollPhysics(),
                           itemCount: pendingListController.mainlist.length,
                           itemBuilder: (context, index) {
@@ -16462,7 +16462,7 @@ class _QuoteVerifyandApprovalState extends State<QuoteVerifyandApproval> {
                       margin: EdgeInsets.only(left: 6, right: 6, bottom: 16),
                       height: BaseUtitiles.getheightofPercentage(context, 84),
                       child: Obx(() => ListView.builder(
-                          padding: EdgeInsets.zero,
+                          padding: EdgeInsets.only(bottom:BaseUtitiles.getheightofPercentage(context, 10) ),
                           physics: BouncingScrollPhysics(),
                           itemCount: pendingListController.mainlist.length,
                           itemBuilder: (context, index) {

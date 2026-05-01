@@ -477,14 +477,10 @@ class _TrasferBetweenProjects_EntryState
                                     child: ConstIcons.projectName),
                               ),
                               onTap: () async {
-                                if (transferBW_project_Controller.type.value ==
-                                    "Direct") {
-                                  transferBW_project_Controller
-                                      .itemlistTable_Delete();
-                                  transferBW_project_Controller
-                                      .ItemGetTableListdata.value
-                                      .clear();
-                                  await projectController.getToProjectName(
+                                if (transferBW_project_Controller.type.value == "Direct") {
+                                  transferBW_project_Controller.itemlistTable_Delete();
+                                  transferBW_project_Controller.ItemGetTableListdata.value.clear();
+                                  await projectController.getToProjectName("Transfer btwn Project Direct",
                                       fromprojectController
                                           .selectedProjectId.value);
                                   await bottomsheetControllers.projectnameAll(
@@ -1099,7 +1095,6 @@ class _TrasferBetweenProjects_EntryState
                                 break;
                               }
                             }
-
                             if (!hasAtLeastOneValid) {
                               BaseUtitiles.showToast("Transfer Qty Should Not be Zero or Empty");
                               return;
@@ -1125,31 +1120,7 @@ class _TrasferBetweenProjects_EntryState
                             }
                           }
                           SubmitAlert(context);
-
                         }
-                          // else {
-                        //   bool hasInvalid = false;
-                        //   for (int i = 0;
-                        //   i < transferBW_project_Controller.ItemGetTableListdata.length; i++) {
-                        //     final controller = transferBW_project_Controller.Itemlist_TransQty_ListController[i];
-                        //     final text = controller.text.trim();
-                        //     if (text.isEmpty) {
-                        //       hasInvalid = true;
-                        //       break;
-                        //     }
-                        //     final value = double.tryParse(text);
-                        //     if (value == null || value <= 0) {
-                        //       hasInvalid = true;
-                        //       break;
-                        //     }
-                        //   }
-                        //   if (hasInvalid) {
-                        //     BaseUtitiles.showToast(
-                        //         "Transfer Qty Should Not be Zero or Empty");
-                        //   } else {
-                        //     SubmitAlert(context);
-                        //   }
-                        // }
                       }
                     },
                   ),

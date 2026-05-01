@@ -106,39 +106,8 @@ class PendingListController extends GetxController {
     });
   }
 
-  ///--------------------------mrn_verified_delete-----------------------------
-
-  Future mrn_verification_delete(BuildContext context, id) async {
-    String body =
-    pendingPoapprovalApiResmodelToJson(PendingPoapprovalApiResmodel(
-      urlName: "MRN VERIFICATION DELETE",
-      userId: loginController.user.value.userId.toString(),
-      deviceName: BaseUtitiles.deviceName,
-      approvalDet: getPoAprovalDetList.value.isEmpty
-          ? getmrnverfiedDet(id)
-          : getPoAprovalDetList.value,
-    ));
-    if (mainlist.isNotEmpty) {
-      // await MrnFinalApprovalProvider.mrnverifydeleteApi(body);
-    } else {
-      BaseUtitiles.showToast("Please select a list");
-    }
-  }
-
-  List<ApprovalDet> getmrnverfiedDet(int id) {
-    getPoAprovalDetList.value.clear();
-    mainlist.forEach((element) {
-      if (id == element.id) {
-        var list =
-        ApprovalDet(id: element.id, no: element.no.toString(), poWoType: '-');
-        getPoAprovalDetList.add(list);
-      }
-    });
-    return getPoAprovalDetList.value;
-  }
 
   ///--------------------TRANSFER REQUEST verifily----------------------------
-
 
 
   Future<String?> TransferReq_Verify_DeleteApi(Url,int reqId) async {
@@ -176,39 +145,8 @@ class PendingListController extends GetxController {
     return getPoAprovalDetList.value;
   }
 
-  ///---------------------------PO_APPROVE_DELETE---------------------------
 
-  Future poapprovaldelete(BuildContext context, id) async {
-    String body =
-    pendingPoapprovalApiResmodelToJson(PendingPoapprovalApiResmodel(
-      urlName: "PO APPROVE DELETE",
-      userId: loginController.user.value.userId.toString(),
-      deviceName: BaseUtitiles.deviceName,
-      approvalDet: getPoAprovalDetList.value.isEmpty
-          ? poapprovaldeletedet(id)
-          : getPoAprovalDetList.value,
-    ));
-    if (mainlist.isNotEmpty) {
-      await MrnFinalApprovalProvider.poapprovaldeleteapi(body);
-    } else {
-      BaseUtitiles.showToast("Please select a list");
-    }
-  }
 
-  List<ApprovalDet> poapprovaldeletedet(int id) {
-    getPoAprovalDetList.value.clear();
-    mainlist.forEach((element) {
-      if (id == element.id) {
-        var list = ApprovalDet(
-          id: element.id,
-          no: element.no.toString(),
-          poWoType: element.type,
-        );
-        getPoAprovalDetList.add(list);
-      }
-    });
-    return getPoAprovalDetList.value;
-  }
 
   Future punchInAproval_buttonApi(BuildContext context, String Urlname) async {
     String body = punchInapprovalApiResmodelToJson(PunchInapprovalApiResmodel(

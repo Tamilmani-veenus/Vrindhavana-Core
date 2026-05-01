@@ -79,7 +79,7 @@ class MrnPreApprovalController extends GetxController {
   var materialapprlistService = MaterialapprlistService();
 
   Future gettingProjectName(int reqMasId, int proId, BuildContext context) async {
-    final value = await MrnFinalApprovalProvider.projectNameProvider(proId);
+    final value = await MrnFinalApprovalProvider.projectNameProvider("MRN Pre Approve",proId);
     if (value != null) {
       if (value.success == true) {
         if (value.result!.isNotEmpty) {

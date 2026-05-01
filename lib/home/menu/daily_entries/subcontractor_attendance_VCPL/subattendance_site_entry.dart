@@ -227,51 +227,44 @@ class _SubAttendanceSiteEntryState extends State<SubattendanceSiteEntry> {
                                       }
                                       return null;
                                     },
-                                    // onTap: () async {
-                                    //   if (dailyEntriesController.screenCheck ==
-                                    //           "PendingScreen" ||
-                                    //       dailyEntriesController
-                                    //           .readListdata.value.isNotEmpty ||
-                                    //       dailyEntriesController.editcheck ==
-                                    //           1) {
-                                    //   } else {
-                                    //     var Entrydate = await showDatePicker(
-                                    //         context: context,
-                                    //         initialDate: DateTime.now(),
-                                    //         firstDate: DateTime.now().subtract(
-                                    //             const Duration(days: 1)),
-                                    //         lastDate: DateTime.now(),
-                                    //         builder: (context, child) {
-                                    //           return Theme(
-                                    //             data:
-                                    //                 Theme.of(context).copyWith(
-                                    //               colorScheme:
-                                    //                   ColorScheme.light(
-                                    //                 primary: Theme.of(context)
-                                    //                     .primaryColor,
-                                    //                 // header background color
-                                    //                 onPrimary: Colors.white,
-                                    //                 // header text color
-                                    //                 onSurface: Colors
-                                    //                     .black, // body text color
-                                    //               ),
-                                    //               textButtonTheme:
-                                    //                   TextButtonThemeData(
-                                    //                 style: TextButton.styleFrom(
-                                    //                   primary: Colors
-                                    //                       .black, // button text color
-                                    //                 ),
-                                    //               ),
-                                    //             ),
-                                    //             child: child!,
-                                    //           );
-                                    //         });
-                                    //     dailyEntriesController
-                                    //             .AttendDateController.text =
-                                    //         BaseUtitiles.selectDateFormat(
-                                    //             Entrydate!);
-                                    //   }
-                                    // },
+                                    onTap: () async {
+                                        var Entrydate = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(2010),
+                                                // .subtract(
+                                                // const Duration(days: 1)),
+                                            lastDate: DateTime.now(),
+                                            builder: (context, child) {
+                                              return Theme(
+                                                data:
+                                                    Theme.of(context).copyWith(
+                                                  colorScheme:
+                                                      ColorScheme.light(
+                                                    primary: Theme.of(context)
+                                                        .primaryColor,
+                                                    // header background color
+                                                    onPrimary: Colors.white,
+                                                    // header text color
+                                                    onSurface: Colors
+                                                        .black, // body text color
+                                                  ),
+                                                  textButtonTheme:
+                                                      TextButtonThemeData(
+                                                    style: TextButton.styleFrom(
+                                                      primary: Colors
+                                                          .black, // button text color
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: child!,
+                                              );
+                                            });
+                                        dailyEntriesController
+                                                .AttendDateController.text =
+                                            BaseUtitiles.selectDateFormat(
+                                                Entrydate!);
+                                      }
                                   ),
                                 ),
                               ),
