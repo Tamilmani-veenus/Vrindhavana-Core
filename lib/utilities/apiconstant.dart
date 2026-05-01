@@ -176,6 +176,8 @@ class ApiConstant{
   static String GET_APPTYPE_API = BASE_URL_CORE + "api/MaterialReqOrdMas/ApprovalType";
   // static String GETMATERIALREQUESTTYPE = BASE_URL + "api/commonfile/Get_Material_Item_ReqType";
   static String GETMATERIALLIST = BASE_URL_CORE + "api/MaterialReqOrdMas/GetMRNMatByReqTypeProNdSite";
+  static String CHECKMATERIALLISTBALQTY = BASE_URL_CORE + "api/Admin/Getmaterialcheckingbalqty";
+
   static String GETCONSUMPTION_ENTRY_LIST = BASE_URL_CORE + "api/MaterialExpenseMas/GetAllMaterialExpenses";
   static String GETSTOCKMATERIALLIST = BASE_URL_CORE + "api/MaterialExpenseMas/GetMaterialBasedOnProjAndSite";
   static String GETCONSTYPELIST = BASE_URL_CORE + "api/MaterialExpenseMas/GetExpenseTypeAll";

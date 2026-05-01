@@ -8780,17 +8780,17 @@ class _PoApprovalDesignState extends State<PoApprovalDesign> {
                   Expanded(
                     child: TextButton(
                         onPressed: () async {
-                          pendingListController.PO_Approval_DeleteApi(
+                          await pendingListController.PO_Approval_DeleteApi(
                               pendingListController
                                   .mainlist.value[index].PoId!);
                           pendingListController.mainlist.removeAt(index);
                           pendingListController.getPoAprovalDetList.value = [];
+                          pendingListController.update();
                           await pendingListController.getPendingList();
-
                           Navigator.pop(context);
-                          if (pendingListController.mainlist.isEmpty) {
-                            Navigator.pop(context);
-                          }
+                          // if (pendingListController.mainlist.isEmpty) {
+                          Navigator.pop(context);
+                          // }
                         },
                         child: const Text("Delete",
                             style: TextStyle(
