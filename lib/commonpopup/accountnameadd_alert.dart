@@ -104,21 +104,21 @@ class _AccountnameAddAlertState extends State<AccountnameAddAlert> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Theme.of(context).primaryColor,
-                    side: BorderSide(width: 3, color: Colors.black),
+                    side: BorderSide(width: 3, color: Colors.white),
                     elevation: 3,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                   ),
                   onPressed: () async {
+                    FocusScope.of(context).unfocus();
                     if (commonVoucherController.AddAccountname.text.trim()!="") {
                       await commonVoucherController.checkDuplicateAccountName(
                           commonVoucherController.AddAccountname.text, context);
-                      if (commonVoucherController.SaveButton.value ==
-                          RequestConstant.UPDATE) {
+                      if (commonVoucherController.SaveButton.value == RequestConstant.RESUBMIT) {
                         commonVoucherController.getAccountName();
                         commonVoucherController.selectedAccnameId.value = 0;
-                        commonVoucherController.Accountname.text = "--Select--";
-                        commonVoucherController.namethrough.text = "--Select--";
+                        commonVoucherController.Accountname.text = "--SELECT--";
+                        commonVoucherController.namethrough.text = "--SELECT--";
                       } else {
                         commonVoucherController.getAccountName();
                       }

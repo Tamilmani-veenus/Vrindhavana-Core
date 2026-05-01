@@ -572,34 +572,15 @@ class CommonProvider {
   }
 
   static SaveAccountnameScreenEntryAPI(String body, int Accnameid) async {
-    var ratingRes = null;
-    if (Accnameid != 0) {
-      await ApiManager.putUpdateAPIButton(
-              ApiConstant.PUT_ACCOUNTNAME_UPDATE_API, body)
-          .then((value) {
-        var response = saveDeduction_SaveResponseFromJson(value);
-        if (response.RetString != null) {
-          ratingRes = response.RetString;
-          return ratingRes;
-        }
-      }, onError: (error) {
-        print(error);
-        BaseUtitiles.showToast(RequestConstant.SOMETHINGWENT_WRONG);
-      });
-    } else {
-      await ApiManager.postAPICall(ApiConstant.ACCOUNTNAME_SAVE, body).then(
-          (value) {
-        var response = saveDeduction_SaveResponseFromJson(value);
-        if (response.RetString != null) {
-          ratingRes = response.RetString;
-          return ratingRes;
-        }
-      }, onError: (error) {
-        print(error);
-        BaseUtitiles.showToast(RequestConstant.SOMETHINGWENT_WRONG);
-      });
+
+    try {
+      final response = await ApiManager.postAPICall(ApiConstant.ACCOUNTNAME_SAVE,body);
+      print("response...${response}");
+      return jsonDecode(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
     }
-    return ratingRes;
   }
 
   //---Delete API----

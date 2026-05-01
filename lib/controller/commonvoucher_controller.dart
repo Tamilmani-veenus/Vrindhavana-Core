@@ -23,7 +23,6 @@ class CommonVoucherController extends GetxController{
   final AccountTypename=new TextEditingController();
   final AddAccountname=new TextEditingController();
   final payforController=new TextEditingController();
-
   RxList getdropDownvalue=[].obs;
   RxList acountmainlist=[].obs;
   RxList AccounttypeDropdownName=[].obs;
@@ -140,7 +139,7 @@ class CommonVoucherController extends GetxController{
       BaseUtitiles.showToast("already exist");
     }
     else{
-      SaveButton_AccountnameScreen(context,selectedAccnameId.value);
+      SaveButton_AccountnameScreen(context,selectedAccId.value);
     }
   }
 
@@ -279,27 +278,27 @@ class CommonVoucherController extends GetxController{
   }
 
   Future SaveButton_AccountnameScreen(BuildContext context, int id) async {
-
     String body = accountnamesaveRequestToJson(AccountnamesaveRequest(
-      accTypeId: selectedAccId.value.toString(),
-      accNameId: id != 0 ? id.toString() : "0",
-      accName: AddAccountname.text,
+      id: 0,
+      accountTypeId: id!=0?id:0,
+      accountHeadId: 0,
+      accountMainGroupId: 0,
+      accountName: AddAccountname.text,
+      active: "Y",
     ));
     final list = await CommonProvider.SaveAccountnameScreenEntryAPI(body, id);
-    if (list != null && id != 0) {
-      BaseUtitiles.showToast(list);
-      return Navigator.pop(context);
-    } else {
-      if (list == RequestConstant.DUPLICATE_OCCURED) {
-        Navigator.pop(context);
-        Navigator.pop(context);
-        return BaseUtitiles.showToast(list);
-      } else {
-
-        BaseUtitiles.showToast(list);
-
-        return Navigator.pop(context);
+    if (list != null ) {
+      if(list["success"] == true){
+        BaseUtitiles.showToast(list["message"]);
+        BaseUtitiles.popMultiple(context, count: 1);
       }
+      else {
+        BaseUtitiles.showToast(list["message"] ?? 'Something went wrong..');
+        BaseUtitiles.popMultiple(context, count: 1);
+      }
+    }else{
+      BaseUtitiles.showToast("Something went wrong..");
+      BaseUtitiles.popMultiple(context, count: 1);
     }
   }
 
