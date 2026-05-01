@@ -571,6 +571,19 @@ class CommonProvider {
     }
   }
 
+
+  static Future<dynamic> checkMaterialBalqty() async {
+    try {
+      final value = await ApiManager.getAPICall(ApiConstant.CHECKMATERIALLISTBALQTY);
+      print('API Response: ${value}');
+      return jsonDecode(value);
+
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
   static SaveAccountnameScreenEntryAPI(String body, int Accnameid) async {
     var ratingRes = null;
     if (Accnameid != 0) {

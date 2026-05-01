@@ -377,7 +377,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
 
         if (enteredQty > balQty) {
 
-          BaseUtitiles.showToast("Entered qty greater than Balance qty");
+          BaseUtitiles.showToast("More than Bal Qty, Not Allowed");
 
           Addwork_qtyControllers[index].text = "0";
 

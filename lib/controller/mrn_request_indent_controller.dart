@@ -79,6 +79,8 @@ class MRN_Request_Controller extends GetxController {
 
   int checkColor = 0;
 
+  RxBool activeType = false.obs;
+
   String screenCheck = "";
   var materialTableModel = Materiallist();
   var materiallistService = MateriallistService();
@@ -156,7 +158,75 @@ class MRN_Request_Controller extends GetxController {
     }
   }
 
-  Future<void> getAppTypeList() async {
+
+  Future<bool?> CheckmaterialBalQty() async {
+    final value = await CommonProvider.checkMaterialBalqty();
+    if (value != null) {
+      if (value["success"] == true) {
+        if (value["result"].isNotEmpty) {
+          handleConfig(value["result"][0]);
+        }
+        else {
+          BaseUtitiles.showToast('No Data Found');
+        }
+      }
+      else {
+        BaseUtitiles.showToast(value["message"] ?? 'Something went wrong..');
+      }
+    }
+    else {
+      BaseUtitiles.showToast("Something went wrong..");
+    }
+}
+
+
+  void handleConfig(Map<String, dynamic> data) {
+    if (data["projectWise"] == true) {
+      activeType.value = true;
+    }
+    else if (data["siteIWise"] == true) {
+      activeType.value = true;
+    }
+    else if (data["materialWise"] == true) {
+      activeType.value = true;
+    }
+    else if (data["materialHeadWise"] == true) {
+      activeType.value = true;
+    }
+    else {
+      activeType.value = false;
+    }
+  }
+
+  MaterialItemlistBal_clickEdit() {
+    bool isValid = true;
+
+    for (int index = 0; index <
+        Material_itemview_GetDbList.value.length; index++) {
+      double balQty = double.parse(
+          Material_itemview_GetDbList.value[index].balqty.toString());
+
+      double enteredQty = Addwork_qtyControllers[index].value.text.isEmpty
+          ? 0
+          : double.parse(Addwork_qtyControllers[index].value.text);
+
+        if (enteredQty > balQty) {
+          BaseUtitiles.showToast("More than Bal Qty, Not Allowed");
+
+          Addwork_qtyControllers[index].text = "0";
+
+          isValid = false;
+          break;
+        }
+    }
+    if (isValid) {
+      updateConsumTables();
+    }
+  }
+
+
+
+    Future<void> getAppTypeList() async {
     appTypeList.clear();
     var response = await Mrn_Req_provider.getAppTypeListAPI();
     if (response != null) {
@@ -217,6 +287,7 @@ class MRN_Request_Controller extends GetxController {
           materialTableModel.qty = double.parse("0");
           materialTableModel.stockqty = element.stockQty;
           materialTableModel.scaleId = element.scaleId;
+          materialTableModel.balqty = element.balqty;
           materialTableModel.reqDetId = 0;
           materialTableModel.remarks = "";
           materialTableModel.desc = "";
@@ -252,6 +323,7 @@ class MRN_Request_Controller extends GetxController {
       materiallist.stockqty = user['stockqty'];
       materiallist.qty = user['qty'];
       materiallist.reqQty = user["reqQty"];
+      materiallist.balqty = user["balqty"];
       materiallist.scaleId = user['scaleId'];
       materiallist.reqDetId = user['reqDetId'];
       materiallist.remarks = user['remarks'];
@@ -443,7 +515,7 @@ class MRN_Request_Controller extends GetxController {
         materialTableModel.reqQty = val.reqQty;
         materialTableModel.scaleId = val.scaleId;
         materialTableModel.reqDetId = val.reqDetId;
-        // materialTableModel.balqty = val.balqty!;
+        materialTableModel.balqty = val.balqty!;
         materialTableModel.stockqty = val.stockqty;
         materialTableModel.remarks = val.detRemarks!;
         materialTableModel.desc = val.detDescription;

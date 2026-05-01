@@ -182,6 +182,32 @@ class MrnPreApprovalController extends GetxController {
     }
   }
 
+  MaterialItemlistBal_clickEdit() {
+    bool isValid = true;
+
+    for (int index = 0; index <
+        MaterialAppr_itemview_GetDbList.value.length; index++) {
+      double balQty = double.parse(
+          MaterialAppr_itemview_GetDbList.value[index].balqty.toString());
+
+      double enteredQty = mrnpre_ApprQty_ListController[index].value.text.isEmpty
+          ? 0
+          : double.parse(mrnpre_ApprQty_ListController[index].value.text);
+
+      if (enteredQty > balQty) {
+        BaseUtitiles.showToast("More than Bal Qty, Not Allowed");
+
+        mrnpre_ApprQty_ListController[index].text = "0";
+
+        isValid = false;
+        break;
+      }
+    }
+    if (isValid) {
+      Approval_updateConsumTables();
+    }
+  }
+
   /// ---------Update tableList Datas-----------
 
   Approval_updateConsumTables() async {

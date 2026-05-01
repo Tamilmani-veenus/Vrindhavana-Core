@@ -234,7 +234,6 @@ class TransferBt_Site_Controller extends GetxController {
 
       itemListUpdateModelList.add(itemModel);
     }
-
     if (hasInvalidQty) {
       BaseUtitiles.showToast("Invalid quantity, check stock limit");
     }

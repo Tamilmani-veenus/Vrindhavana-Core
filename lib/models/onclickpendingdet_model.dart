@@ -251,6 +251,7 @@ class MMatReqMasLink {
   String? reqDescription;
   String? materialName;
   String? MaterialName;
+  int? UnitId;
   String? scaleName;
   String? ScaleName;
   double? stockQty;
@@ -304,6 +305,7 @@ class MMatReqMasLink {
     this.reqDescription,
     this.materialName,
     this.MaterialName,
+    this.UnitId,
     this.scaleName,
     this.ScaleName,
     this.stockQty,
@@ -366,6 +368,7 @@ class MMatReqMasLink {
     reqDescription: json["reqDescription"],
     materialName: json["materialName"],
     MaterialName: json["MaterialName"],
+    UnitId: json["UnitId"],
     scaleName: json["scaleName"],
     ScaleName: json["ScaleName"],
     stockQty: (json['stockQty'] as num?)?.toDouble(),
@@ -420,6 +423,7 @@ class MMatReqMasLink {
     "reqDescription": reqDescription,
     "materialName": materialName,
     "MaterialName": MaterialName,
+    "UnitId": UnitId,
     "scaleName": scaleName,
     "ScaleName": ScaleName,
     "stockQty": stockQty,
