@@ -35,20 +35,20 @@ class SiteVoucher_EntryScreen extends StatefulWidget {
 class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
   ProjectController projectController = Get.put(ProjectController());
   SubcontractorController subcontractorController =
-      Get.put(SubcontractorController());
+  Get.put(SubcontractorController());
   SiteController siteController = Get.put(SiteController());
   AutoYearWiseNoController autoYearWiseNoController =
-      Get.put(AutoYearWiseNoController());
+  Get.put(AutoYearWiseNoController());
   NMRWklyController nmrWklyController = Get.put(NMRWklyController());
   DailyEntriesController dailyEntriesController =
-      Get.put(DailyEntriesController());
+  Get.put(DailyEntriesController());
   SiteVoucher_Controller siteVoucher_Controller =
-      Get.put(SiteVoucher_Controller());
+  Get.put(SiteVoucher_Controller());
   CommonVoucherController commonVoucherController =
-      Get.put(CommonVoucherController());
+  Get.put(CommonVoucherController());
   LoginController loginController = Get.put(LoginController());
   BottomsheetControllers bottomsheetControllers =
-      Get.put(BottomsheetControllers());
+  Get.put(BottomsheetControllers());
 
   @override
   void initState() {
@@ -90,7 +90,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
           siteVoucher_Controller.sitevocDate.text = element.vocDate;
           commonVoucherController.VocType.value = element.vocType;
           commonVoucherController.VoucherTypeController.text =
-              element.vocType == "P" ? "Payment" : "Receipt";
+          element.vocType == "P" ? "Payment" : "Receipt";
           projectController.projectname.text = element.projectName;
           projectController.selectedProjectId.value = element.projectId;
           commonVoucherController.voucherPaidForm.text = element.paidFromName;
@@ -156,7 +156,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               child: Text(
                                 "Back",
                                 style:
-                                    TextStyle(color: Colors.grey, fontSize: 18),
+                                TextStyle(color: Colors.grey, fontSize: 18),
                               ))
                         ],
                       ),
@@ -175,7 +175,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                           child: TextFormField(
                             readOnly: true,
                             controller:
-                                siteVoucher_Controller.AutoYearwiseSiteVoc,
+                            siteVoucher_Controller.AutoYearwiseSiteVoc,
                             cursorColor: Colors.black,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -186,7 +186,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -220,7 +220,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -243,10 +243,10 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               top: 3, left: 10, bottom: 5),
                           child: TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             readOnly: true,
                             controller:
-                                commonVoucherController.VoucherTypeController,
+                            commonVoucherController.VoucherTypeController,
                             cursorColor: Colors.black,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -257,7 +257,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -272,7 +272,6 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                             },
                             validator: (value) {
                               if (value!.isEmpty ||
-                                  value == "--Select--" ||
                                   value == "--SELECT--") {
                                 return '\u26A0 ${RequestConstant.VALIDATE}';
                               }
@@ -284,11 +283,11 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                     ),
                     Container(
                       margin:
-                          const EdgeInsets.only(top: 5, left: 10, right: 10),
+                      const EdgeInsets.only(top: 5, left: 10, right: 10),
                       child: Card(
                         shape: RoundedRectangleBorder(
                           side:
-                              const BorderSide(color: Colors.white70, width: 1),
+                          const BorderSide(color: Colors.white70, width: 1),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         elevation: 3,
@@ -297,7 +296,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               top: 3, left: 10, bottom: 5),
                           child: TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             readOnly: true,
                             controller: projectController.projectname,
                             cursorColor: Colors.black,
@@ -310,7 +309,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -318,12 +317,11 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                             ),
                             onTap: () async {
                               await projectController.getProjectList();
-                                bottomsheetControllers.ProjectName(context,
-                                    projectController.getdropDownvalue.value);
+                              bottomsheetControllers.ProjectName(context,
+                                  projectController.getdropDownvalue.value);
                             },
                             validator: (value) {
                               if (value!.isEmpty ||
-                                  value == "--Select--" ||
                                   value == "--SELECT--") {
                                 return '\u26A0 ${RequestConstant.VALIDATE}';
                               }
@@ -346,7 +344,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               top: 3, left: 10, bottom: 5),
                           child: TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             readOnly: true,
                             controller: commonVoucherController.AccountTypename,
                             cursorColor: Colors.black,
@@ -359,7 +357,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -367,14 +365,13 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                             ),
                             onTap: () async {
                               await commonVoucherController.getAccountTypeList();
-                                bottomsheetControllers.AccountType(
-                                    context,
-                                    commonVoucherController
-                                        .getdropDownvalue.value);
+                              bottomsheetControllers.AccountType(
+                                  context,
+                                  commonVoucherController
+                                      .getdropDownvalue.value);
                             },
                             validator: (value) {
                               if (value!.isEmpty ||
-                                  value == "--Select--" ||
                                   value == "--SELECT--") {
                                 return '\u26A0 ${RequestConstant.VALIDATE}';
                               }
@@ -397,7 +394,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               top: 3, left: 10, bottom: 5),
                           child: TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             readOnly: true,
                             controller: commonVoucherController.Accountname,
                             cursorColor: Colors.black,
@@ -410,7 +407,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -426,7 +423,6 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                             },
                             validator: (value) {
                               if (value!.isEmpty ||
-                                  value == "--Select--" ||
                                   value == "--SELECT--") {
                                 return '\u26A0 ${RequestConstant.VALIDATE}';
                               }
@@ -463,20 +459,17 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               ),
                               onTap: () {
                                 if (commonVoucherController
-                                            .AccountTypename.text ==
-                                        "OTHERS" ||
+                                    .AccountTypename.text ==
+                                    "OTHERS" ||
                                     commonVoucherController
-                                            .AccountTypename.text ==
+                                        .AccountTypename.text ==
                                         "SITE-OTHERS" ||
                                     commonVoucherController
-                                            .AccountTypename.text ==
+                                        .AccountTypename.text ==
                                         "MATERIAL") {
                                   if (commonVoucherController
-                                              .Accountname.text ==
-                                          "--Select--" ||
-                                      commonVoucherController
-                                              .Accountname.text ==
-                                          "--SELECT--") {
+                                      .Accountname.text ==
+                                      "--SELECT--") {
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
@@ -512,20 +505,17 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               ),
                               onTap: () {
                                 if (commonVoucherController
-                                            .AccountTypename.text ==
-                                        "OTHERS" ||
+                                    .AccountTypename.text ==
+                                    "OTHERS" ||
                                     commonVoucherController
-                                            .AccountTypename.text ==
+                                        .AccountTypename.text ==
                                         "SITE-OTHERS" ||
                                     commonVoucherController
-                                            .AccountTypename.text ==
+                                        .AccountTypename.text ==
                                         "MATERIAL") {
                                   if (commonVoucherController
-                                              .Accountname.text ==
-                                          "--Select--" ||
-                                      commonVoucherController
-                                              .Accountname.text ==
-                                          "--SELECT--") {
+                                      .Accountname.text ==
+                                      "--SELECT--") {
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
@@ -562,20 +552,17 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               ),
                               onTap: () async {
                                 if (commonVoucherController
-                                            .AccountTypename.text ==
-                                        "OTHERS" ||
+                                    .AccountTypename.text ==
+                                    "OTHERS" ||
                                     commonVoucherController
-                                            .AccountTypename.text ==
+                                        .AccountTypename.text ==
                                         "SITE-OTHERS" ||
                                     commonVoucherController
-                                            .AccountTypename.text ==
+                                        .AccountTypename.text ==
                                         "MATERIAL") {
                                   if (commonVoucherController
-                                              .Accountname.text ==
-                                          "--Select--" ||
-                                      commonVoucherController
-                                              .Accountname.text ==
-                                          "--SELECT--") {
+                                      .Accountname.text ==
+                                      "--SELECT--") {
                                   }
                                   else if(commonVoucherController.AddAccountname.text.toUpperCase()==commonVoucherController.Accountname.text){
                                     await commonVoucherController
@@ -607,7 +594,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                           margin: EdgeInsets.only(top: 15),
                           alignment: Alignment.center,
                           height:
-                              BaseUtitiles.getheightofPercentage(context, 3),
+                          BaseUtitiles.getheightofPercentage(context, 3),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Theme.of(context).primaryColor,
@@ -643,7 +630,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               top: 3, left: 10, bottom: 5),
                           child: TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             controller: commonVoucherController.namethrough,
                             cursorColor: Colors.black,
                             style: TextStyle(color: Colors.black),
@@ -655,7 +642,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -664,7 +651,6 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                             onTap: () {},
                             validator: (value) {
                               if (value!.isEmpty ||
-                                  value == "--Select--" ||
                                   value == "--SELECT--") {
                                 return '\u26A0 ${RequestConstant.VALIDATE}';
                               }
@@ -687,7 +673,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               top: 3, left: 10, bottom: 5),
                           child: TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             readOnly: true,
                             controller: commonVoucherController.AccPayforname,
                             cursorColor: Colors.black,
@@ -700,7 +686,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -715,7 +701,6 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                             },
                             validator: (value) {
                               if (value!.isEmpty ||
-                                  value == "--Select--" ||
                                   value == "--SELECT--") {
                                 return '\u26A0 ${RequestConstant.VALIDATE}';
                               }
@@ -738,7 +723,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               top: 3, left: 10, bottom: 5),
                           child: TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             readOnly: true,
                             controller: commonVoucherController.voucherPaidForm,
                             cursorColor: Colors.black,
@@ -751,7 +736,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -766,7 +751,6 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                             },
                             validator: (value) {
                               if (value!.isEmpty ||
-                                  value == "--Select--" ||
                                   value == "--SELECT--") {
                                 return '\u26A0 ${RequestConstant.VALIDATE}';
                               }
@@ -795,10 +779,10 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                     top: 3, left: 10, bottom: 5),
                                 child: TextFormField(
                                   autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onUserInteraction,
                                   readOnly: true,
                                   controller:
-                                      commonVoucherController.Paymodename,
+                                  commonVoucherController.Paymodename,
                                   cursorColor: Colors.black,
                                   style: const TextStyle(color: Colors.black),
                                   decoration: const InputDecoration(
@@ -808,7 +792,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                     labelStyle: TextStyle(
                                         color: Colors.grey,
                                         fontSize:
-                                            RequestConstant.Lable_Font_SIZE),
+                                        RequestConstant.Lable_Font_SIZE),
                                     prefixIconConstraints: BoxConstraints(
                                         minWidth: 0, minHeight: 0),
                                     prefixIcon: Padding(
@@ -818,15 +802,14 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   ),
                                   onTap: () async {
                                     await commonVoucherController.getPaymodeList();
-                                      bottomsheetControllers.ModeofPay(
-                                          context,
-                                          commonVoucherController
-                                              .getpaymodedropDownvalue.value);
+                                    bottomsheetControllers.ModeofPay(
+                                        context,
+                                        commonVoucherController
+                                            .getpaymodedropDownvalue.value);
 
                                   },
                                   validator: (value) {
                                     if (value!.isEmpty ||
-                                        value == "--Select--" ||
                                         value == "--SELECT--") {
                                       return '\u26A0 ${RequestConstant.VALIDATE}';
                                     }
@@ -877,7 +860,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                     top: 3, left: 10, bottom: 5),
                                 child: TextFormField(
                                   readOnly: siteVoucher_Controller.type.value ==
-                                          "SiteWise Payment"
+                                      "SiteWise Payment"
                                       ? true
                                       : false,
                                   keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -891,7 +874,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                     labelStyle: TextStyle(
                                         color: Colors.grey,
                                         fontSize:
-                                            RequestConstant.Lable_Font_SIZE),
+                                        RequestConstant.Lable_Font_SIZE),
                                     prefixIconConstraints: BoxConstraints(
                                         minWidth: 0, minHeight: 0),
                                     prefixIcon: Padding(
@@ -948,7 +931,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               top: 3, left: 10, bottom: 5),
                           child: TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             controller: siteVoucher_Controller.Remarks,
                             cursorColor: Colors.black,
                             style: TextStyle(color: Colors.black),
@@ -960,7 +943,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
                               prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
+                              BoxConstraints(minWidth: 0, minHeight: 0),
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
@@ -977,275 +960,275 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                Obx(()=>
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        // Radio<String>(
-                        //   value: 'Direct Payment/Office',
-                        //   groupValue: siteVoucher_Controller.type.value,
-                        //   fillColor: MaterialStateColor.resolveWith(
-                        //       (states) => Theme.of(context).primaryColor),
-                        //   onChanged: (value) {
-                        //     setState(() {
-                        //       siteVoucher_Controller.type.value = value!;
-                        //       siteVoucher_Controller.Button =
-                        //           RequestConstant.SUBMIT.obs;
-                        //     });
-                        //   },
-                        // ),
-                        // Container(child: const Text('Direct Payment/Office')),
-                        Radio<String>(
-                          value: 'SiteWise Payment',
-                          groupValue: siteVoucher_Controller.type.value,
-                          fillColor: MaterialStateColor.resolveWith(
-                                  (states) => Theme.of(context).primaryColor),
-                          onChanged: (value) {
-                            setState(() {
-                              siteVoucher_Controller.type.value = value!;
-                            });
-                          },
-                        ),
-                        Container(child: const Text('SiteWise Payment')),
-                      ],
-                    ),
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Obx(
-                          () => Visibility(
-                        visible: siteVoucher_Controller.type.value ==
-                            "Direct Payment/Office"
-                            ? false
-                            : true,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Setmybackground,
-                          ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _formKey.currentState!.save();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                      const Site_Voucher_Sitewise()));
-                            }
-                          },
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.add,
-                                  color: Theme.of(context).primaryColor),
-                              const SizedBox(width: 5),
-                              Text(
-                                "Add List",
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: 16.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Setmybackground),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-                            // await getImage(ImageSource.camera);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => CameraCapturePage(
-                                    fromScreen:
-                                    "Site Voucher",
-                                  )),
-                            );
-                          }
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.add,
-                              color: Theme.of(context).primaryColor,
+                    Obx(()=>
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            // Radio<String>(
+                            //   value: 'Direct Payment/Office',
+                            //   groupValue: siteVoucher_Controller.type.value,
+                            //   fillColor: MaterialStateColor.resolveWith(
+                            //       (states) => Theme.of(context).primaryColor),
+                            //   onChanged: (value) {
+                            //     setState(() {
+                            //       siteVoucher_Controller.type.value = value!;
+                            //       siteVoucher_Controller.Button =
+                            //           RequestConstant.SUBMIT.obs;
+                            //     });
+                            //   },
+                            // ),
+                            // Container(child: const Text('Direct Payment/Office')),
+                            Radio<String>(
+                              value: 'SiteWise Payment',
+                              groupValue: siteVoucher_Controller.type.value,
+                              fillColor: MaterialStateColor.resolveWith(
+                                      (states) => Theme.of(context).primaryColor),
+                              onChanged: (value) {
+                                setState(() {
+                                  siteVoucher_Controller.type.value = value!;
+                                });
+                              },
                             ),
-                            const SizedBox(width: 5),
-                            Text(
-                              "Add image",
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor),
-                            ),
+                            Container(child: const Text('SiteWise Payment')),
                           ],
                         ),
-                      ),
                     ),
-                  ],
-                ),
-                    Obx(()=>
-                    Container(
-                      margin: EdgeInsets.all(16.r),
-                      height: 150.h,
-                      child: siteVoucher_Controller.SaveButton.value == RequestConstant.RESUBMIT
-                          ? SizedBox(
-                        height: 200.h,
-                        width: ScreenUtil().screenWidth,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: siteVoucher_Controller
-                              .netWorkImageCount!.value +
-                              siteVoucher_Controller.pickedImageCount!.value,
-                          itemBuilder: (context, index) {
-                            if (index <
-                                siteVoucher_Controller.netWorkImageCount!.value) {
-                              return buildNetworkImageItem(index);
-                            } else if (index <
-                                siteVoucher_Controller.netWorkImageCount!.value +
-                                    siteVoucher_Controller.pickedImageCount!.value) {
-                              int pickedIndex = index -
-                                  siteVoucher_Controller
-                                      .netWorkImageCount!.value;
-                              return buildPickedImageItem(pickedIndex);
-                            } else {
-                              return Container();
-                            }
-                          },
-                        ),
-                      )
-                          : siteVoucher_Controller.count != 0
-                          ? SizedBox(
-                        height: 200.h,
-                        width: ScreenUtil().screenWidth,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount:
-                            siteVoucher_Controller.count!.value,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
+                    const SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Obx(
+                              () => Visibility(
+                            visible: siteVoucher_Controller.type.value ==
+                                "Direct Payment/Office"
+                                ? false
+                                : true,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Setmybackground,
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState!.save();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ImageViewPage(
-                                                imagePath:
-                                                siteVoucher_Controller
-                                                    .imageFiles[
-                                                index],
-                                                netUrl: false,
-                                              )));
-                                },
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 8.r,
-                                          right: 8.r,
-                                          bottom: 16.r),
-                                      child: Material(
-                                        color: Colors.white,
-                                        elevation: 1.0,
-                                        borderRadius:
-                                        const BorderRadius.all(
-                                            Radius.circular(
-                                                20.0)),
-                                        child: Container(
-                                          decoration: BoxDecoration(
+                                          const Site_Voucher_Sitewise()));
+                                }
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(Icons.add,
+                                      color: Theme.of(context).primaryColor),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    "Add List",
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 16.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Setmybackground),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                // await getImage(ImageSource.camera);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => CameraCapturePage(
+                                        fromScreen:
+                                        "Site Voucher",
+                                      )),
+                                );
+                              }
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  "Add image",
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Obx(()=>
+                        Container(
+                          margin: EdgeInsets.all(16.r),
+                          height: 150.h,
+                          child: siteVoucher_Controller.SaveButton.value == RequestConstant.RESUBMIT
+                              ? SizedBox(
+                            height: 200.h,
+                            width: ScreenUtil().screenWidth,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: siteVoucher_Controller
+                                  .netWorkImageCount!.value +
+                                  siteVoucher_Controller.pickedImageCount!.value,
+                              itemBuilder: (context, index) {
+                                if (index <
+                                    siteVoucher_Controller.netWorkImageCount!.value) {
+                                  return buildNetworkImageItem(index);
+                                } else if (index <
+                                    siteVoucher_Controller.netWorkImageCount!.value +
+                                        siteVoucher_Controller.pickedImageCount!.value) {
+                                  int pickedIndex = index -
+                                      siteVoucher_Controller
+                                          .netWorkImageCount!.value;
+                                  return buildPickedImageItem(pickedIndex);
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                          )
+                              : siteVoucher_Controller.count != 0
+                              ? SizedBox(
+                            height: 200.h,
+                            width: ScreenUtil().screenWidth,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount:
+                                siteVoucher_Controller.count!.value,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ImageViewPage(
+                                                    imagePath:
+                                                    siteVoucher_Controller
+                                                        .imageFiles[
+                                                    index],
+                                                    netUrl: false,
+                                                  )));
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 8.r,
+                                              right: 8.r,
+                                              bottom: 16.r),
+                                          child: Material(
                                             color: Colors.white,
+                                            elevation: 1.0,
                                             borderRadius:
-                                            BorderRadius
-                                                .circular(25.r),
-                                          ),
-                                          padding:
-                                          EdgeInsets.all(8.r),
-                                          child: SizedBox(
-                                            height: 150.h,
-                                            width: 120.w,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                              BorderRadius
-                                                  .circular(15),
-                                              child: Image.file(
-                                                siteVoucher_Controller
-                                                    .imageFiles[
-                                                index],
-                                                fit: BoxFit.fill,
+                                            const BorderRadius.all(
+                                                Radius.circular(
+                                                    20.0)),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                BorderRadius
+                                                    .circular(25.r),
+                                              ),
+                                              padding:
+                                              EdgeInsets.all(8.r),
+                                              child: SizedBox(
+                                                height: 150.h,
+                                                width: 120.w,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(15),
+                                                  child: Image.file(
+                                                    siteVoucher_Controller
+                                                        .imageFiles[
+                                                    index],
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    Container(
-                                      alignment: Alignment.topLeft,
-                                      height: 50.h,
-                                      width: 50.h,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            siteVoucher_Controller
-                                                .imageFiles
-                                                .remove(siteVoucher_Controller
-                                                .imageFiles[
-                                            index]);
-                                            siteVoucher_Controller
-                                                .count =
+                                        Container(
+                                          alignment: Alignment.topLeft,
+                                          height: 50.h,
+                                          width: 50.h,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
                                                 siteVoucher_Controller
-                                                    .count! -
-                                                    1;
-                                          });
-                                        },
-                                        child: const Icon(
-                                          Icons.cancel,
-                                          color: Colors.red,
-                                          size: 30,
+                                                    .imageFiles
+                                                    .remove(siteVoucher_Controller
+                                                    .imageFiles[
+                                                index]);
+                                                siteVoucher_Controller
+                                                    .count =
+                                                    siteVoucher_Controller
+                                                        .count! -
+                                                        1;
+                                              });
+                                            },
+                                            child: const Icon(
+                                              Icons.cancel,
+                                              color: Colors.red,
+                                              size: 30,
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              );
-                            }),
-                      )
-                          : Container(),
-                    )),
+                                  );
+                                }),
+                          )
+                              : Container(),
+                        )),
                     SizedBox(height: height),
                   ],
                 ),
               ),
               Obx(() => Visibility(
-                    visible: siteVoucher_Controller
-                            .Sitevoucher_itemview_GetDbList.value.isEmpty
-                        ? false
-                        : true,
-                    child: Container(
-                      height: BaseUtitiles.getheightofPercentage(context, 100),
-                      child: DraggableScrollableSheet(
-                        minChildSize: 0.1,
-                        maxChildSize: 0.9,
-                        initialChildSize: 0.3,
-                        builder: (BuildContext context,
-                            ScrollController scrollController) {
-                          return Container(
-                            decoration: const BoxDecoration(
-                              color: Setmybackground,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(40.0),
-                                topRight: Radius.circular(40.0),
-                              ),
-                            ),
-                            child: Stack(
-                              children: [
-                                Container(
-                                    child: SingleChildScrollView(
+                visible: siteVoucher_Controller
+                    .Sitevoucher_itemview_GetDbList.value.isEmpty
+                    ? false
+                    : true,
+                child: Container(
+                  height: BaseUtitiles.getheightofPercentage(context, 100),
+                  child: DraggableScrollableSheet(
+                    minChildSize: 0.1,
+                    maxChildSize: 0.9,
+                    initialChildSize: 0.3,
+                    builder: (BuildContext context,
+                        ScrollController scrollController) {
+                      return Container(
+                        decoration: const BoxDecoration(
+                          color: Setmybackground,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40.0),
+                            topRight: Radius.circular(40.0),
+                          ),
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                                child: SingleChildScrollView(
                                   controller: scrollController,
                                   child: Column(
                                     children: [
@@ -1254,40 +1237,40 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                     ],
                                   ),
                                 )),
-                                IgnorePointer(
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(40.0),
-                                        topRight: Radius.circular(40.0),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 20, bottom: 20),
-                                          height: 5,
-                                          width: 60,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
+                            IgnorePointer(
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(40.0),
+                                    topRight: Radius.circular(40.0),
                                   ),
                                 ),
-                              ],
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          top: 20, bottom: 20),
+                                      height: 5,
+                                      width: 60,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(10),
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                  )),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              )),
             ],
           ),
           bottomNavigationBar: Container(
@@ -1302,8 +1285,8 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                       margin: EdgeInsets.only(left: 20, right: 20),
                       height: BaseUtitiles.getheightofPercentage(context, 4),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color:  Colors.white
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color:  Colors.white
                       ),
                       alignment: Alignment.center,
                       child: Text(
@@ -1315,7 +1298,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                       ),
                     ),
                     onTap: () {
-                        ResetAlert(context);
+                      ResetAlert(context);
                     },
                   ),
                 ),
@@ -1325,8 +1308,8 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                       margin: EdgeInsets.only(left: 20, right: 20),
                       height: BaseUtitiles.getheightofPercentage(context, 4),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Theme.of(context).primaryColor
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Theme.of(context).primaryColor
 
                       ),
                       alignment: Alignment.center,
@@ -1336,14 +1319,14 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                             fontWeight: FontWeight.bold,
                             fontSize: RequestConstant.Lable_Font_SIZE,
                             color:  Colors.white
-                                ),
+                        ),
                       ),
                     ),
                     onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          SubmitAlert(context);
-                        }
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        SubmitAlert(context);
+                      }
                     },
                   ),
                 ),
@@ -1422,8 +1405,8 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                             child: IntrinsicHeight(
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                MainAxisAlignment
+                                                    .spaceBetween,
                                                 children: [
                                                   Expanded(
                                                     child: TextButton(
@@ -1434,13 +1417,13 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                                         child: Text("Cancel",
                                                             style: TextStyle(
                                                                 color:
-                                                                    Colors.grey,
+                                                                Colors.grey,
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                                                                FontWeight
+                                                                    .bold,
                                                                 fontSize:
-                                                                    RequestConstant
-                                                                        .Lable_Font_SIZE))),
+                                                                RequestConstant
+                                                                    .Lable_Font_SIZE))),
                                                   ),
                                                   VerticalDivider(
                                                     color: Colors.grey.shade400,
@@ -1448,21 +1431,21 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                                     thickness: 2,
                                                     indent: 15,
                                                     endIndent:
-                                                        15, //Spacing at the bottom of divider.
+                                                    15, //Spacing at the bottom of divider.
                                                   ),
                                                   Expanded(
                                                     child: TextButton(
                                                         onPressed: () async {
                                                           siteVoucher_Controller
                                                               .deleteParticularList(
-                                                                  siteVoucher_Controller
-                                                                          .Sitevoucher_itemview_GetDbList[
-                                                                      index]);
+                                                              siteVoucher_Controller
+                                                                  .Sitevoucher_itemview_GetDbList[
+                                                              index]);
                                                           siteVoucher_Controller
-                                                                  .Sitevoucher_itemview_GetDbList
+                                                              .Sitevoucher_itemview_GetDbList
                                                               .remove(siteVoucher_Controller
-                                                                      .Sitevoucher_itemview_GetDbList[
-                                                                  index]);
+                                                              .Sitevoucher_itemview_GetDbList[
+                                                          index]);
                                                           await siteVoucher_Controller
                                                               .getsitevoucherTablesDatas();
                                                           Navigator.pop(
@@ -1471,13 +1454,13 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                                         child: Text("Delete",
                                                             style: TextStyle(
                                                                 color:
-                                                                    Colors.red,
+                                                                Colors.red,
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                                                                FontWeight
+                                                                    .bold,
                                                                 fontSize:
-                                                                    RequestConstant
-                                                                        .Lable_Font_SIZE))),
+                                                                RequestConstant
+                                                                    .Lable_Font_SIZE))),
                                                   )
                                                 ],
                                               ),
@@ -1489,11 +1472,11 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   },
                                   child: Icon(Icons.remove_circle,
                                       color: Colors.red
-                                      // color: Theme.of(context).primaryColor
+                                    // color: Theme.of(context).primaryColor
 
-                                      )
-                                  // Image.asset('assets/cancle.png'),
-                                  ),
+                                  )
+                                // Image.asset('assets/cancle.png'),
+                              ),
                             ),
 
                             // Container(
@@ -1582,10 +1565,10 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                     context, 65),
                                 child: Text(
                                   siteVoucher_Controller
-                                              .Sitevoucher_itemview_GetDbList
-                                              .value[index]
-                                              .paytype ==
-                                          "A"
+                                      .Sitevoucher_itemview_GetDbList
+                                      .value[index]
+                                      .paytype ==
+                                      "A"
                                       ? "Advance"
                                       : "Payment",
                                   style: TextStyle(
@@ -1678,7 +1661,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
       builder: (context) => AlertDialog(
         title: Text('Alert!'),
         content: Text(
-             'Are you sure to ${siteVoucher_Controller.SaveButton.value}?'),
+            'Are you sure to ${siteVoucher_Controller.SaveButton.value}?'),
         actions: [
           Container(
             margin: EdgeInsets.only(left: 20, right: 20),
@@ -1711,15 +1694,15 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                         onPressed: () async {
                           if (projectController.selectedProjectId.value == 0 ||
                               commonVoucherController.AccountTypename.text ==
-                                  "--Select--" ||
+                                  "--SELECT--" ||
                               commonVoucherController.Accountname.text ==
-                                  "--Select--" ||
+                                  "--SELECT--" ||
                               commonVoucherController.Paymodename.text ==
-                                  "--Select--" ||
+                                  "--SELECT--" ||
                               commonVoucherController.AccPayforname.text ==
-                                  "--Select--" ||
+                                  "--SELECT--" ||
                               double.parse(
-                                      siteVoucher_Controller.Amount.text) ==
+                                  siteVoucher_Controller.Amount.text) ==
                                   0.0) {
                             BaseUtitiles.showToast("Some field is missing");
                           } else {
@@ -1727,15 +1710,15 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                 context)) {
                               await siteVoucher_Controller
                                   .SaveButtonSitevoucher_ItemlistScreen(
-                                      context,
-                                      siteVoucher_Controller.VocID != 0
-                                          ? siteVoucher_Controller.VocID
-                                          : 0);
+                                  context,
+                                  siteVoucher_Controller.VocID != 0
+                                      ? siteVoucher_Controller.VocID
+                                      : 0);
                             }
                           }
                         },
                         child: Text(
-    siteVoucher_Controller.SaveButton.value,
+                          siteVoucher_Controller.SaveButton.value,
                           style: TextStyle(
                             color:  Theme.of(context).primaryColor, // Change color when disabled
                             fontWeight: FontWeight.bold,
@@ -1803,24 +1786,24 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               // projectController.projectname.text = "--Select--";
                               // projectController.selectedProjectId.value = 0;
                               siteVoucher_Controller.type.value =
-                                  "SiteWise Payment";
+                              "SiteWise Payment";
                               siteVoucher_Controller.Amount.text = "0.0";
                               commonVoucherController.Accountname.text =
-                                  "--SELECT--";
+                              "--SELECT--";
                               commonVoucherController.AccountTypename.text =
-                                  "--SELECT--";
+                              "--SELECT--";
                               commonVoucherController.selectedAccnameId = 0.obs;
                               commonVoucherController.setSelectedaccountName(0);
                               commonVoucherController.AccPayforname.text =
-                                  "--SELECT--";
+                              "--SELECT--";
                               commonVoucherController.Accountname.text =
-                                  "--SELECT--";
+                              "--SELECT--";
                               commonVoucherController.namethrough.text = "";
                               siteController.Sitename.text = "--SELECT--";
                               commonVoucherController
                                   .VoucherTypeController.text = "Payment";
                               commonVoucherController.voucherPaidForm.text =
-                                  "PETTY CASH";
+                              "PETTY CASH";
                               commonVoucherController.vocPaidformId = 1;
                               commonVoucherController.VocType.value = "P";
                               commonVoucherController
@@ -1831,9 +1814,9 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               siteVoucher_Controller.sitevocDate.text =
                                   BaseUtitiles.initiateCurrentDateFormat();
                               commonVoucherController.Paymodename.text =
-                                  "BY CASH";
+                              "BY CASH";
                               commonVoucherController.selectedPaymodeId.value =
-                                  1;
+                              1;
                               siteVoucher_Controller.Remarks.text = "";
                             });
                             Navigator.pop(context);
@@ -1861,11 +1844,11 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
             context,
             MaterialPageRoute(
                 builder: (context) => ImageViewPage(
-                      imageUrl: siteVoucher_Controller
-                          .gettingNetworkImageList![index]
-                          .toString(),
-                      netUrl: true,
-                    )));
+                  imageUrl: siteVoucher_Controller
+                      .gettingNetworkImageList![index]
+                      .toString(),
+                  netUrl: true,
+                )));
       },
       child: Stack(
         children: [
@@ -1930,9 +1913,9 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
             context,
             MaterialPageRoute(
                 builder: (context) => ImageViewPage(
-                      imagePath: siteVoucher_Controller.imageFiles[index],
-                      netUrl: false,
-                    )));
+                  imagePath: siteVoucher_Controller.imageFiles[index],
+                  netUrl: false,
+                )));
       },
       child: Stack(
         children: [
@@ -1955,9 +1938,9 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                       borderRadius: BorderRadius.circular(15),
                       child: siteVoucher_Controller.imageFiles.isNotEmpty
                           ? Image.file(
-                              siteVoucher_Controller.imageFiles[index],
-                              fit: BoxFit.cover,
-                            )
+                        siteVoucher_Controller.imageFiles[index],
+                        fit: BoxFit.cover,
+                      )
                           : Container()),
                 ),
               ),

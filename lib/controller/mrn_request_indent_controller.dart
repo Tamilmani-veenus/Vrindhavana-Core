@@ -406,8 +406,6 @@ class MRN_Request_Controller extends GetxController {
   List<MMatReqMasLink>? getRequestDet(materialReqOrdMasid) {
     getRequestDetList.value.clear();
     Material_itemview_GetDbList.value.forEach((element) {
-      print("VVVVVVVVV...${element.reqQty}");
-
       if (element.qty > 0) {
         var list = MMatReqMasLink(
           id: element.reqDetId,

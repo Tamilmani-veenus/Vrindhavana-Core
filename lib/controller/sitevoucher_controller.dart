@@ -128,7 +128,10 @@ class SiteVoucher_Controller extends GetxController {
       sitevoucherItemListTableModel.TdsAmt = double.parse(Tdsamount.text==""?"0":Tdsamount.text);
       netAmount = double.parse(NetAmount.text).round();
       sitevoucherItemListTableModel.NetAmt = netAmount.toDouble();
+print("wwww...${Sitevoucher_itemview_GetDbList.value}");
       for (var element in Sitevoucher_itemview_GetDbList.value) {
+        print("eeeeee....${siteController.selectedsiteId.value}");
+        print("rrr....${element.siteid}");
         if (element.siteid == sitevoucherItemListTableModel.siteid) {
           j = 1;
         }
