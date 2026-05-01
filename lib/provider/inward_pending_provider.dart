@@ -124,7 +124,6 @@ class Inward_Pending_provider {
         final url = saveButton == RequestConstant.RESUBMIT
             ? "${ApiConstant.PUT_INWARDPENDING_UPDATE_API}/$id"
             : ApiConstant.INWARDPENDING_SAVE_API;
-        print("eeeee....${url}");
 
         final request = http.MultipartRequest(
           saveButton == RequestConstant.RESUBMIT ? 'PUT' : 'POST',

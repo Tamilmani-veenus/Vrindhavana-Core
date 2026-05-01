@@ -313,7 +313,7 @@ class ApiConstant{
   static String PUT_MATTRANSREQ_UPDATE_API = BASE_URL + "api/MaterialTransferRequest/PUTMaterialReqTransferUpdate";
   static String PUT_TRANSFERBET_SITE_UPDATE_API = BASE_URL_CORE + "api/MaterialSitetosite/UpdateMaterialSitetoSiteMas";
   static String PUT_ADVREQ_UPDATE_API = BASE_URL + "api/AdvRequisitionVoucher/PUTVoucherProjectUpdate";
-  static String PUT_SITEVOUCHER_UPDATE_API = BASE_URL + "api/VoucherProject/PUTVoucherProjectUpdate";
+  static String PUT_SITEVOUCHER_UPDATE_API = BASE_URL_CORE + "api/SiteVoucher/UpdateAccountSiteVoucher";
   static String PUT_STAFFVOUCHER_UPDATE_API = BASE_URL + "api/VoucherStaff/PUTVoucherStaffUpdate";
   static String PUT_MATERIALREQUEST_UPDATE_API = BASE_URL_CORE + "api/MaterialReqOrdMas/UpdateReqOrdMas";
   static String PUT_MATERIALREQUEST_APPROVAL_API = BASE_URL + "api/MaterialRequest/PUTRequestApproval";
@@ -356,7 +356,7 @@ class ApiConstant{
   static String TOKEN_SAVE = BASE_URL_CORE + "api/Login/AddUserTokenMas";
   static String ADVREQ_SAVE = BASE_URL + "api/AdvRequisitionVoucher/POSTVoucherProjectSave";
   static String TRANSFER_ACKNOW_ENTRYSAVE = BASE_URL_CORE + "api/MaterialAckMas/AddOrUpdateAck";
-  static String SITEVOUCHER_SAVE = BASE_URL + "api/VoucherProject/POSTVoucherProjectSave";
+  static String SITEVOUCHER_SAVE = BASE_URL_CORE + "api/SiteVoucher/AddAccountSiteVoucher";
   static String STAFFVOUCHER_SAVE = BASE_URL + "api/VoucherStaff/POSTVoucherStaffSave";
   static String MATERIALREQUEST_SAVE = BASE_URL_CORE + "api/MaterialReqOrdMas/AddReqOrdMas";
   static String COMPANY_NMR_SAVE_API = BASE_URL + "api/CompanyLabAttendance/POSTAttendanceSave";
