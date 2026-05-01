@@ -74,7 +74,7 @@ class MrnFinalApprovalController extends GetxController{
 
 
   Future gettingProjectName(int reqMasId,int matId,int proId,BuildContext context) async {
-    final value = await MrnFinalApprovalProvider.projectNameProvider(proId);
+    final value = await MrnFinalApprovalProvider.projectNameProvider("MRN Final Approve",proId);
     if (value != null) {
       if(value.success == true)
       {

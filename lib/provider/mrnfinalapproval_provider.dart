@@ -43,10 +43,17 @@ class MrnFinalApprovalProvider{
     }
   }
 
-  static Future<ProjectDropdownListResponse?> projectNameProvider(int proId) async {
+  static Future<ProjectDropdownListResponse?> projectNameProvider(Url, int proId) async {
+    var response;
     try {
-      final response = await ApiManager.getAPICall(
-          "${ApiConstant.PROJECT_NAME_TRANSFER}?projectId=$proId");
+      if(Url == "Material Transfer Request" || Url == "Transfer btwn Project Direct"){
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.TOPROJECT_NAME_TRANSFER}?projectId=$proId");
+      }
+      else {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.PROJECT_NAME_TRANSFER}?projectId=$proId");
+      }
       print("response...${response}");
       return projectDropdownListResponseFromJson(response);
     }
