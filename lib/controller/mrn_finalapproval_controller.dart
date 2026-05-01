@@ -271,7 +271,9 @@ class MrnFinalApprovalController extends GetxController{
         reqRemarks:ReqremarksText.text,
         requestType: mrn_request_controller.ReqType.value.toString(),
         approvedBy: int.parse(loginController.EmpId()),
-        approveStatus: "Y" ,
+        verifyStatus: "Y",
+        preApproveStatus: "Y",
+        approveStatus: "Y",
         approveDate: BaseUtitiles().convertToUtcIso(RequestDateText.text) ,
         approveRemarks: ApprovalremarksText.text,
         mMatReqMasLink: attendanceListDet(reqId)
@@ -313,6 +315,7 @@ class MrnFinalApprovalController extends GetxController{
           reqDescription: element.desc,
           refProjectId:int.tryParse(element.tranfromprjid),
           approveType:element.apptype,
+          preApproveStatus: "Y",
           approveStatus: "Y",
         );
         getsaveDetList.value.add(list);

@@ -95,7 +95,7 @@ class DatabaseConnection {
     String punchOut = "CREATE TABLE punchOut (id INTEGER PRIMARY KEY UNIQUE,empId Text,date Text,timeOut Text,entryMode TEXT,userId TEXT,deviceName TEXT,locId TEXT)";
     await database.execute(punchOut);
 
-    String materialTransReqDetTable = "CREATE TABLE materialTransReqDet (id INTEGER PRIMARY KEY UNIQUE,reqDetId INTEGER,materialId INTEGER,materialName TEXT,scale TEXT,stockQty REAL,Qty REAL,detRemarks TEXT)";
+    String materialTransReqDetTable = "CREATE TABLE materialTransReqDet (id INTEGER PRIMARY KEY UNIQUE,reqDetId INTEGER,materialId INTEGER,materialName TEXT,scale TEXT,stockQty REAL,Qty REAL,trQty REAL,detRemarks TEXT)";
     await database.execute(materialTransReqDetTable);
 
   }
@@ -148,6 +148,9 @@ class DatabaseConnection {
       );
       await database.execute(
           "ALTER TABLE materialListTable ADD COLUMN reqQty INTEGER"
+      );
+      await database.execute(
+          "ALTER TABLE materialTransReqDet ADD COLUMN trQty INTEGER"
       );
     }
 

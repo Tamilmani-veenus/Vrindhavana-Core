@@ -369,7 +369,9 @@ class MRN_Request_Controller extends GetxController {
       verifyDate: isVerify
           ? BaseUtitiles().convertToUtcIso(RequestDateController.text)
           : null,
-      verifyStatus: isVerify ? "Y" : null,
+      verifyStatus: isVerify ? "Y" : "N",
+      preApproveStatus: "N",
+      approveStatus: "N",
 
       //det
       mMatReqMasLink: getRequestDetList.value.isEmpty
@@ -406,8 +408,6 @@ class MRN_Request_Controller extends GetxController {
   List<MMatReqMasLink>? getRequestDet(materialReqOrdMasid) {
     getRequestDetList.value.clear();
     Material_itemview_GetDbList.value.forEach((element) {
-      print("VVVVVVVVV...${element.reqQty}");
-
       if (element.qty > 0) {
         var list = MMatReqMasLink(
           id: element.reqDetId,
@@ -420,6 +420,8 @@ class MRN_Request_Controller extends GetxController {
           reqQty: isSubmit || isResubmit ? element.qty : isVerify ? element.reqQty : element.qty,
           remarks: element.remarks,
           reqDescription: element.desc,
+          preApproveStatus: "N",
+          approveStatus: "N"
         );
         getRequestDetList.value.add(list);
       }
