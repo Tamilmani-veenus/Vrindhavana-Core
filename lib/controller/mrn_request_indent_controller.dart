@@ -198,31 +198,30 @@ class MRN_Request_Controller extends GetxController {
     }
   }
 
-  MaterialItemlistBal_clickEdit() {
-    bool isValid = true;
+  MaterialItemlistBal_clickEdit(int index) {
+    double balQty = double.parse(
+        Material_itemview_GetDbList.value[index].balqty.toString());
 
-    for (int index = 0; index <
-        Material_itemview_GetDbList.value.length; index++) {
-      double balQty = double.parse(
-          Material_itemview_GetDbList.value[index].balqty.toString());
-
-      double enteredQty = Addwork_qtyControllers[index].value.text.isEmpty
-          ? 0
-          : double.parse(Addwork_qtyControllers[index].value.text);
-
-        if (enteredQty > balQty) {
-          BaseUtitiles.showToast("More than Bal Qty, Not Allowed");
-
-          Addwork_qtyControllers[index].text = "0";
-
-          isValid = false;
-          break;
-        }
+    double enteredQty = Addwork_qtyControllers[index].value.text.isEmpty
+        ? 0
+        : double.parse(Addwork_qtyControllers[index].value.text);
+    if(ReqType.value == "PO")
+    {
+      if (enteredQty > balQty) {
+        enteredQty = 0;
+        Addwork_qtyControllers[index].text = "0.0";
+        BaseUtitiles.showToast("More than Bal Qty, Not Allowed");
+      }
+      else {
+      // If none of the above conditions are met, call updateConsumTables()
+        updateConsumTables();
+      }
     }
-    if (isValid) {
+    else {
       updateConsumTables();
     }
   }
+
 
 
 
@@ -373,7 +372,7 @@ class MRN_Request_Controller extends GetxController {
         materialTableModel.stockqty = element.stockqty;
         materialTableModel.scaleId = element.scaleId;
         materialTableModel.reqDetId = element.reqDetId;
-        // materialTableModel.balqty = element.balqty;
+        materialTableModel.balqty = element.balqty;
         materialTableModel.desc = Addwork_descControllers[i].value.text;
         materialTableModel.remarks = Addwork_remarksControllers[i].value.text;
         updateListDatas.add(materialTableModel);
@@ -388,7 +387,7 @@ class MRN_Request_Controller extends GetxController {
         materialTableModel.qty =
             double.parse(Addwork_qtyControllers[i].value.text);
         materialTableModel.reqQty = element.reqQty;
-        // materialTableModel.balqty = element.balqty;
+        materialTableModel.balqty = element.balqty;
         materialTableModel.stockqty = element.stockqty;
         materialTableModel.desc = Addwork_descControllers[i].value.text;
         materialTableModel.remarks = Addwork_remarksControllers[i].value.text;

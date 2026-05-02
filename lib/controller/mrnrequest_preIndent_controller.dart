@@ -351,6 +351,10 @@ class MRNRequest_PreIndent_Controller extends GetxController{
           enteredQty = 0;
           Addwork_qtyControllers[index].text = "0";
         }
+        else {
+          // If none of the above conditions are met, call updateConsumTables()
+          updateConsumTables();
+        }
       }
 
       else {
@@ -424,7 +428,7 @@ class MRNRequest_PreIndent_Controller extends GetxController{
         materialTableModel.reqDetId = element.reqDetId!;
         materialTableModel.qty = double.parse(Addwork_qtyControllers[i].value.text);
         materialTableModel.reqQty = element.reqQty;
-        // materialTableModel.balqty = element.balqty;
+        materialTableModel.balqty = element.balqty;
         materialTableModel.desc=Addwork_descControllers[i].value.text;
         materialTableModel.remarks=Addwork_remarksControllers[i].value.text;
         updateListDatas.add(materialTableModel);

@@ -446,7 +446,7 @@ class _MrnfinalItemListState extends State<MrnfinalItemList> {
                                             onChanged: (value) {
                                               if(mrn_request_controller.activeType.value)
                                                 {
-                                                  mrnFinalApprovalController.MaterialItemlistBal_clickEdit();
+                                                  mrnFinalApprovalController.MaterialItemlistBal_clickEdit(index);
                                                 }
                                               else {
                                                 mrnFinalApprovalController
