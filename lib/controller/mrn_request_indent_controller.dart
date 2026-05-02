@@ -316,7 +316,10 @@ class MRN_Request_Controller extends GetxController {
     Material_itemview_GetDbList.value = [];
     var Matlist = await materiallistService.MaterialItemlist_table_readAll();
     Matlist.forEach((user) {
+      print("VVVVVVVV..${user["balqty"]}");
+      print("VVVVVVVV..${user["stockqty"]}");
       var materiallist = Materiallist();
+      print("SSSSSS${materiallist.balqty}");
       materiallist.materialid = user['materialid'];
       materiallist.material = user['material'];
       materiallist.scale = user['scale'];
@@ -599,7 +602,7 @@ class MRN_Request_Controller extends GetxController {
         materialTableModel.reqQty = val.reqQty!;
         materialTableModel.scaleId = val.scaleId!;
         materialTableModel.reqDetId = val.reqDetId!;
-        // materialTableModel.balqty = val.balqty!;
+        materialTableModel.balqty = val.balqty!;
         materialTableModel.remarks = val.detRemarks!;
         materialTableModel.stockqty = val.stockqty!;
         materialTableModel.desc = val.detDescription;
