@@ -205,7 +205,7 @@ class SiteVoucher_Controller extends GetxController {
       siteVoucherType: commonVoucherController.VocType.value,
       projectId: projectController.selectedProjectId.value,
       companyId: SaveButton.value == RequestConstant.RESUBMIT?Sitevoucher_EditListApiValue.value[0].companyId:0,
-      accountTypeId: commonVoucherController.selectedAccId.value,
+      accountTypeId: commonVoucherController.selectedAccTypeId.value,
       accountNameId: commonVoucherController.selectedAccnameId.value,
       siteVoucherAmount: double.tryParse(Amount.text),
       payForType: commonVoucherController.selectedAccPayId.value,

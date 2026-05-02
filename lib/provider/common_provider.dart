@@ -584,12 +584,27 @@ class CommonProvider {
     }
   }
 
-  static SaveAccountnameScreenEntryAPI(String body, int Accnameid) async {
+  static Future<dynamic> SaveAccountnameScreenEntryAPI(
+      String body, int accNameId, String saveButton) async {
 
     try {
-      final response = await ApiManager.postAPICall(ApiConstant.ACCOUNTNAME_SAVE,body);
-      print("response...${response}");
+      dynamic response;
+
+      if (saveButton == RequestConstant.UPDATE) {
+        response = await ApiManager.putUpdateAPIButton(
+          ApiConstant.ACCOUNTNAME_UPDATE + "?id=$accNameId",
+          body,
+        );
+      } else {
+        response = await ApiManager.postAPICall(
+          ApiConstant.ACCOUNTNAME_SAVE,
+          body,
+        );
+      }
+
+      print("response...$response");
       return jsonDecode(response);
+
     } catch (error) {
       print("Error == $error");
       return null;
@@ -597,20 +612,30 @@ class CommonProvider {
   }
 
   //---Delete API----
-  static Future Accountname_deleteAPI(int AccTypeId, int AccNameId) async {
-    var data = null;
-    await ApiManager.deleteAPICall(ApiConstant.DELETE_ACCOUNTNAME_API +
-            "?AccTypeId=$AccTypeId&AccNameId=$AccNameId")
-        .then((value) {
-      final res = json.decode(value);
-      if (res != null) {
-        data = res;
-        return data;
-      }
-    }, onError: (error) {
-      print(error);
-      BaseUtitiles.showToast(RequestConstant.SOMETHINGWENT_WRONG + error);
-    });
-    return data;
+
+  static Future<bool> Accountname_deleteAPI(int accNameId) async {
+    try {
+      final response = await ApiManager.deleteAPICall(
+          "${ApiConstant.DELETE_ACCOUNTNAME_API}?id=$accNameId");
+
+      final Map<String, dynamic> decoded = jsonDecode(response);
+
+
+      bool isSuccess = decoded["success"] == true;
+
+      final message = decoded["message"] ??
+          (isSuccess
+              ? "Deleted successfully"
+              : "Something went wrong");
+
+      BaseUtitiles.showToast(message);
+
+      return isSuccess;
+    } catch (error) {
+      print("Delete API Error: $error");
+      BaseUtitiles.showToast(RequestConstant.SOMETHINGWENT_WRONG);
+      return false;
+    }
   }
+
 }
