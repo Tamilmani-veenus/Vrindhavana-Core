@@ -1284,9 +1284,15 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
               itemCount: siteVoucher_Controller
                   .Sitevoucher_itemview_GetDbList.value.length,
               itemBuilder: (BuildContext context, int index) {
-                Map<String, String> paymentTypeMap = {
+
+                Map<String, String> paymentTypeMapAdd = {
                   for (var item in commonVoucherController.paymentTypeList)
                     item.paymentTypeValue: item.paymentTypeName
+                };
+
+                Map<String, String> paymentTypeMapEdit = {
+                  for (var item in siteVoucher_Controller.Sitevoucher_EditListApiValue[0].accountSiteVoucherSwPayments)
+                    item.payType: item.paytypeDesc
                 };
 
                 return Card(
@@ -1427,11 +1433,14 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                 margin: EdgeInsets.only(right: 5),
                                 width: BaseUtitiles.getWidthtofPercentage(
                                     context, 65),
-                                child: Text(
-                                  paymentTypeMap[siteVoucher_Controller
+                                child: Text(siteVoucher_Controller.SaveButton.value == RequestConstant.SUBMIT?
+                                (paymentTypeMapAdd[siteVoucher_Controller
                                           .Sitevoucher_itemview_GetDbList[index]
                                           .paytype] ??
-                                      "",
+                                      ""):(paymentTypeMapEdit[siteVoucher_Controller
+                                    .Sitevoucher_itemview_GetDbList[index]
+                                    .paytype] ??
+                                    ""),
                                   style: TextStyle(
                                       fontSize: RequestConstant.App_Font_SIZE,
                                       color: Colors.black),
