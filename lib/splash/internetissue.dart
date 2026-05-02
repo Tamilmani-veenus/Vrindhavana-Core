@@ -30,7 +30,7 @@ class _InternetLostConnectionState extends State<InternetLostConnection> {
     super.initState();
     var duration = const Duration(seconds: 2);
     Future.delayed(duration,() async {
-      // SignInPage.checkVersion(context);
+      SignInPage.checkVersion(context);
       final ConnectivityResult result = await Connectivity().checkConnectivity();
       _connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
         print('Current connectivity status: $result');
