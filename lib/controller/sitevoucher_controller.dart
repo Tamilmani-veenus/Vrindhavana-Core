@@ -315,7 +315,6 @@ class SiteVoucher_Controller extends GetxController {
           Sitevoucher_itemview_GetDbList.clear();
           await Sitevoucher_entrylist_editSaveDetTable();
           await getsitevoucherTablesDatas();
-          await commonVoucherController.getPaymentTypeList();
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => SiteVoucher_EntryScreen()));
         } else {

@@ -1284,16 +1284,26 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
               itemCount: siteVoucher_Controller
                   .Sitevoucher_itemview_GetDbList.value.length,
               itemBuilder: (BuildContext context, int index) {
+                Map<String, String> paymentTypeMapAdd = {};
+                Map<String, String> paymentTypeMapEdit = {};
 
-                Map<String, String> paymentTypeMapAdd = {
-                  for (var item in commonVoucherController.paymentTypeList)
-                    item.paymentTypeValue: item.paymentTypeName
-                };
+                if (siteVoucher_Controller.SaveButton.value == RequestConstant.SUBMIT) {
+                  paymentTypeMapAdd = {
+                    for (var item in commonVoucherController.paymentTypeList)
+                      item.paymentTypeValue: item.paymentTypeName
+                  };
+                } else {
+                  paymentTypeMapEdit = {
+                    for (var item in siteVoucher_Controller
+                        .Sitevoucher_EditListApiValue[0]
+                        .accountSiteVoucherSwPayments)
+                      item.payType: item.paytypeDesc
+                  };
+                }
 
-                Map<String, String> paymentTypeMapEdit = {
-                  for (var item in siteVoucher_Controller.Sitevoucher_EditListApiValue[0].accountSiteVoucherSwPayments)
-                    item.payType: item.paytypeDesc
-                };
+                final payType = siteVoucher_Controller
+                    .Sitevoucher_itemview_GetDbList[index]
+                    .paytype;
 
                 return Card(
                   margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
@@ -1433,14 +1443,9 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                 margin: EdgeInsets.only(right: 5),
                                 width: BaseUtitiles.getWidthtofPercentage(
                                     context, 65),
-                                child: Text(siteVoucher_Controller.SaveButton.value == RequestConstant.SUBMIT?
-                                (paymentTypeMapAdd[siteVoucher_Controller
-                                          .Sitevoucher_itemview_GetDbList[index]
-                                          .paytype] ??
-                                      ""):(paymentTypeMapEdit[siteVoucher_Controller
-                                    .Sitevoucher_itemview_GetDbList[index]
-                                    .paytype] ??
-                                    ""),
+                                child: Text(siteVoucher_Controller.SaveButton.value == RequestConstant.SUBMIT
+                                    ? (paymentTypeMapAdd[payType] ?? "")
+                                    : (paymentTypeMapEdit[payType] ?? ""),
                                   style: TextStyle(
                                       fontSize: RequestConstant.App_Font_SIZE,
                                       color: Colors.black),
