@@ -339,14 +339,12 @@ class _MrnPreapprovalItemlistState extends State<MrnPreapprovalItemlist> {
                                                 onChanged: (value) {
                                                   // setState(() {
                                                   if(mrn_request_controller.activeType.value){
-                                                    mrnPreApprovalController.MaterialItemlistBal_clickEdit();
+                                                    mrnPreApprovalController.MaterialItemlistBal_clickEdit(index);
                                                   }
-                                                  else
-                                                    {
+                                                  else {
                                                     mrnPreApprovalController.Approval_updateConsumTables();
                                                     }
                                                   // });
-                                                  // mrnPreApprovalController.Approval_MaterialItemlist_clickEdit();
                                                 },
                                               ),
                                             ),

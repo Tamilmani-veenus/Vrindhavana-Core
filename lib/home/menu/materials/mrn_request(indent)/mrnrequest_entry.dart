@@ -1213,72 +1213,48 @@ class _MRNRequest_Indent_EntryState extends State<MRNRequest_Indent_Entry> {
                                       width: BaseUtitiles.getWidthtofPercentage(context, 20),
                                       child:
                                       TextFormField(
-                                        autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
-                                        onTap:
-                                            () {
-                                          setState(() {
-                                            if (mrn_request_controller.Addwork_qtyControllers[index].text != "" && mrn_request_controller.Addwork_qtyControllers[index].text != "0" && mrn_request_controller.Addwork_qtyControllers[index].text != "0.0") {
+                                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                                        onTap: () {
+                                          if (mrn_request_controller.Addwork_qtyControllers[index].text != "" && mrn_request_controller.Addwork_qtyControllers[index].text != "0" && mrn_request_controller.Addwork_qtyControllers[index].text != "0.0") {
                                               return;
                                             } else {
                                               mrn_request_controller.Addwork_qtyControllers[index].text = "";
-                                              mrn_request_controller.MaterialItemlist_clickEdit();
                                             }
-                                          });
-                                        },
-                                        cursorColor:
-                                        Theme.of(context).primaryColor,
-                                        textAlign:
-                                        TextAlign.center,
-                                        controller:
-                                        mrn_request_controller.Addwork_qtyControllers[index],
+                                          },
+                                        cursorColor: Theme.of(context).primaryColor,
+                                        textAlign: TextAlign.center,
+                                        controller: mrn_request_controller.Addwork_qtyControllers[index],
                                         keyboardType: TextInputType.numberWithOptions(decimal: true),
-                                        decoration:
-                                        InputDecoration(
-                                          contentPadding: const EdgeInsets.fromLTRB(
-                                              5.0,
-                                              0.0,
-                                              5.0,
-                                              0.0),
-                                          focusedBorder:
-                                          OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor), borderRadius: const BorderRadius.all(Radius.circular(5))),
-                                          enabledBorder:
-                                          const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(5))),
-                                          errorStyle:
-                                          const TextStyle(
+                                        decoration: InputDecoration(contentPadding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
+                                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor), borderRadius: const BorderRadius.all(Radius.circular(5))),
+                                          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(5))),
+                                          errorStyle: const TextStyle(
                                             color: Colors.red,
                                             fontWeight: FontWeight.normal,
                                             fontSize: 10.0,
                                           ),
-                                          errorBorder:
-                                          OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(2.0),
+                                          errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(2.0),
                                             borderSide: const BorderSide(
                                               color: Colors.red,
                                             ),
                                           ),
-                                          focusedErrorBorder:
-                                          OutlineInputBorder(
+                                          focusedErrorBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(2.0),
                                             borderSide: const BorderSide(
                                               color: Colors.red,
                                             ),
                                           ),
                                         ),
-                                        style:
-                                        const TextStyle(color: Colors.black),
-                                        onChanged:
-                                            (value) {
-                                          setState(() {
-                                            if(mrn_request_controller.activeType.value)
-                                            {
-                                              mrn_request_controller.MaterialItemlistBal_clickEdit();
+                                        style: const TextStyle(color: Colors.black),
+                                        onChanged: (value) {
+                                            if(mrn_request_controller.activeType.value){
+                                              mrn_request_controller.MaterialItemlistBal_clickEdit(index);
                                             }
                                             else{
                                               mrn_request_controller.updateConsumTables();
                                             }
-                                          });
                                         },
+
                                       ),
                                     ),
                                   ),

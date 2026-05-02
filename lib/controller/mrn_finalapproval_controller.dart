@@ -175,31 +175,30 @@ class MrnFinalApprovalController extends GetxController{
     }
   }
 
-  MaterialItemlistBal_clickEdit() {
-    bool isValid = true;
+  MaterialItemlistBal_clickEdit(int index) {
+    double balQty = double.parse(
+        MaterialFinalAppr_itemview_GetDbList.value[index].balqty.toString());
 
-    for (int index = 0; index <
-        MaterialFinalAppr_itemview_GetDbList.value.length; index++) {
-      double balQty = double.parse(
-          MaterialFinalAppr_itemview_GetDbList.value[index].balqty.toString());
-
-      double enteredQty = ApprQty_ListController[index].value.text.isEmpty
-          ? 0
-          : double.parse(ApprQty_ListController[index].value.text);
-
+    double enteredQty = ApprQty_ListController[index].value.text.isEmpty
+        ? 0
+        : double.parse(ApprQty_ListController[index].value.text);
+    if(mrn_request_controller.ReqType.value == "PO")
+    {
       if (enteredQty > balQty) {
+        enteredQty = 0;
+        ApprQty_ListController[index].text = "0.0";
         BaseUtitiles.showToast("More than Bal Qty, Not Allowed");
-
-        ApprQty_ListController[index].text = "0";
-
-        isValid = false;
-        break;
+      }
+      else {
+        // If none of the above conditions are met, call updateConsumTables()
+        finalApproval_updateConsumTables();
       }
     }
-    if (isValid) {
+    else {
       finalApproval_updateConsumTables();
     }
   }
+
 
   finalApproval_updateConsumTables() async {
     int i = 0;
