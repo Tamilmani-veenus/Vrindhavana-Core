@@ -876,18 +876,13 @@ class _MRNRequest_PreIndent_EntryScreenState extends State<MRNRequest_PreIndent_
                                                       Expanded(
                                                         child: TextButton(
                                                             onPressed: () {
-                                                              mrnRequest_PreIndent_Controller
-                                                                  .deleteParticularList(
-                                                                  mrnRequest_PreIndent_Controller
-                                                                      .Material_itemview_GetDbList[
-                                                                  index]);
+                                                              mrnRequest_PreIndent_Controller.deleteParticularList(mrnRequest_PreIndent_Controller.Material_itemview_GetDbList[index]);
                                                               mrnRequest_PreIndent_Controller
                                                                   .Material_itemview_GetDbList
                                                                   .remove(mrnRequest_PreIndent_Controller
                                                                   .Material_itemview_GetDbList[
                                                               index]);
-                                                              mrnRequest_PreIndent_Controller
-                                                                  .getMaterialTablesDatas();
+                                                              mrnRequest_PreIndent_Controller.getMaterialTablesDatas();
                                                               Navigator.pop(
                                                                   context);
                                                             },
