@@ -5997,7 +5997,7 @@ class _SubContractorAttandanceState extends State<SubContractorAttandance> {
                               dailyEntriesController.subContEntryList_EditApi(
                                   pendingListController.mainlist[index].id!,
                                   context,
-                                  1);
+                                  type: "approve");
                               FocusScope.of(context).unfocus();
                             },
                             child: Container(
