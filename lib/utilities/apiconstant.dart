@@ -344,7 +344,7 @@ class ApiConstant{
   /// ----- POST API's -----
 
   static String POST_PREAPPROVAL_SAVE_API = BASE_URL + "api/PreApproval/POSTPreApprovalSave";
-  static String SUBCONTLABATTAENDANCE_SAVE_API = BASE_URL + "api/SubContLabourAttendance/AddOrUpdateSubContLabAtt";
+  static String SUBCONTLABATTAENDANCE_SAVE_API = BASE_URL_CORE + "api/SubContLabourAttendance/AddOrUpdateSubContLabAtt";
   // static String SUBCONTLABATTAENDANCE_SAVE_API = BASE_URL + "api/SubContLabAttendanceShiftBasis/POSTShiftBasisAttendanceSave";
   static String SUBCONTLABATTAENDANCE_SAVE_SITE_API = BASE_URL + "api/SubContLabAttendance/POSTAttendanceSavesite";
   static String NMR_SAVE_DEDUCTION = BASE_URL + "api/SubcontNMR/POSTNMRBillSave";

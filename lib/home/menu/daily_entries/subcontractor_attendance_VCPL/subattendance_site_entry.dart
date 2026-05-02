@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ import '../../../../constants/ui_constant/icons_const.dart';
 import '../../../../controller/auto_yrwise_no_controller.dart';
 import '../../../../controller/bottomsheet_Controllers.dart';
 import '../../../../controller/companycontroller.dart';
+import '../../../../controller/dailyentries_controller.dart';
 import '../../../../controller/dailyentries_controller.dart';
 import '../../../../controller/projectcontroller.dart';
 import '../../../../controller/sitecontroller.dart';
@@ -72,9 +74,9 @@ class _SubAttendanceSiteEntryState extends State<SubattendanceSiteEntry> {
         dailyEntriesController.Nmr_Rate.value = RequestConstant.N;
       }
 
-      if (dailyEntriesController.saveButton.value == RequestConstant.RESUBMIT) {
-        await dailyEntriesController.gettingImage();
-        dailyEntriesController.EditListResDatas.forEach((element) {
+      if (dailyEntriesController.saveButton.value == RequestConstant.RESUBMIT || dailyEntriesController.saveButton.value == RequestConstant.APPROVAL ) {
+        dailyEntriesController.EditListResDatas.forEach((element) async {
+          DLRId = element.id;
           dailyEntriesController.attendId = element.id!;
           dailyEntriesController.AttendDateController.text = element.labourAttendanceDate;
           dailyEntriesController.autoYearWiseNoController.text = element.labourAttendanceNo;
@@ -88,8 +90,8 @@ class _SubAttendanceSiteEntryState extends State<SubattendanceSiteEntry> {
           dailyEntriesController.WorkTypeTextController.text = element.workType! == "N" ? "NMR" : element.workType! == "R" ? "Rate" : "";
           dailyEntriesController.Nmr_Rate.value = element.workType!;
         });
+        await dailyEntriesController.gettingImage();
       }
-
     });
   }
 
