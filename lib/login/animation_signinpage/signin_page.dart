@@ -56,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
   void initState() {
     loginController.password_controller.clear();
     loginController.username_controller.clear();
-    // SignInPage.checkVersion(context);
+    SignInPage.checkVersion(context);
     super.initState();
   }
 

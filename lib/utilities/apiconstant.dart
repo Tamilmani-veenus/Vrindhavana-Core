@@ -18,11 +18,11 @@ class ApiConfig {
     if (isLive) {
       APIURL = "${LIVE_ENDPOINT_CORE}vrindhavanaAPI/";
       APIURL_CORE = "${LIVE_ENDPOINT_CORE}vrindhavanaAPI/";
-      WebURL = "${LIVE_ENDPOINT_CORE}vrindhavana/";
+      WebURL = "${LIVE_ENDPOINT_CORE}Vrindhavana/";
       print("IP_URL $APIURL");
     } else {
       APIURL = DEFAULT_BASE_URL_CORE;
-      WebURL = "${LIVE_ENDPOINT_CORE}vrindhavana/";
+      WebURL = "${LIVE_ENDPOINT_CORE}Vrindhavana/";
       print("Using default base URL: $APIURL");
     }
   }
