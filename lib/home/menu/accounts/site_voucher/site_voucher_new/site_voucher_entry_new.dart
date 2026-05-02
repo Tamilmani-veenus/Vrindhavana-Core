@@ -56,7 +56,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
     var duration = const Duration(seconds: 0);
     Future.delayed(duration, () async {
       if (siteVoucher_Controller.SaveButton.value == RequestConstant.SUBMIT) {
-        siteVoucher_Controller.gettingNetworkImages.value=[];
+        siteVoucher_Controller.gettingNetworkImages.value = [];
         projectController.projectname.text = "--SELECT--";
         projectController.selectedProjectId.value = 0;
         siteVoucher_Controller.sitevocDate.text =
@@ -76,35 +76,42 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
         commonVoucherController.selectedPaymodeId.value = 1;
         siteVoucher_Controller.Remarks.text = "";
         await autoYearWiseNoController.AutoYearWiseNo("SITE VOUCHER");
-        siteVoucher_Controller.AutoYearwiseSiteVoc.text = autoYearWiseNoController.SiteVoucher_autoYrsWise.value;
-      }
-
-      else if (siteVoucher_Controller.SaveButton.value == RequestConstant.RESUBMIT) {
+        siteVoucher_Controller.AutoYearwiseSiteVoc.text =
+            autoYearWiseNoController.SiteVoucher_autoYrsWise.value;
+      } else if (siteVoucher_Controller.SaveButton.value ==
+          RequestConstant.RESUBMIT) {
         await siteVoucher_Controller.gettingImage();
         siteVoucher_Controller.Sitevoucher_EditListApiValue.forEach((element) {
           siteVoucher_Controller.VocID = element.id;
-          siteVoucher_Controller.AutoYearwiseSiteVoc.text = element.siteVoucherNo;
+          siteVoucher_Controller.AutoYearwiseSiteVoc.text =
+              element.siteVoucherNo;
           siteVoucher_Controller.sitevocDate.text = element.siteVoucherDate;
           commonVoucherController.VocType.value = element.siteVoucherType;
           commonVoucherController.VoucherTypeController.text =
               element.siteVoucherType == "P" ? "Payment" : "Receipt";
           projectController.projectname.text = element.projectName;
           projectController.selectedProjectId.value = element.projectId;
-          commonVoucherController.voucherPaidForm.text = element.paidFrom==1?"PETTY CASH":"PREPAID CARD";
+          commonVoucherController.voucherPaidForm.text =
+              element.paidFrom == 1 ? "PETTY CASH" : "PREPAID CARD";
           commonVoucherController.vocPaidformId = element.paidFrom;
-          commonVoucherController.AccountTypename.text = element.accountTypeName;
-          commonVoucherController.selectedAccId.value = element.accountTypeId;
+          commonVoucherController.AccountTypename.text =
+              element.accountTypeName;
+          commonVoucherController.selectedAccTypeId.value =
+              element.accountTypeId;
           commonVoucherController.Accountname.text = element.accountName;
-          commonVoucherController.selectedAccnameId.value = element.accountNameId;
+          commonVoucherController.selectedAccnameId.value =
+              element.accountNameId;
           commonVoucherController.selectedAccPayId.value = element.payForType;
           commonVoucherController.namethrough.text = element.nameThrough;
           commonVoucherController.selectedPaymodeId.value = element.payModeId;
-          siteVoucher_Controller.Amount.text = element.siteVoucherAmount.toString();
+          siteVoucher_Controller.Amount.text =
+              element.siteVoucherAmount.toString();
           siteVoucher_Controller.Remarks.text = element.remarks;
           siteVoucher_Controller.type.value = element.paymentType == "SP"
               ? "SiteWise Payment"
               : "Direct Payment/Office";
-          commonVoucherController.AccPayforname.text = element.accountPayForName;
+          commonVoucherController.AccPayforname.text =
+              element.accountPayForName;
           commonVoucherController.Paymodename.text = element.payModeName;
         });
       }
@@ -457,7 +464,9 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                     commonVoucherController
                                             .AccountTypename.text ==
                                         "MATERIAL") {
-                                  if (commonVoucherController.Accountname.text == "--SELECT--") {
+                                  if (commonVoucherController
+                                          .Accountname.text ==
+                                      "--SELECT--") {
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
@@ -465,9 +474,9 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                         });
                                   } else {
                                     BaseUtitiles.showToast(
-                                        "You are Not Authorised");
+                                        "Please clear the account name");
                                   }
-                                } else {}
+                                }
                               },
                             ),
                           ),
@@ -502,7 +511,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                             .AccountTypename.text ==
                                         "MATERIAL") {
                                   if (commonVoucherController
-                                          .Accountname.text ==
+                                          .Accountname.text !=
                                       "--SELECT--") {
                                     showDialog(
                                         context: context,
@@ -511,66 +520,64 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                         });
                                   } else {
                                     BaseUtitiles.showToast(
-                                        "You are Not Authorised");
+                                        "Please select the account name");
                                   }
-                                } else {}
+                                }
                               },
                             ),
                           ),
                           Expanded(
                             flex: 1,
                             child: InkWell(
-                              child: Container(
-                                margin: EdgeInsets.only(right: 5),
-                                alignment: Alignment.center,
-                                height: BaseUtitiles.getheightofPercentage(
-                                    context, 4),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(0),
-                                  color: Theme.of(context).primaryColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        offset: Offset(0, 10),
-                                        blurRadius: 50,
-                                        color: Color(0xffEEEEEE)),
-                                  ],
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 5),
+                                  alignment: Alignment.center,
+                                  height: BaseUtitiles.getheightofPercentage(
+                                      context, 4),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(0),
+                                    color: Theme.of(context).primaryColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: Offset(0, 10),
+                                          blurRadius: 50,
+                                          color: Color(0xffEEEEEE)),
+                                    ],
+                                  ),
+                                  child: Icon(Icons.delete_forever,
+                                      color: Colors.white),
                                 ),
-                                child: Icon(Icons.delete_forever,
-                                    color: Colors.white),
-                              ),
-                              onTap: () async {
-                                if (commonVoucherController
-                                            .AccountTypename.text ==
-                                        "OTHERS" ||
-                                    commonVoucherController
-                                            .AccountTypename.text ==
-                                        "SITE-OTHERS" ||
-                                    commonVoucherController
-                                            .AccountTypename.text ==
-                                        "MATERIAL") {
+                                onTap: () async {
+
+                                  print("wwwwwww...${commonVoucherController.AddAccountname.text.toUpperCase()}");
+                                  print("rrrrrrrr...${commonVoucherController
+                                      .Accountname.text}");
+
                                   if (commonVoucherController
-                                          .Accountname.text ==
-                                      "--SELECT--") {
-                                  } else if (commonVoucherController
-                                          .AddAccountname.text
-                                          .toUpperCase() ==
+                                              .AccountTypename.text ==
+                                          "OTHERS" ||
                                       commonVoucherController
-                                          .Accountname.text) {
-                                    await commonVoucherController
-                                        .Accountname_DeleteApi(
-                                            commonVoucherController
-                                                .selectedAccId.value,
-                                            commonVoucherController
-                                                .selectedAccnameId.value);
-                                    await commonVoucherController
-                                        .getAccountName();
-                                  } else {
-                                    BaseUtitiles.showToast(
-                                        "You are Not Authorised");
+                                              .AccountTypename.text ==
+                                          "SITE-OTHERS" ||
+                                      commonVoucherController
+                                              .AccountTypename.text ==
+                                          "MATERIAL") {
+                                    if (commonVoucherController
+                                            .Accountname.text !=
+                                        "--SELECT--") {
+                                      if (commonVoucherController.Accountname.text.isNotEmpty) {
+                                        await commonVoucherController
+                                            .DeleteAlert(context);
+                                      } else {
+                                        BaseUtitiles.showToast(
+                                            "Something went wrong..");
+                                      }
+                                    } else {
+                                      BaseUtitiles.showToast(
+                                          "Please select the account name");
+                                    }
                                   }
-                                } else {}
-                              },
-                            ),
+                                }),
                           ),
                         ],
                       ),
@@ -594,7 +601,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 5,right: 5),
+                            padding: const EdgeInsets.only(left: 5, right: 5),
                             child: Text(
                               "Payment Options",
                               style: TextStyle(
@@ -825,7 +832,8 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                           "SiteWise Payment"
                                       ? true
                                       : false,
-                                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                                  keyboardType: TextInputType.numberWithOptions(
+                                      decimal: true),
                                   controller: siteVoucher_Controller.Amount,
                                   cursorColor: Colors.black,
                                   style: const TextStyle(color: Colors.black),
@@ -845,17 +853,22 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                         child: ConstIcons.amount),
                                   ),
                                   validator: (value) {
-                                    if (value!.isEmpty && siteVoucher_Controller.type.value != "SiteWise Payment") {
+                                    if (value!.isEmpty &&
+                                        siteVoucher_Controller.type.value !=
+                                            "SiteWise Payment") {
                                       return '\u26A0 ${RequestConstant.VALIDATE}';
                                     }
                                     return null;
                                   },
-                                  onTap: (){
-                                    setState(() {
-                                    });
-                                    if(siteVoucher_Controller.type.value == "Direct Payment/Office"){
-                                      if(siteVoucher_Controller.Amount.text=="0.0" || siteVoucher_Controller.Amount.text=="0"){
-                                        siteVoucher_Controller.Amount.text="";
+                                  onTap: () {
+                                    setState(() {});
+                                    if (siteVoucher_Controller.type.value ==
+                                        "Direct Payment/Office") {
+                                      if (siteVoucher_Controller.Amount.text ==
+                                              "0.0" ||
+                                          siteVoucher_Controller.Amount.text ==
+                                              "0") {
+                                        siteVoucher_Controller.Amount.text = "";
                                       }
                                     }
                                   },
@@ -915,7 +928,8 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                           Radio<String>(
                             value: 'Direct Payment/Office',
                             groupValue: siteVoucher_Controller.type.value,
-                            fillColor: MaterialStateColor.resolveWith((states) => Theme.of(context).primaryColor),
+                            fillColor: MaterialStateColor.resolveWith(
+                                (states) => Theme.of(context).primaryColor),
                             onChanged: (value) {
                               setState(() {
                                 siteVoucher_Controller.type.value = value!;
@@ -926,11 +940,12 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                           Radio<String>(
                             value: 'SiteWise Payment',
                             groupValue: siteVoucher_Controller.type.value,
-                            fillColor: MaterialStateColor.resolveWith((states) => Theme.of(context).primaryColor),
+                            fillColor: MaterialStateColor.resolveWith(
+                                (states) => Theme.of(context).primaryColor),
                             onChanged: (value) {
                               setState(() {
                                 siteVoucher_Controller.type.value = value!;
-                                siteVoucher_Controller.Amount.text="0.0";
+                                siteVoucher_Controller.Amount.text = "0.0";
                               });
                             },
                           ),
@@ -1016,7 +1031,6 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                         ),
                       ],
                     ),
-
                     Obx(() {
                       final allImages = [
                         ...siteVoucher_Controller.gettingNetworkImages,
@@ -1025,17 +1039,15 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
 
                       if (allImages.isEmpty) return SizedBox();
                       return Container(
-                        height:
-                        BaseUtitiles.getheightofPercentage(context, 37),
-                        width:
-                        BaseUtitiles.getWidthtofPercentage(context, 95),
+                        height: BaseUtitiles.getheightofPercentage(context, 37),
+                        width: BaseUtitiles.getWidthtofPercentage(context, 95),
                         child: Builder(
-                          builder: (context){
+                          builder: (context) {
                             return GridView.builder(
                               padding: const EdgeInsets.all(8),
                               physics: const BouncingScrollPhysics(),
                               gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 crossAxisSpacing: 8,
                                 mainAxisSpacing: 8,
@@ -1045,28 +1057,27 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                               itemBuilder: (context, index) {
                                 final image = allImages[index];
                                 final isNetwork = image
-                                is String; // URL → network, File → local
+                                    is String; // URL → network, File → local
 
                                 return Stack(
                                   children: [
                                     GestureDetector(
                                       child: ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(10),
                                         child: AspectRatio(
                                           aspectRatio: 1,
                                           child: isNetwork
                                               ? Image.network(
-                                            "$image?time=${DateTime.now().millisecondsSinceEpoch}",
-                                            fit: BoxFit.cover,
-                                            width: double.infinity,
-                                          )
+                                                  "$image?time=${DateTime.now().millisecondsSinceEpoch}",
+                                                  fit: BoxFit.cover,
+                                                  width: double.infinity,
+                                                )
                                               : Image.file(
-                                            image
-                                            as File, // 👈 cast to File
-                                            fit: BoxFit.cover,
-                                            width: double.infinity,
-                                          ),
+                                                  image
+                                                      as File, // 👈 cast to File
+                                                  fit: BoxFit.cover,
+                                                  width: double.infinity,
+                                                ),
                                         ),
                                       ),
                                       onTap: () {
@@ -1076,7 +1087,8 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       ImageViewPage(
-                                                        imageUrl: "$image?time=${DateTime.now().millisecondsSinceEpoch}",
+                                                        imageUrl:
+                                                            "$image?time=${DateTime.now().millisecondsSinceEpoch}",
                                                         netUrl: true,
                                                       )));
                                         } else if (image is File) {
@@ -1100,8 +1112,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                             DeleteAlert(
                                                 context, index, "String");
                                           } else if (image is File) {
-                                            DeleteAlert(
-                                                context, index, "File");
+                                            DeleteAlert(context, index, "File");
                                           }
                                         },
                                         child: const CircleAvatar(
@@ -1120,7 +1131,6 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                         ),
                       );
                     }),
-
                     SizedBox(height: height),
                   ],
                 ),
@@ -1274,7 +1284,6 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
               itemCount: siteVoucher_Controller
                   .Sitevoucher_itemview_GetDbList.value.length,
               itemBuilder: (BuildContext context, int index) {
-
                 Map<String, String> paymentTypeMap = {
                   for (var item in commonVoucherController.paymentTypeList)
                     item.paymentTypeValue: item.paymentTypeName
@@ -1393,9 +1402,7 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                     );
                                   },
                                   child: Icon(Icons.remove_circle,
-                                      color: Colors.red
-                                      )
-                              ),
+                                      color: Colors.red)),
                             ),
                           ],
                         ),
@@ -1421,7 +1428,10 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                 width: BaseUtitiles.getWidthtofPercentage(
                                     context, 65),
                                 child: Text(
-                                  paymentTypeMap[siteVoucher_Controller.Sitevoucher_itemview_GetDbList[index].paytype] ?? "",
+                                  paymentTypeMap[siteVoucher_Controller
+                                          .Sitevoucher_itemview_GetDbList[index]
+                                          .paytype] ??
+                                      "",
                                   style: TextStyle(
                                       fontSize: RequestConstant.App_Font_SIZE,
                                       color: Colors.black),
@@ -1556,8 +1566,10 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                                   0.0) {
                             BaseUtitiles.showToast("Some field is missing");
                           } else {
-                            if (siteVoucher_Controller.type.value == "SiteWise Payment") {
-                              await siteVoucher_Controller.getsitevoucherTablesDatas();
+                            if (siteVoucher_Controller.type.value ==
+                                "SiteWise Payment") {
+                              await siteVoucher_Controller
+                                  .getsitevoucherTablesDatas();
                             }
                             if (await BaseUtitiles.checkNetworkAndShowLoader(
                                 context)) {
@@ -1727,12 +1739,15 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
                     child: TextButton(
                         onPressed: () async {
                           if (itemType == "String") {
-                            final imageId = siteVoucher_Controller.imageId[index];
+                            final imageId =
+                                siteVoucher_Controller.imageId[index];
 
-                            final isDeleted = await siteVoucher_Controller.deletingImage(imageId);
+                            final isDeleted = await siteVoucher_Controller
+                                .deletingImage(imageId);
 
                             if (isDeleted) {
-                              siteVoucher_Controller.gettingNetworkImages.removeAt(index);
+                              siteVoucher_Controller.gettingNetworkImages
+                                  .removeAt(index);
                             }
                           } else if (itemType == "File") {
                             int localIndex = index -
@@ -1763,5 +1778,4 @@ class _SiteVoucher_EntryScreenState extends State<SiteVoucher_EntryScreen> {
       ),
     );
   }
-
 }

@@ -450,7 +450,7 @@ class _SiteVoucher_EntryListNewState extends State<SiteVoucher_EntryListNew> {
                                   flex: 8,
                                   child: Text(
                                     siteVoucher_Controller.SiteVocEtyList.value[index].status,
-                                    style:  TextStyle(color:Colors.black),
+                                    style:  TextStyle(color:siteVoucher_Controller.SiteVocEtyList.value[index].status=="Approved"?Colors.green:Colors.red),
                                   ),
                                 ),
                               ],

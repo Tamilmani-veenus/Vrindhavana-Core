@@ -369,6 +369,7 @@ class ApiConstant{
   static String BOQREVISED_SAVE = BASE_URL + "api/BOQRevised/POSTBOQRevisedSave";
   static String REQUISITION_SAVE = BASE_URL + "api/HR/POSTRequisitionSave";
   static String ACCOUNTNAME_SAVE = BASE_URL_CORE + "api/SiteVoucher/AddAccountName";
+  static String ACCOUNTNAME_UPDATE = BASE_URL_CORE + "api/SiteVoucher/UpdateAccountName";
   static String POSTMATERIALSAVEAPI = BASE_URL + "api/CommonFile/POSTMaterial";
   static String PUT_MRNPREAPPROVAL_APPROVE_API = BASE_URL_CORE + "api/MaterialPreApprovalRequest/UpdatePreApprovalMas";
   static String POAMENDMENT_APPROVAL_SAVEAPI = BASE_URL_CORE + "api/MaterialInward/SaveSelectItemAndPoAmd";
@@ -409,7 +410,7 @@ class ApiConstant{
   static String DELETE_BOQREVISED_ENTRYLIST_API = BASE_URL + "api/BOQRevised/DeleteBOQ";
   static String DELETE_REQUISITION_ENTRYLIST_API = BASE_URL + "api/HR/DeleteRequisition";
   static String DELETE_TRANSACKENTRYLIST_API = BASE_URL + "api/MaterialTransferAck/DeleteTransferAck";
-  static String DELETE_ACCOUNTNAME_API = BASE_URL + "api/CommonFile/DeleteAccountName";
+  static String DELETE_ACCOUNTNAME_API = BASE_URL_CORE + "api/SiteVoucher/DeleteAccountName";
   static String DELETE_COMPANYNMRLIST_API = BASE_URL + "api/CompanyLabAttendance/DeleteAttendance";
   static String DELETE_INWARD_IMAGE_API = BASE_URL_CORE + "api/MaterialInward/DeleteInwardImg";
   static String DELETE_DLR_IMAGE_API = BASE_URL_CORE + "api/SubContLabourAttendance/DeleteDLRImg";

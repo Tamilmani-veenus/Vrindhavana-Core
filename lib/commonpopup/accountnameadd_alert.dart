@@ -16,13 +16,14 @@ class AccountnameAddAlert extends StatefulWidget {
 }
 
 class _AccountnameAddAlertState extends State<AccountnameAddAlert> {
+
   CommonVoucherController commonVoucherController=Get.put(CommonVoucherController());
+
 @override
   void initState() {
-    if(commonVoucherController.Accountname.text=="--Select--" || commonVoucherController.Accountname.text=="--SELECT--"){
+    if(commonVoucherController.Accountname.text=="--SELECT--"){
       commonVoucherController.SaveButton.value=RequestConstant.ADD;
       commonVoucherController.AddAccountname.text="";
-
     }
     else{
       commonVoucherController.SaveButton.value=RequestConstant.UPDATE;
@@ -114,7 +115,7 @@ class _AccountnameAddAlertState extends State<AccountnameAddAlert> {
                     if (commonVoucherController.AddAccountname.text.trim()!="") {
                       await commonVoucherController.checkDuplicateAccountName(
                           commonVoucherController.AddAccountname.text, context);
-                      if (commonVoucherController.SaveButton.value == RequestConstant.RESUBMIT) {
+                      if (commonVoucherController.SaveButton.value == RequestConstant.UPDATE) {
                         commonVoucherController.getAccountName();
                         commonVoucherController.selectedAccnameId.value = 0;
                         commonVoucherController.Accountname.text = "--SELECT--";

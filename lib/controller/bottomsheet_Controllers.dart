@@ -1306,14 +1306,14 @@ class BottomsheetControllers {
                           child: Text(list[index].accType.toString(), textAlign: TextAlign.center,style: TextStyle(fontSize: RequestConstant.Lable_Font_SIZE,fontWeight: FontWeight.bold),),
                         ),
                         onTap: () async {
-                          commonVoucherController.selectedAccId.value = list[index].accTypeid;
+                          commonVoucherController.selectedAccTypeId.value = list[index].accTypeid;
                           commonVoucherController.AccountTypename.text = list[index].accType.toString();
-                          advanceReqVoucherController_new.listButton.value = commonVoucherController.selectedAccId.value == 4 ? "List" : "Sitewise List";
+                          advanceReqVoucherController_new.listButton.value = commonVoucherController.selectedAccTypeId.value == 4 ? "List" : "Sitewise List";
                           searchcontroller.text = "";
                           commonVoucherController.selectedAccnameId.value = 0;
                           commonVoucherController.Accountname.text = "--SELECT--";
                           commonVoucherController.namethrough.text = "--SELECT--";
-                          if(commonVoucherController.selectedAccId.value==4){
+                          if(commonVoucherController.selectedAccTypeId.value==4){
                             commonVoucherController.payforController.text = "Advance";
                             commonVoucherController.payfor.value = "A";
                           }
@@ -1416,8 +1416,8 @@ class BottomsheetControllers {
                         ),
                         onTap: () async {
                           commonVoucherController.selectedAccnameId.value = list[index].accNameid;
-                          commonVoucherController. Accountname.text = list[index].accName.toString();
-                          commonVoucherController. namethrough.text = list[index].accName.toString();
+                          commonVoucherController.Accountname.text = list[index].accName.toString();
+                          commonVoucherController.namethrough.text = list[index].accName.toString();
                           searchcontroller.text = "";
                           Navigator.pop(context);
                         },

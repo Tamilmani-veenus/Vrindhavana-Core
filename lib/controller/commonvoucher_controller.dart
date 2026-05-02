@@ -8,6 +8,7 @@ import '../commonpopup/accounttype_alert.dart';
 import '../commonpopup/payfor_alert.dart';
 import '../commonpopup/paymode_alert.dart';
 
+import '../models/accountname_model.dart';
 import '../models/addaccountnamerequest_model.dart';
 import '../provider/common_provider.dart';
 import '../utilities/baseutitiles.dart';
@@ -26,7 +27,7 @@ class CommonVoucherController extends GetxController{
   RxList getdropDownvalue=[].obs;
   RxList acountmainlist=[].obs;
   RxList AccounttypeDropdownName=[].obs;
-  RxInt selectedAccId = 0.obs;
+  RxInt selectedAccTypeId = 0.obs;
   RxString selectedAccName = "".obs;
   RxString VocType = "P".obs;
   String detVocType = "A";
@@ -86,11 +87,11 @@ class CommonVoucherController extends GetxController{
     if (getdropDownvalue.value.length>0) {
       getdropDownvalue.forEach((element) {
         if(value == element.accType){
-          selectedAccId(element.accTypeid);
+          selectedAccTypeId(element.accTypeid);
         }
       });
     }
-    setSelectedAccountTypeListName(selectedAccId.value);
+    setSelectedAccountTypeListName(selectedAccTypeId.value);
   }
 
 
@@ -108,11 +109,15 @@ class CommonVoucherController extends GetxController{
 
   Future getAccountName() async {
     getaccdropDownvalue.value.clear();
-    final value = await CommonProvider.getAccountnameDropdown(selectedAccId.value);
+    final value = await CommonProvider.getAccountnameDropdown(selectedAccTypeId.value);
     if (value != null) {
       if(value.success == true){
         if(value.result!.isNotEmpty){
           getaccdropDownvalue.value = value.result!;
+          getaccdropDownvalue.value.insert(
+            0,
+            Result(accNameid: 0, accName: "--SELECT--"),
+          );
         } else {
           BaseUtitiles.showToast("No Record Found..");
         }
@@ -139,7 +144,7 @@ class CommonVoucherController extends GetxController{
       BaseUtitiles.showToast("already exist");
     }
     else{
-      SaveButton_AccountnameScreen(context,selectedAccId.value);
+      SaveButton_AccountnameScreen(context,selectedAccnameId.value=SaveButton.value == RequestConstant.UPDATE?selectedAccnameId.value:0,selectedAccTypeId.value);
     }
   }
 
@@ -277,16 +282,16 @@ class CommonVoucherController extends GetxController{
     Paymodename.text=selectedPaymodeName.value;
   }
 
-  Future SaveButton_AccountnameScreen(BuildContext context, int id) async {
+  Future SaveButton_AccountnameScreen(BuildContext context, int accNameId,accTypeId) async {
     String body = accountnamesaveRequestToJson(AccountnamesaveRequest(
-      id: 0,
-      accountTypeId: id!=0?id:0,
+      id: accNameId,
+      accountTypeId: accTypeId!=0?accTypeId:0,
       accountHeadId: 0,
       accountMainGroupId: 0,
       accountName: AddAccountname.text,
       active: "Y",
     ));
-    final list = await CommonProvider.SaveAccountnameScreenEntryAPI(body, id);
+    final list = await CommonProvider.SaveAccountnameScreenEntryAPI(body, accNameId, SaveButton.value);
     if (list != null ) {
       if(list["success"] == true){
         BaseUtitiles.showToast(list["message"]);
@@ -303,40 +308,66 @@ class CommonVoucherController extends GetxController{
   }
 
   // ----------Delete call API --------------
-  Future Accountname_DeleteApi(int AccTypeId, int AccNameId) async {
-    await CommonProvider.Accountname_deleteAPI(AccTypeId,AccNameId)
-        .then((value) async {
-      if (value != null && value.length > 0) {
-        selectedAccnameId.value=0;
-        setSelectedaccountName(0);
-        BaseUtitiles.showToast("Delete successfully");
-        return value;
-      }
-    });
-  }
 
+  Future<bool> Accountname_DeleteApi(int AccNameId) async {
+    return CommonProvider.Accountname_deleteAPI(AccNameId);
+  }
 
   Future DeleteAlert(BuildContext context) async {
     return await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Alert!'),
-        content: Text('Do you want to delete?'),
+        title: const Text('Alert!'),
+        content: const Text('Do you want to Delete?'),
         actions: [
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('No'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Accountname_DeleteApi(selectedAccId.value, selectedAccnameId.value);
-              Navigator.of(context).pop();
-            },
-            child: Text('Yes'),
+          Container(
+            margin: const EdgeInsets.only(left: 20, right: 20),
+            child: IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancel",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: RequestConstant.Lable_Font_SIZE))),
+                  ),
+                  VerticalDivider(
+                    color: Colors.grey.shade400, //color of divider
+                    width: 5, //width space of divider
+                    thickness: 2, //thickness of divier line
+                    indent: 15, //Spacing at the top of divider.
+                    endIndent: 15, //Spacing at the bottom of divider.
+                  ),
+                  Expanded(
+                    child: TextButton(
+                        onPressed: () async {
+                          await Accountname_DeleteApi(selectedAccnameId.value);
+                          await getAccountName();
+                          selectedAccnameId.value = 0;
+                          Accountname.text = "--SELECT--";
+                          namethrough.text = "--SELECT--";
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Delete",
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: RequestConstant.Lable_Font_SIZE))),
+                  )
+                ],
+              ),
+            ),
           ),
         ],
       ),
     );
   }
+
 
 }
