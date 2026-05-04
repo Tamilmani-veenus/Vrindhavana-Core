@@ -47,6 +47,9 @@ class MaterialEditResult  {
     this.preparedbyName,
     this.purchaseType,
     this.purchaseVal,
+    this.verifyStatus,
+    this.approveStatus,
+    this.preApproveStatus,
     this.requestDet,
   });
 
@@ -63,6 +66,9 @@ class MaterialEditResult  {
   String? preparedbyName;
   String? purchaseType;
   String? purchaseVal;
+  String? verifyStatus;
+  String? approveStatus;
+  String? preApproveStatus;
   List<RequestDet>? requestDet;
 
   factory MaterialEditResult .fromJson(Map<String, dynamic> json) => MaterialEditResult (
@@ -79,6 +85,9 @@ class MaterialEditResult  {
     preparedbyName: json["createdName"],
     purchaseType: json["requestType"],
     purchaseVal: json["requestType"],
+    verifyStatus: json["verifyStatus"],
+    approveStatus: json["approveStatus"],
+    preApproveStatus: json["preApproveStatus"],
     requestDet: List<RequestDet>.from(json["mMatReqMasLink"].map((x) => RequestDet.fromJson(x))),
   );
 
@@ -96,6 +105,9 @@ class MaterialEditResult  {
     "createdName": preparedbyName,
     "requestType": purchaseType,
     "requestType": purchaseVal,
+    "verifyStatus": verifyStatus,
+    "approveStatus": approveStatus,
+    "preApproveStatus": preApproveStatus,
     "mMatReqMasLink": List<dynamic>.from(requestDet!.map((x) => x.toJson())),
   };
 }

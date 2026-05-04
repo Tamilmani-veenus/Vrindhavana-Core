@@ -443,9 +443,9 @@ class MRN_Request_Controller extends GetxController {
       verifyDate: isVerify
           ? BaseUtitiles().convertToUtcIso(RequestDateController.text)
           : null,
-      verifyStatus: isVerify ? "Y" : "N",
-      preApproveStatus: "N",
-      approveStatus: "N",
+      verifyStatus: isResubmit ?Material_EditListApiValue[0].verifyStatus:isVerify ? "Y" : "N",
+      preApproveStatus: isResubmit ?Material_EditListApiValue[0].preApproveStatus:"N",
+      approveStatus: isResubmit ?Material_EditListApiValue[0].approveStatus:"N",
 
       //det
       mMatReqMasLink: getRequestDetList.value.isEmpty
