@@ -252,11 +252,11 @@ class InwardPending_Controller extends GetxController
           if (ItemGetTableListdata[i].balQty <
               double.parse(
                   Itemlist_Inward_QtyListController[i].value.text.toString())) {
-            ischecked?[i] = true;
+            // ischecked?[i] = true;
           } else if (ItemGetTableListdata[i].balQty >
               double.parse(
                   Itemlist_Inward_QtyListController[i].value.text.toString())) {
-            ischecked?[i] = false;
+            // ischecked?[i] = false;
           }
         }
 
