@@ -515,7 +515,7 @@ class _MRNReportState extends State<MRNReport> {
 
   Widget ListDetails(){
     return Container(
-      height:BaseUtitiles.getheightofPercentage(context,60),
+      height:BaseUtitiles.getheightofPercentage(context,54),
       width: BaseUtitiles.getWidthtofPercentage(context,100),
       child: Obx(()=>ListView.builder(
           shrinkWrap: true,
@@ -548,12 +548,12 @@ class _MRNReportState extends State<MRNReport> {
                                 children: [
                                   ConstIcons.list_date,
                                   Text(
-                                    siteController.mrnListValue.value[index].mrnReqDate.toString(),
+                                    siteController.mrnListValue.value[index].reqDate.toString(),
                                     style: TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
-                              Text(siteController.mrnListValue.value[index].mrnReqNo.toString(),style: TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.bold),),
+                              Text(siteController.mrnListValue.value[index].reqNo.toString(),style: TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -597,7 +597,7 @@ class _MRNReportState extends State<MRNReport> {
                             Expanded(
                               flex: 3,
                               child: Text(
-                                siteController.mrnListValue.value[index].purchaseType.toString(),style: const TextStyle(color: Colors.black),
+                                siteController.mrnListValue.value[index].requestType=="PO"?"General Items":"Asset Materials",style: const TextStyle(color: Colors.black),
                               ),
                             ),
                           ],
@@ -612,8 +612,8 @@ class _MRNReportState extends State<MRNReport> {
                             Expanded(
                               flex: 3,
                               child: Text(
-                                siteController.mrnListValue.value[index].mrnReqStatus.toString().toUpperCase(),
-                                style:  siteController.mrnListValue.value[index].mrnReqStatus.toString() == "Approval Made" ? TextStyle(color: Colors.green, fontWeight: FontWeight.bold) : TextStyle(color: Colors.red, fontWeight: FontWeight.bold) ,
+                                siteController.mrnListValue.value[index].status.toString().toUpperCase(),
+                                style:  siteController.mrnListValue.value[index].status.toString() == "APPROVED" ? TextStyle(color: Colors.green, fontWeight: FontWeight.bold) : TextStyle(color: Colors.red, fontWeight: FontWeight.bold) ,
                               ),
                             ),
                           ],

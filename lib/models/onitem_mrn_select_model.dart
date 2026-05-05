@@ -1,43 +1,85 @@
-
+// To parse this JSON data, do
+//
+//     final onItemSelectMrnList = onItemSelectMrnListFromJson(jsonString);
 
 import 'dart:convert';
 
-List<OnItemSelectMrnList> onItemSelectMrnListFromJson(String str) => List<OnItemSelectMrnList>.from(json.decode(str).map((x) => OnItemSelectMrnList.fromJson(x)));
+OnItemSelectMrnList onItemSelectMrnListFromJson(String str) => OnItemSelectMrnList.fromJson(json.decode(str));
 
-String onItemSelectMrnListToJson(List<OnItemSelectMrnList> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String onItemSelectMrnListToJson(OnItemSelectMrnList data) => json.encode(data.toJson());
 
 class OnItemSelectMrnList {
+  bool? success;
+  String? message;
+  List<Result>? result;
+
   OnItemSelectMrnList({
-    this.material,
-    this.scale,
-    this.reqQty,
-    this.appQty,
-    this.appType,
-    this.remarks,
+    this.success,
+    this.message,
+    this.result,
   });
 
-  String? material;
-  String? scale;
-  double? reqQty;
-  double? appQty;
-  String? appType;
-  String? remarks;
-
   factory OnItemSelectMrnList.fromJson(Map<String, dynamic> json) => OnItemSelectMrnList(
-    material: json["Material"],
-    scale: json["Scale"],
-    reqQty: json["ReqQty"],
-    appQty: json["AppQty"],
-    appType: json["AppType"],
-    remarks: json["Remarks"],
+    success: json["success"],
+    message: json["message"],
+    result: json["result"]==null?null:List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "Material": material,
-    "Scale": scale,
-    "ReqQty": reqQty,
-    "AppQty": appQty,
-    "AppType": appType,
-    "Remarks": remarks,
+    "success": success,
+    "message": message,
+    "result": result == null? null :List<dynamic>.from(result!.map((x) => x.toJson())),
+  };
+}
+
+class Result {
+  String? projectName;
+  String? siteName;
+  String? scaleName;
+  String? materialName;
+  int? reqOrdDetId;
+  int? reqOrdMasId;
+  double? reqQty;
+  double? qty;
+  String? approveType;
+  String? remarks;
+
+  Result({
+    this.projectName,
+    this.siteName,
+    this.scaleName,
+    this.materialName,
+    this.reqOrdDetId,
+    this.reqOrdMasId,
+    this.reqQty,
+    this.qty,
+    this.approveType,
+    this.remarks,
+  });
+
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+    projectName: json["projectName"],
+    siteName: json["siteName"],
+    scaleName: json["scaleName"],
+    materialName: json["materialName"],
+    reqOrdDetId: json["reqOrdDetId"],
+    reqOrdMasId: json["reqOrdMasId"],
+    reqQty: json["reqQty"],
+    qty: json["qty"],
+    approveType: json["approveType"],
+    remarks: json["remarks"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "projectName": projectName,
+    "siteName": siteName,
+    "scaleName": scaleName,
+    "materialName": materialName,
+    "reqOrdDetId": reqOrdDetId,
+    "reqOrdMasId": reqOrdMasId,
+    "reqQty": reqQty,
+    "qty": qty,
+    "approveType": approveType,
+    "remarks": remarks,
   };
 }
