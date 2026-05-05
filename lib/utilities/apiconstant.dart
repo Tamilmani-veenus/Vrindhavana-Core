@@ -4,8 +4,8 @@ class ApiConfig {
   // static const String LIVE_ENDPOINT_CORE = "http://192.168.0.250:8080/";  //local
   static const String LIVE_ENDPOINT_CORE = "http://49.204.233.151:8080/";    //local
 
-  // static const String DEFAULT_BASE_URL_CORE = LIVE_ENDPOINT_CORE + "vrindhavanaAPI/";
-  static const String DEFAULT_BASE_URL_CORE = LIVE_ENDPOINT_CORE + "ERPNEW/";
+  static const String DEFAULT_BASE_URL_CORE = LIVE_ENDPOINT_CORE + "vrindhavanaAPI/";
+  // static const String DEFAULT_BASE_URL_CORE = LIVE_ENDPOINT_CORE + "ERPNEW/";
   static late final String APIURL;
   static late final String APIURL_CORE;
   static late final String WebURL;
@@ -16,8 +16,8 @@ class ApiConfig {
   static Future<void> initializeUrl() async {
     final isLive = await _isEndpointLive(Uri.parse(LIVE_ENDPOINT_CORE).host);
     if (isLive) {
-      APIURL = "${LIVE_ENDPOINT_CORE}ERPNEW/";
-      APIURL_CORE = "${LIVE_ENDPOINT_CORE}ERPNEW/";
+      APIURL = "${LIVE_ENDPOINT_CORE}vrindhavanaAPI/";
+      APIURL_CORE = "${LIVE_ENDPOINT_CORE}vrindhavanaAPI/";
       WebURL = "${LIVE_ENDPOINT_CORE}Vrindhavana/";
       print("IP_URL $APIURL");
     } else {
