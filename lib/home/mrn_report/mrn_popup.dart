@@ -59,7 +59,7 @@ class mrnPopup extends StatelessWidget {
                             margin: EdgeInsets.only(top: 5, left: 5),
                             child: Container(
                                 width: BaseUtitiles.getWidthtofPercentage(context,55),
-                                child: Text(list[index].material.toString()+" ("+list[index].scale.toString()+")",style: TextStyle(color: Theme.of(context).primaryColor),)),
+                                child: Text(list[index].materialName.toString()+" ("+list[index].scaleName.toString()+")",style: TextStyle(color: Theme.of(context).primaryColor),)),
                           ),
 
                           // Container(
@@ -102,7 +102,7 @@ class mrnPopup extends StatelessWidget {
                                 Expanded(
                                   flex:2,
                                   child: Container(
-                                    child: Text(list[index].appQty.toString()),
+                                    child: Text(list[index].qty.toString()),
                                   ),
                                 ),
                               ],

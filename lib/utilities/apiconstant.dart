@@ -76,7 +76,7 @@ class ApiConstant{
   static String ATTENDANCEONITEMSELCT = BASE_URL + "api/Report/GetAttendanceReportDet";
   static String SITEDROPDWONLISTAPI = BASE_URL_CORE + "api/GenericMaster/GetProjectWiseSiteList";
   static String TOSITEDROPDWONLISTAPI = BASE_URL_CORE + "api/GenericMaster/GetToSitesByFrSiteDd";
-  static String GETMRNREPORTSLISTAPI = BASE_URL + "api/Report/GetMrnReportMas";
+  static String GETMRNREPORTSLISTAPI = BASE_URL_CORE + "api/MaterialReqOrdMas/GetAllMRNReportViewListMas";
   static String GETINWARDREPORTSLISTAPI = BASE_URL + "api/Report/GetInwardReportMas";
   static String GETSUPPLIERDROPDOWNAPI = BASE_URL + "api/CommonFile/GetSupplier";
   static String GETDPRLISTAPI = BASE_URL + "api/Report/GetDPRReportMas";
