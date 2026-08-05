@@ -1,0 +1,637 @@
+import 'dart:convert';
+import 'package:vrindhavanacore/constants/ui_constant/textfont_style.dart';
+import '../apimanager/apimanager.dart';
+import '../models/accountname_model.dart';
+import '../models/accounttype_model.dart';
+import '../models/companydropdownlist_model.dart';
+import '../models/companywiseprojectname_model.dart';
+import '../models/dpr_headname_model.dart';
+import '../models/invoiceno_billdir_model.dart';
+import '../models/materiallist_model.dart';
+import '../models/materialsubitem_dropdown_model.dart';
+import '../models/materialwise_materialdropdown_model.dart';
+import '../models/materialwise_subhead_dropdown_model.dart';
+import '../models/nmr_billno_model.dart';
+import '../models/nmrwklybill_deduction_save_model.dart';
+import '../models/payfor_model.dart';
+import '../models/paymenttype_model.dart';
+import '../models/paymode_model.dart';
+import '../models/project_dropdownlist_model.dart';
+import '../models/sitedropdownresponse_model.dart';
+import '../models/staffname_responsemodel.dart';
+import '../models/staffresponse_model.dart';
+import '../models/subcont_entrylist_rights_model.dart';
+import '../models/subcontract_dropdown_model.dart';
+import '../models/supplierdropwon_model.dart';
+import '../models/workorderno_dropdown_model.dart';
+import '../utilities/apiconstant.dart';
+import '../utilities/baseutitiles.dart';
+import '../utilities/requestconstant.dart';
+
+class CommonProvider {
+  static Future<ProjectDropdownListResponse?> getproject({type,companyId}) async {
+    try {
+      final response =
+          await ApiManager.getAPICall(type=="mrnReqTracker"?ApiConstant.GETPROJECTREPORTLIST+"?CompanyId=$companyId":ApiConstant.GETPROJECTDROPDOWNLIST);
+      print("response...${response}");
+      return projectDropdownListResponseFromJson(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<ProjectDropdownListResponse?> getprojectAll() async {
+    try {
+      final response =
+          await ApiManager.getAPICall(ApiConstant.GETREPORTPROJECTDROPDOWNLIST);
+      print("response...${response}");
+      return projectDropdownListResponseFromJson(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<ProjectDropdownListResponse?> getReportproject(type) async {
+    try {
+      final response = await ApiManager.getAPICall(ApiConstant.GETREPORTPROJECTDROPDOWNLIST);
+      print("response...${response}");
+      return projectDropdownListResponseFromJson(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+//-----Project Name Companywise list-----------
+//   static Future<List> getproject_Companywise(int compId) async {
+//     List responseData = [];
+//     await ApiManager.getAPICall(
+//             ApiConstant.GETPROJECTCOMPANYWISE_DROPDOWNLIST + "?compId=$compId")
+//         .then((value) {
+//       responseData = projectnameCompanywiseFromJson(value);
+//       if (responseData != null && responseData.length > 0) {
+//         return responseData;
+//       }
+//     }, onError: (error) {
+//       print(error);
+//       print("Error == $error");
+//       BaseUtitiles.showToast('Something went wrong..');
+//     });
+//     return responseData;
+//   }
+
+  // static Future<List> getHeadName(int pId, int sId) async {
+  //   List responseData = [];
+  //   await ApiManager.getAPICall(
+  //           ApiConstant.GET_HEAD_DROPDOWNLIST + "?PId=$pId&SId=$sId")
+  //       .then((value) {
+  //     responseData = headNameResFromJson(value);
+  //     if (responseData != null && responseData.length > 0) {
+  //       return responseData;
+  //     }
+  //   }, onError: (error) {
+  //     print(error);
+  //     print("Error == $error");
+  //     BaseUtitiles.showToast('Something went wrong..');
+  //   });
+  //   return responseData;
+  // }
+
+  static Future<SubcontractorDropdownList?> getSubcontrator(
+      int pid, int sid, checkScreen) async {
+    try {
+      final response = await ApiManager.getAPICall(
+          ApiConstant.GETSUBCONTRACTLIST + "?ProjectId=$pid");
+      print("response...${response}");
+      return subcontractorDropdownListFromJson(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<WorkOrderNoResponse?> getWorkOrderNoList(int pId, int sId, int subId, {String? fromDate, String? toDate,String? type}) async {
+    try{
+      final value = await ApiManager.getAPICall(type=="BILL DIRECT"?
+      "${ApiConstant.GETWRKORDERNOLIST}?projectId=$pId&siteId=$sId&subcontractorId=$subId":
+      "${ApiConstant.GETBOQWRKORDERNOLIST}?projectId=$pId&siteId=$sId&subcontractorId=$subId&fromDate=$fromDate&toDate=$toDate");
+      print("AdvEntryList:" + value);
+      return workOrderNoResponseFromJson(value);
+    }
+    catch(e){
+      print("ERROR.....$e");
+      return null;
+    }
+  }
+
+  static Future<InvoiceNoResponse?> getInvoiceNoList(int pId, int subId) async {
+    try{
+      final value = await ApiManager.getAPICall(
+          "${ApiConstant.GETINVOICENOLIST}?fieldName=billNo&tableName=View_SubContractorWorkNMRBill&projectId=$pId&subContractorId=$subId");
+      print("AdvEntryList:" + value);
+      return invoiceNoResponseFromJson(value);
+    }
+    catch(e){
+      print("ERROR.....$e");
+      return null;
+    }
+  }
+
+
+  // static Future<List> getLabour() async {
+  //   List responseData = [];
+  //   await ApiManager.getAPICall("ApiConstant.GETLABOURLIST").then((value) {
+  //     responseData = getLabourDetailsFromJson(value);
+  //     if (responseData != null && responseData.length > 0) {
+  //       return responseData;
+  //     }
+  //   }, onError: (error) {
+  //     print(error);
+  //     print("Error == $error");
+  //     BaseUtitiles.showToast('Something went wrong..');
+  //   });
+  //   return responseData;
+  // }
+
+  static Future<SiteDropdownResponse?> getSiteDropdown(
+      int projectId, int? fromSiteId, String type,
+      {int? toSiteId}) async {
+    try {
+      String response;
+
+      if (type == "Fromsite") {
+        response = await ApiManager.getAPICall(
+          "${ApiConstant.SITEDROPDWONLISTAPI}?ProjectId=$projectId",
+        );
+      } else if (type == "StoreTransfer") {
+        response = await ApiManager.getAPICall(
+          "${ApiConstant.GETFROMSITELIST}?ProjectId=$projectId&ToSiteID=$toSiteId",
+        );
+      } else {
+        response = await ApiManager.getAPICall(
+          "${ApiConstant.TOSITEDROPDWONLISTAPI}?ProjectId=$projectId&fromSiteId=$fromSiteId",
+        );
+      }
+
+      print("response...$response");
+      return siteDropdownResponseFromJson(response);
+    } catch (error, stackTrace) {
+      print("Error == $error");
+      print("StackTrace == $stackTrace");
+      return null;
+    }
+  }
+
+  static Future<CompanyDropdownListResponse?> getCompany() async {
+    try {
+      final response =
+      await ApiManager.getAPICall(ApiConstant.GETCOMPANYDROPDOWNLIST);
+      print("response...${response}");
+      return companyDropdownListResponseFromJson(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  // static Future<List> getCompany(int userId, int i) async {
+  //   List responseData = [];
+  //
+  //   if (i == 0) {
+  //     await ApiManager.getAPICall(
+  //             "ApiConstant.GETCOMPANYDROPDOWNLIST" + "?UserId=$userId")
+  //         .then((value) {
+  //       responseData = companyDropdownListResponseFromJson(value);
+  //       if (responseData != null && responseData.length > 0) {
+  //         return responseData;
+  //       }
+  //     }, onError: (error) {
+  //       print(error);
+  //       print("Error == $error");
+  //       BaseUtitiles.showToast('Something went wrong..');
+  //     });
+  //   } else {
+  //     await ApiManager.getAPICall("ApiConstant.GETCOMPANYALL_DROPDOWNLIST").then(
+  //         (value) {
+  //       responseData = companyDropdownListResponseFromJson(value);
+  //       if (responseData != null && responseData.length > 0) {
+  //         return responseData;
+  //       }
+  //     }, onError: (error) {
+  //       print(error);
+  //       print("Error == $error");
+  //       BaseUtitiles.showToast('Something went wrong..');
+  //     });
+  //   }
+  //   return responseData;
+  // }
+
+  static Future<List> getmaterialsubDropdown(int mhId, reportScreen) async {
+    List responseData = [];
+    await ApiManager.getAPICall(reportScreen == 0
+            ? "ApiConstant.GETMATERIALSUBDRPDOWNLIST"
+            : "ApiConstant.GETMATERIALSUBMAT_REPORTLIST" + '?mhId=$mhId')
+        .then((value) {
+      // responseData = materialSubDropdownResponseFromJson(value);
+      if (responseData != null && responseData.length > 0) {
+        return responseData;
+      }
+    }, onError: (error) {
+      print(error);
+      print("Error == $error");
+      BaseUtitiles.showToast('Something went wrong..');
+    });
+    return responseData;
+  }
+
+  static Future<MaterialWiseHeadResponse?> materialWise_HeadDropdown() async {
+    try {
+      final response =
+          await ApiManager.getAPICall("${ApiConstant.GETMATERIALHEAD_REPORT}");
+      print("response...$response");
+      return materialWiseHeadResponseFromJson(response);
+    } catch (error, stackTrace) {
+      print("Error == $error");
+      print("StackTrace == $stackTrace");
+      return null;
+    }
+  }
+
+  static Future<DprHeadNameListModel?> dprNewHeadNameDropdown(siteId,type,projectId) async {
+    try {
+      String url;
+
+      if (type == "ManPower") {
+        url = "${ApiConstant.GETMANPOWERHEAD_LIST}?projectId=$projectId&siteId=$siteId";
+      } else if (type == "DPRNEW") {
+        url = "${ApiConstant.GETDPRNEWHEAD_LIST}?siteId=$siteId";
+      } else if (type == "WORKORDBOQ") {
+        url = "${ApiConstant.WORKORDERBOQ_HEADITEM}?projId=$projectId&siteId=$siteId";
+      }else {
+        url = "${ApiConstant.GETBOQHEAD_LIST}?siteId=$siteId";
+      }
+      final response = await ApiManager.getAPICall(url);
+      print("Response: $response");
+      return dprHeadNameListModelFromJson(response);
+    } catch (error, stackTrace) {
+      print("Error == $error");
+      print("StackTrace == $stackTrace");
+      return null;
+    }
+  }
+
+  static Future<MaterialWiseHeadSubResponse?> materialWise_sub_HeadDropdown(
+      headId) async {
+    try {
+      final response = await ApiManager.getAPICall(
+          "${ApiConstant.GETMATERIALSUBHEAD_REPORT}?HeadId=$headId");
+      print("response...$response");
+      return materialWiseHeadSubResponseFromJson(response);
+    } catch (error, stackTrace) {
+      print("Error == $error");
+      print("StackTrace == $stackTrace");
+      return null;
+    }
+  }
+
+  static Future<MaterialWiseMaterialDropdownResponse?>
+      materialWise_Based_HeadDropdown(MaterialId) async {
+    try {
+      final response = await ApiManager.getAPICall(
+          "${ApiConstant.GETMATERIALBASEDSUBHEAD_REPORT}?MaterialSubId=$MaterialId");
+      print("response...$response");
+      return materialWiseMaterialDropdownResponseFromJson(response);
+    } catch (error, stackTrace) {
+      print("Error == $error");
+      print("StackTrace == $stackTrace");
+      return null;
+    }
+  }
+
+  // static Future<List> materialWise_sub_HeadDropdown(int reportScreen) async {
+  //   List responseData = [];
+  //   await ApiManager.getAPICall(reportScreen == 0
+  //           ? ApiConstant.GETMATERIAL_SUBHAED_DROPDOWNLIST
+  //           : ApiConstant.GETMATERIALHEAD_REPORT)
+  //       .then((value) {
+  //     responseData = materialWiseSubHeadResponseFromJson(value);
+  //     if (responseData != null && responseData.length > 0) {
+  //       return responseData;
+  //     }
+  //   }, onError: (error) {
+  //     print(error);
+  //     print("Error == $error");
+  //     BaseUtitiles.showToast('Something went wrong..');
+  //   });
+  //   return responseData;
+  // }
+
+  static Future<DailyEntrysubcontRightsEntrylistRes?>
+      getSubControllerRightsEntryList(int MenuId) async {
+    try {
+      final response = await ApiManager.getAPICall(
+          ApiConstant.GETCONTROLL_RIGHTS_ENTRYLIST + "?MenuID=$MenuId");
+      return dailyEntrysubcontRightsEntrylistResFromJson(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<ProjectDropdownListResponse?> getFromproject(type, id) async {
+    try {
+      String? response;
+      if (type == "Against Mrn Approval") {
+        response = await ApiManager.getAPICall(
+            ApiConstant.GETFROMPROAGAINSTMRNLIST + "?id=$id");
+      } else {
+        response =
+            await ApiManager.getAPICall(ApiConstant.GETPROJECTDROPDOWNLIST);
+      }
+      print("response...${response}");
+      return projectDropdownListResponseFromJson(response!);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<dynamic> getAutoYearWise(Url) async {
+    var response;
+    try {
+      if (Url == "MRN INDENT") {
+        response = await ApiManager.getAPICall(
+          "${ApiConstant.GETAUTONO_YEAR_WISE}?fieldName=ReqOrdNo&tableName=MaterialReqOrdMas&formName=MaterialReqOrdMas",);
+      } else if (Url == "MRN PRE INDENT") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?fieldName=ReqOrdNo&tableName=MaterialReqOrdMas&formName=SiteRequest");
+      } else if (Url == "CONSUMPTION") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?fieldName=ExpenseNo&tableName=MaterialExpenseMas&formName=MaterialExpenses");
+      } else if (Url == "TRANSFER BETWEEN PROJECTS") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=TransferNo&tableName=MaterialTransferMas&formName=MaterialTransfer");
+      } else if (Url == "TRANSFER BETWEEN SITES") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?fieldName=TransferNo&tableName=MaterialSitetoSitetransferMas&formName=MaterialSitetosite");
+      } else if (Url == "MATERIAL TRANSFER REQUEST") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=TransferNo&tableName=MaterialTransferRequestMas&formName=MaterialTransferRequest");
+      } else if (Url == "INWARD") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=InwardNo%20&tableName=MaterialInwardMas%20&formName=MaterialInward");
+      } else if (Url == "BOQ REVISED") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=ReviseNo&tableName=BOQReviseMas&formName=BOQReviseMas");
+      } else if (Url == "SUBCONTRACTOR ATTENDANCE") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=LabourAttendanceNo&tableName=SubContLabourAttendMas&formName=SubContLabourAttendMas");
+      } else if (Url == "DPR") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=WorkNo&tableName=SubContractDailyWorkMas&formName=SubContractDailyWorkMas");
+      } else if (Url == "DPR NEW") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=WorkNo&tableName=SubContractDailyWorkMas&formName=SubContractDailyWorkMasNew");
+      } else if (Url == "DPR LABOUR") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}FieldName=Work_No&TableName=SubCont_dailyWork_Mas&FormName=DPR_New2");
+      } else if (Url == "COMPANY NMR") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=NMRLabourAttendanceNo&tableName=NMRLabourAttendanceMas&formName=NMRLabourAttendance");
+      } else if (Url == "BILL BOQ") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=WorkNo&tableName=SubcontractorWorkQtyMas&formName=SubcontractorWorkQtyMasBOQ");
+      }else if (Url == "DIRECT BILL") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=workno&tableName=SubcontractorWorkQtyMas&formName=SubcontractorWorkQtyMasDirect");
+      } else if (Url == "NMR WEEKLY BILL") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=Workno&tableName=SubContractorNMRBillMas&formName=SubContractorNMRBillMas");
+      } else if (Url == "ADVANCE REQ VOUCHER") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=AdvanceReqVoucherno&tableName=AccountAdvanceReqVoucher&formName=AccountAdvanceReqVoucher");
+      } else if (Url == "SITE VOUCHER") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=SiteVoucherNo&tableName=AccountSiteVoucher&formName=AccountSiteVoucher");
+      } else if (Url == "STAFF VOUCHER") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=StaffVocNo&tableName=AccountStaffVoucher&formName=StaffVoucher");
+      } else if (Url == "TRANSFER ACK PENDING") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=AcknowledgeNo&tableName=MaterialTransferAckmas&formName=MaterialAckMas");
+      } else if (Url == "REQ SLIP") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant
+                .GETAUTONO_YEAR_WISE}?fieldName=RequisitionNo&tableName=StaffRequisitionSlip&formName=StaffRequisitionSlip");
+      } else if (Url == "MANPOWER") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=ManPowerNo&tableName=ManPowerMas&formName=ManPower");
+      }
+      else if (Url == "WORK ORDER DIRECT") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=WorkOrderNo&tableName=SubcontractWorkOrderMas&formName=SubcontractWorkOrderMas");
+      }
+      else if (Url == "WORK ORDER BOQ") {
+        response = await ApiManager.getAPICall(
+            "${ApiConstant.GETAUTONO_YEAR_WISE}?projectId=0&fieldName=WorkOrderNo&tableName=SubcontractWorkOrderMas&formName=SubcontractWorkOrderMas");
+      }
+      final data = json.decode(response);
+      return data;
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<AccountTypeReponse?> getAccountType(type) async {
+    try {
+      final value = await ApiManager.getAPICall(type=="AdvReq"?ApiConstant.GETACCOUNTTYPEDROPDOWNLISTADVREQ:ApiConstant.GETACCOUNTTYPEDROPDOWNLIST);
+      return accountTypeReponseFromJson(value);
+    } catch (e) {
+      print("Error == $e");
+      return null;
+    }
+  }
+
+  static Future<PayModeReponse?> getPaymodetype() async {
+    try {
+      final value = await ApiManager.getAPICall(ApiConstant.GETPAYMODEDROPDOWNLIST);
+      return payModeReponseFromJson(value);
+    } catch (e) {
+      print("Error == $e");
+      return null;
+    }
+  }
+
+  static Future<PaymentTypeReponse?> getPaymentTypeListAPI() async {
+    try {
+      final value = await ApiManager.getAPICall(ApiConstant.GETPAYMENTDROPDOWNLIST);
+      return paymentTypeReponseFromJson(value);
+    } catch (e) {
+      print("Error == $e");
+      return null;
+    }
+  }
+
+  static Future<PayforReponse?> getPayforType() async {
+    try {
+      final value = await ApiManager.getAPICall(ApiConstant.GETPAYFORDROPDOWNLIST);
+      return payforReponseFromJson(value);
+    } catch (e) {
+      print("Error == $e");
+      return null;
+    }
+  }
+
+  static Savetoken(token) async {
+    try {
+      final result =
+          await ApiManager.postCall(ApiConstant.TOKEN_SAVE + "?Token=$token");
+      return jsonDecode(result);
+    } catch (e) {
+      print("token error...${e}");
+    }
+  }
+
+  static Future Usertoken_deleteAPI() async {
+    try {
+      final response =
+          await ApiManager.postCall(ApiConstant.USERTOKENDELETE_API);
+      return json.decode(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<bool> Registration_account_deleteAPI(int reqId) async {
+    try {
+      final response = await ApiManager.deleteAPICall(
+          "${ApiConstant.ACCOUNTDELETION}/$reqId");
+
+      final Map<String, dynamic> decoded = jsonDecode(response);
+
+
+      bool isSuccess = decoded["success"] == true;
+
+      final message = decoded["message"] ??
+          (isSuccess
+              ? "Account deleted successfully"
+              : "Something went wrong");
+
+      BaseUtitiles.showToast(message);
+
+      print("DDDDDD...${response}");
+
+      return isSuccess;
+    } catch (error) {
+      print("Delete API Error: $error");
+      BaseUtitiles.showToast(RequestConstant.SOMETHINGWENT_WRONG);
+      return false;
+    }
+  }
+
+  static Future<AccountNameReponse?> getAccountnameDropdown(int AccTypeId) async {
+    try {
+      final value = await ApiManager.getAPICall(ApiConstant.ACCOUNTNAMEDROPDWONLISTAPI + "?typeId=$AccTypeId");
+      return accountNameReponseFromJson(value);
+    } catch (e) {
+      print("Error == $e");
+      return null;
+    }
+  }
+
+  static Future<StaffNameResponse?> getStaffDropdown(type) async {
+    try {
+      final response = await ApiManager.getAPICall(type=="staffVoucher"?ApiConstant.STAFFVOUSTAFFLISTAPI:ApiConstant.STAFFDROPDWONLISTAPI);
+      print("response...${response}");
+      return staffNameResponseFromJson(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<MateriallistResponse?> getmaterial(
+      bool requestType, projectId, siteId) async {
+    try {
+      final response = await ApiManager.getAPICall(ApiConstant.GETMATERIALLIST +
+          "?asset=$requestType&projectId=$projectId&siteId=$siteId&SubId=0");
+      print("response...${response}");
+      return materiallistResponseFromJson(response);
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+
+  static Future<dynamic> checkMaterialBalqty() async {
+    try {
+      final value = await ApiManager.getAPICall(ApiConstant.CHECKMATERIALLISTBALQTY);
+      print('API Response: ${value}');
+      return jsonDecode(value);
+
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<dynamic> SaveAccountnameScreenEntryAPI(
+      String body, int accNameId, String saveButton) async {
+
+    try {
+      dynamic response;
+
+      if (saveButton == RequestConstant.UPDATE) {
+        response = await ApiManager.putUpdateAPIButton(
+          ApiConstant.ACCOUNTNAME_UPDATE + "?id=$accNameId",
+          body,
+        );
+      } else {
+        response = await ApiManager.postAPICall(
+          ApiConstant.ACCOUNTNAME_SAVE,
+          body,
+        );
+      }
+
+      print("response...$response");
+      return jsonDecode(response);
+
+    } catch (error) {
+      print("Error == $error");
+      return null;
+    }
+  }
+
+  //---Delete API----
+
+  static Future<bool> Accountname_deleteAPI(int accNameId) async {
+    try {
+      final response = await ApiManager.deleteAPICall(
+          "${ApiConstant.DELETE_ACCOUNTNAME_API}?id=$accNameId");
+
+      final Map<String, dynamic> decoded = jsonDecode(response);
+
+
+      bool isSuccess = decoded["success"] == true;
+
+      final message = decoded["message"] ??
+          (isSuccess
+              ? "Deleted successfully"
+              : "Something went wrong");
+
+      BaseUtitiles.showToast(message);
+
+      return isSuccess;
+    } catch (error) {
+      print("Delete API Error: $error");
+      BaseUtitiles.showToast(RequestConstant.SOMETHINGWENT_WRONG);
+      return false;
+    }
+  }
+
+}

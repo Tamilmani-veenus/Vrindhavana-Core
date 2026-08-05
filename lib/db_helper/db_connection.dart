@@ -1,0 +1,126 @@
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+
+class DatabaseConnection {
+  Future<Database> setDatabase() async {
+    var dierctory = await getApplicationDocumentsDirectory();
+    var path = join(dierctory.path, 'cms_erp_db');
+    await deleteDatabase(path);
+    var db = await openDatabase(path, version: 1, onCreate: _createDatabase);
+    return db;
+  }
+
+  Future<void> _createDatabase(Database database, int version) async {
+
+    String subcontDetTable = "CREATE TABLE subcontAttendanceDet (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,catId INTEGER,catName TEXT,wages REAL,nos TEXT,netAmt REAL,remarks TEXT,siteId INTEGER,siteName TEXT,MrgOtHrs REAL,MrgOtAmt REAL,EvgOtHrs REAL,EvgOtAmt REAL,EvgExtrsAmt REAL,Extra REAL,reqDetId INTEGER,hrs REAL)";
+    await database.execute(subcontDetTable);
+
+    String manPowerDetTable = "CREATE TABLE manPowerDet (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,reqDetId INTEGER,catId INTEGER,catName TEXT,nos TEXT,remarks TEXT)";
+    await database.execute(manPowerDetTable);
+
+    String dprItemListTable = "CREATE TABLE dprItemListTable (id INTEGER PRIMARY KEY UNIQUE,headItemId INTEGER,subItemId INTEGER,level3ItemId INTEGER,woDetId INTEGER,boqCode INTEGER,itemDesc TEXT,unit TEXT,rate REAL,qty REAL,amt REAL,balQty REAL,siteId INTEGER,scaleId INTEGER,subContractDailyWorkMasId INTEGER,reqDetId INTEGER)";
+    await database.execute(dprItemListTable);
+
+    String dprNewMassTable = "CREATE TABLE dprNewMassTable (id INTEGER PRIMARY KEY UNIQUE,autoNo TEXT,date TEXT,projectId INTEGER,projectName TEXT,sitetId INTEGER,sitetName TEXT,entryType TEXT,subcontId INTEGER,subcontName TEXT,refNo TEXT,prepBy TEXT,remarks TEXT)";
+    await database.execute(dprNewMassTable);
+
+    String dprNewDetTable = "CREATE TABLE dprNewDetTable (id INTEGER PRIMARY KEY UNIQUE,headItemId INTEGER,subItemId INTEGER,level3ItemId INTEGER,woDetId INTEGER,itemDesc TEXT,units TEXT,rate REAL,qty REAL,amt REAL,balQty REAL,boqCode Text,unitId INTEGER,cement TEXT,workremarks TEXT,workdetid INTEGER,siteid INTEGER,reqDetId INTEGER)";
+    await database.execute(dprNewDetTable);
+
+    String dprNewLabourTable = "CREATE TABLE dprNewLabourTable (id INTEGER PRIMARY KEY UNIQUE,catId INTEGER,catName TEXT,wages REAL,nos REAL,otHrs REAL,otAmt REAL,netAmt REAL,remarks TEXT,labourId INTEGER,reqDetId INTEGER)";
+    await database.execute(dprNewLabourTable);
+
+    String dprNewMaterialTable = "CREATE TABLE dprNewMaterialTable (id INTEGER PRIMARY KEY UNIQUE,MatId INTEGER,Name TEXT,Scale Text,Qty REAL,scaleId INTEGER,reqDetId INTEGER)";
+    await database.execute(dprNewMaterialTable);
+
+    String dprNewMSRTable = "CREATE TABLE dprNewMSRTable (id INTEGER PRIMARY KEY UNIQUE,Name TEXT,nos REAL,length REAL,breath REAL,depth REAL,qty REAL,reqDetId INTEGER)";
+    await database.execute(dprNewMSRTable);
+
+    String dprLabourLabScreenTable = "CREATE TABLE dprLabourLabScreenTable (id INTEGER PRIMARY KEY UNIQUE,catId INTEGER,catName TEXT,subId INTEGER,subName Text,wages REAL,nos TEXT,otHrs TEXT,otAmt REAL,netAmt REAL,remarks TEXT)";
+    await database.execute(dprLabourLabScreenTable);
+
+    String dprLabourDetTable = "CREATE TABLE dprLabourDetTable (id INTEGER PRIMARY KEY UNIQUE,headItemId INTEGER,subItemId INTEGER,level3ItemId INTEGER,woDetId INTEGER,itemDesc TEXT,units TEXT,rate REAL,qty REAL,amt REAL,balQty REAL,boqCode Text)";
+    await database.execute(dprLabourDetTable);
+
+    String directBillGenItemlistTable = "CREATE TABLE directBillGenItemlistTable (id INTEGER PRIMARY KEY UNIQUE,Name TEXT,unit TEXT,qty REAL,rate REAL,amount REAL,reqDetId INTEGER,isApi INTEGER)";
+    await database.execute(directBillGenItemlistTable);
+
+    String workOrdDirectItemlistTable = "CREATE TABLE workOrdDirectItemlistTable (id INTEGER PRIMARY KEY UNIQUE,Name TEXT,unit TEXT,qty REAL,rate REAL,amount REAL,reqDetId INTEGER)";
+    await database.execute(workOrdDirectItemlistTable);
+
+    String billGenBoqItemlistTable = "CREATE TABLE billGenBoqItemlistTable (id INTEGER PRIMARY KEY UNIQUE,Name TEXT,unit TEXT,qty REAL,rate REAL,amount REAL,reqDetId INTEGER, balbillqty REAL, CurBillQty REAL, appQty REAL,level3ItemId INTEGER, headItemid INTEGER, subItemid INTEGER)";
+    await database.execute(billGenBoqItemlistTable);
+
+    String directBillGenGSTItemlistTable = "CREATE TABLE directBillGenGSTItemlistTable (id INTEGER PRIMARY KEY UNIQUE,reqDetId INTEGER,addLessId INTEGER,percentValue REAL,amount REAL,addLessName TEXT,addLessType TEXT)";
+    await database.execute(directBillGenGSTItemlistTable);
+
+    String workOrderGSTItemlistTable = "CREATE TABLE workOrderGSTItemlistTable (id INTEGER PRIMARY KEY UNIQUE,reqDetId INTEGER,addLessId INTEGER,percentValue REAL,amount REAL,addLessName TEXT,addLessType TEXT)";
+    await database.execute(workOrderGSTItemlistTable);
+
+    String workOrderBOQGSTItemlistTable = "CREATE TABLE workOrderBOQGSTItemlistTable (id INTEGER PRIMARY KEY UNIQUE,reqDetId INTEGER,addLessId INTEGER,percentValue REAL,amount REAL,addLessName TEXT,addLessType TEXT)";
+    await database.execute(workOrderBOQGSTItemlistTable);
+
+    String billBOQGenGSTItemlistTable = "CREATE TABLE billBOQGenGSTItemlistTable (id INTEGER PRIMARY KEY UNIQUE,reqDetId INTEGER,addLessId INTEGER,percentValue REAL,amount REAL,addLessName TEXT,addLessType TEXT)";
+    await database.execute(billBOQGenGSTItemlistTable);
+
+    String inwardPendingItemlistTable = "CREATE TABLE inwardPendingItemlistTable (id INTEGER PRIMARY KEY UNIQUE,poDetId INTEGER,materialId INTEGER,materialName TEXT,unit TEXT,poQty REAL,balQty REAL,rate REAL,inwQty REAL,amdCheck INTEGER,addQty REAL,lessQty REAL,scaleId INTEGER)";
+    await database.execute(inwardPendingItemlistTable);
+
+    String transferbetweenItemlistTable = "CREATE TABLE transferbetweenItemlistTable (id INTEGER PRIMARY KEY UNIQUE,materialId INTEGER,materialName TEXT,scale TEXT,stockQty REAL,Qty REAL,balQty REAL,reqDetId INTEGER,rate REAL,amount REAL,scaleId INTEGER,transReqDetId INTEGER,reqMasDetId INTEGER)";
+    await database.execute(transferbetweenItemlistTable);
+
+    String transferbetweenSiteWiseItemlistTable = "CREATE TABLE transferbetweenSiteWiseItemlistTable (id INTEGER PRIMARY KEY UNIQUE,materialId INTEGER,materialName TEXT,scale TEXT,stockQty REAL,Qty REAL,balQty REAL,reqDetId INTEGER,StSDetId INTEGER,rate REAL,amount REAL)";
+    await database.execute(transferbetweenSiteWiseItemlistTable);
+
+    String advanceReqvoucherItemlistTable = "CREATE TABLE advanceReqvoucherItemlistTable (id INTEGER PRIMARY KEY UNIQUE,siteId INTEGER,siteName TEXT,paymentType TEXT,amount REAL,tds_percent REAL,tds_amount REAL,netAmount REAL,reqDetId INTEGER)";
+    await database.execute(advanceReqvoucherItemlistTable);
+
+
+    String sitevoucherListTable = "CREATE TABLE sitevoucherListTable (id INTEGER PRIMARY KEY UNIQUE,siteid INTEGER,paytype TEXT,sitename TEXT,amt REAL,TdsPer REAL,TdsAmt REAL,NetAmt REAL,reqDetId INTEGER)";
+    await database.execute(sitevoucherListTable);
+
+    String staffvouchersite = "CREATE TABLE staffvouchersite (id INTEGER PRIMARY KEY UNIQUE,siteid INTEGER,projectid INTEGER,paytype TEXT,sitename TEXT,projectname TEXT,amt REAL,TdsPer REAL,TdsAmt REAL,NetAmt REAL,reqDetId INTEGER)";
+    await database.execute(staffvouchersite);
+
+    String materialApprovalListTable = "CREATE TABLE materialApprovalListTable (id INTEGER PRIMARY KEY UNIQUE,materialid INTEGER,reqDetId INTEGER,materialname TEXT,scale TEXT,balqty REAL,reqqty REAL,appqty REAL,apptype TEXT,tranfromprjid TEXT,tranfromprjname TEXT,remarks TEXT,desc TEXT,scaleId INTEGER)";
+    await database.execute(materialApprovalListTable);
+
+    String materialListTable = "CREATE TABLE materialListTable (id INTEGER PRIMARY KEY UNIQUE,materialid INTEGER,material TEXT,scale TEXT,balqty REAL,qty REAL,reqQty REAL,stockqty REAL,remarks TEXT,desc TEXT,scaleId INTEGER,reqDetId INTEGER)";
+    await database.execute(materialListTable);
+
+    String consumItemListTable = "CREATE TABLE consumItemListTable (id INTEGER PRIMARY KEY UNIQUE,materialid INTEGER,material TEXT,scale TEXT,stockqty REAL,usageqty REAL,scaleId INTEGER,reqDetId INTEGER)";
+    await database.execute(consumItemListTable);
+
+    String workOrderboqitemListTable = "CREATE TABLE workOrderboqitemListTable (id INTEGER PRIMARY KEY UNIQUE,reqDetId INTEGER,headItemId INTEGER,subItemId INTEGER,measureLevel3ItemId INTEGER,unit INTEGER,itemDesc TEXT,rate REAL,qty REAL,oldRate REAL,scaleName TEXT,amt REAL,balqty REAL,labrate REAL,boqcode TEXT,remarks TEXT,workOrderStatus INTEGER DEFAULT 1)";
+    await database.execute(workOrderboqitemListTable);
+
+    String boqitemListTable = "CREATE TABLE boqitemListTable (id INTEGER PRIMARY KEY UNIQUE,reqDetId INTEGER,measureHeadItemId INTEGER,measureSubItemId INTEGER,measureLevel3ItemId INTEGER,scaleId INTEGER,level3ItemName TEXT,rate REAL,qty REAL,reviseQty REAL,scaleName TEXT,amt REAL)";
+    await database.execute(boqitemListTable);
+
+    String transferAcknowDetTableTable = "CREATE TABLE transferAcknowDetTableTable (id INTEGER PRIMARY KEY UNIQUE,transferDetId INTEGER,materialName Text,materialId INTEGER,scale TEXT,transQty REAL,ackQty REAL,detRemarks TEXT)";
+    await database.execute(transferAcknowDetTableTable);
+
+    String companyNMRDetTable = "CREATE TABLE companyNMRDetTable (id INTEGER PRIMARY KEY UNIQUE,labourId INTEGER,labourName Text,labourNo TEXT,categaryName TEXT,wages REAL,shift TEXT,status TEXT,busfare REAL,othrs REAL,advance REAL,detRemarks TEXT,categaryId INTEGER,statusKeyText TEXT,reqDetId INTEGER)";
+    await database.execute(companyNMRDetTable);
+
+    String advReqVoucherSitewisePayTable = "CREATE TABLE advReqVoucherSitewisePayTable (id INTEGER PRIMARY KEY UNIQUE,PurOrdMasId  INTEGER,OrderNo Text,Project TEXT,ProjectId INTEGER,SiteName TEXT,SiteId INTEGER,DPRAmt REAL,AdvanceAmt REAL,BAmount REAL,Amount REAL,paymentType TEXT,reqDetId INTEGER)";
+    await database.execute(advReqVoucherSitewisePayTable);
+
+    String loginDetailsTable = "CREATE TABLE loginDetailsTable (id INTEGER PRIMARY KEY UNIQUE,userId INTEGER,userName Text,userType TEXT,userActive TEXT,userAppActive INTEGER,empId INTEGER,empName TEXT)";
+    await database.execute(loginDetailsTable);
+
+    String siteLocation = "CREATE TABLE siteLocation (id INTEGER PRIMARY KEY UNIQUE,siteId INTEGER,siteName Text,locid INTEGER,pinStatus TEXT,radius INTEGER,longitude TEXT,latitude TEXT)";
+    await database.execute(siteLocation);
+
+    String punchIn = "CREATE TABLE punchIn (id INTEGER PRIMARY KEY UNIQUE,empId Text,dateIn Text,entryMode Text,locId TEXT,userId TEXT,deviceName TEXT,punchTimeIn TEXT,imagePath TEXT)";
+    await database.execute(punchIn);
+
+    String punchOut = "CREATE TABLE punchOut (id INTEGER PRIMARY KEY UNIQUE,empId Text,date Text,timeOut Text,entryMode TEXT,userId TEXT,deviceName TEXT,locId TEXT)";
+    await database.execute(punchOut);
+
+    String materialTransReqDetTable = "CREATE TABLE materialTransReqDet (id INTEGER PRIMARY KEY UNIQUE,reqDetId INTEGER,materialId INTEGER,materialName TEXT,scale TEXT,stockQty REAL,Qty REAL,trQty REAL,detRemarks TEXT)";
+    await database.execute(materialTransReqDetTable);
+
+  }
+}
