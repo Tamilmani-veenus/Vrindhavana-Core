@@ -35,6 +35,7 @@ class _RequisitionSlip_EntryState extends State<RequisitionSlip_Entry> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () async {
+      await requisitionSlipController.getStaffReqTypeList();
       if(requisitionSlipController.saveButton.value==RequestConstant.SUBMIT){
         requisitionSlipController.reqId=0;
         requisitionSlipController.Reqdate.text = BaseUtitiles.initiateCurrentDateFormat();
@@ -65,7 +66,6 @@ class _RequisitionSlip_EntryState extends State<RequisitionSlip_Entry> {
         requisitionSlipController.leaveTypeValue.value="-";
         await autoYearWiseNoController.AutoYearWiseNo("REQ SLIP");
         requisitionSlipController.ReqAutoyearwise.text = autoYearWiseNoController.RequisitionSlip_autoYrsWise.value;
-        await requisitionSlipController.getStaffReqTypeList();
         requisitionSlipController.type.value = "L";
       }
 
