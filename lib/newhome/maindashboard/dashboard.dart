@@ -100,6 +100,27 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
                   Row(
                     children: [
                       const SizedBox(width: 15),
+                      if (!Platform.isAndroid && (isLabour || isMaterial || isHr))
+                        Row(
+                          children: [
+                            IconButton(
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const Dashboard_screen(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back_ios_new_rounded,size: 18,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                          ],
+                        ),
                       const Expanded(
                           flex: 3,
                           child: Text(
