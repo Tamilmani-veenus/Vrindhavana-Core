@@ -100,7 +100,7 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
                   Row(
                     children: [
                       const SizedBox(width: 15),
-                      if (!Platform.isAndroid && (isLabour || isMaterial || isHr))
+                      if (!Platform.isAndroid &&_currentPage == 0 && (isLabour || isMaterial || isHr))
                         Row(
                           children: [
                             IconButton(
