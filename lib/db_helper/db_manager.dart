@@ -19,10 +19,10 @@ class DBManager {
     }
   }
 
-    insertData(table, data) async {
-      var connection =  _database;
-      return await connection?.insert(table, data);
-    }
+  insertData(table, data) async {
+    var connection =  _database;
+    return await connection?.insert(table, data);
+  }
 
   readData(table) async {
     var connection =  _database;

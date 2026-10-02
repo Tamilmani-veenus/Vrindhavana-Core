@@ -259,7 +259,7 @@ class _POVsBillListViewAllState extends State<POVsBillListViewAll> {
                                         ),
                                         const SizedBox(height: 12),
                                         Text(
-                                          "PO: ${item.poValue!}",
+                                          "PO: ₹${item.poValue!}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w800,
                                             fontSize: 13,
@@ -719,8 +719,6 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
     "On Track",
   ];
 
-  late TooltipBehavior _tooltipBehavior;
-
   late ZoomPanBehavior _zoomPanBehavior;
 
   final ScrollController _horizontalScrollController = ScrollController();
@@ -729,69 +727,19 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      adminDashboardController.filteredBudgetVsSpendList.assignAll(
+          adminDashboardController.allBudgetVsSpendList     );
+    });
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   adminDashboardController.filteredBudgetVsSpendList.assignAll(
-    //     adminDashboardController.allBudgetVsSpendList,
-    //   );
-    // });
-    //
-    //
-    // _tooltipBehavior = TooltipBehavior(
-    //   enable: true,
-    //   builder: (dynamic data,
-    //       dynamic point,
-    //       dynamic series,
-    //       int pointIndex,
-    //       int seriesIndex) {
-    //
-    //     final item = labourDashboardController.filteredProjects[pointIndex];
-    //
-    //     return Container(
-    //       padding: const EdgeInsets.all(2),
-    //       decoration: BoxDecoration(
-    //         color: Colors.black87,
-    //         borderRadius: BorderRadius.circular(8),
-    //       ),
-    //       child: Column(
-    //         mainAxisSize: MainAxisSize.min,
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //
-    //           const SizedBox(height: 6),
-    //
-    //           if (seriesIndex == 0)
-    //             Text(
-    //               "NMR Nos : ${item.nmrNos?.toStringAsFixed(0) ?? "0"}",
-    //               style: const TextStyle(
-    //                 color: Colors.white,
-    //                 fontSize: 9,
-    //               ),
-    //             ),
-    //
-    //           if (seriesIndex == 1)
-    //             Text(
-    //               "Rate Nos : ${item.rateNos?.toStringAsFixed(0) ?? "0"}",
-    //               style: const TextStyle(
-    //                 color: Colors.white,
-    //                 fontSize: 9,
-    //               ),
-    //             ),
-    //         ],
-    //       ),
-    //     );
-    //   },
-    // );
-    //
-    // _zoomPanBehavior = ZoomPanBehavior(
-    //   enablePanning: true,        // allows horizontal drag/scroll
-    //   enablePinching: true,       // pinch to zoom (optional)
-    //   zoomMode: ZoomMode.x,       // restrict zoom/pan to X-axis only
-    //   enableMouseWheelZooming: true,
-    //   enableDoubleTapZooming: false,
-    //   enableSelectionZooming: false,// desktop/web mouse-wheel support
-    // );
-
+    _zoomPanBehavior = ZoomPanBehavior(
+      enablePanning: true,        // allows horizontal drag/scroll
+      enablePinching: true,       // pinch to zoom (optional)
+      zoomMode: ZoomMode.x,       // restrict zoom/pan to X-axis only
+      enableMouseWheelZooming: true,
+      enableDoubleTapZooming: false,
+      enableSelectionZooming: false,// desktop/web mouse-wheel support
+    );
 
   }
 
@@ -839,22 +787,13 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
                         children: [
 
                           Text(
-                            "Project Wise Labour Summary",
+                            "Budget Vs Spent (Project-wise)",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
 
-                          SizedBox(height: 3),
-
-                          Text(
-                            "All Projects",
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 10
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -883,17 +822,25 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
                       child: SizedBox(
                         height: 36,
                         child: TextField(
+                            autocorrect: false,
+                            enableSuggestions: false,
                             controller: searchController,
-
+                            cursorColor: Colors.black87,
+                            cursorWidth: 1,
+                            style: TextStyle(
+                          fontSize: 13,
+                              color: Colors.black,
+                              decoration: TextDecoration.none, // Removes text underline
+                            ),
                             decoration: InputDecoration(
                               isDense: true,
                               hintText: "Search",
+                              hintStyle: TextStyle(
+                              fontSize: 13,
+                            ),
                               prefixIcon:
-                              const Icon(Icons.search),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 10,
-                              ),
+                              const Icon(Icons.search,color: Colors.grey,),
+                              contentPadding: EdgeInsets.all(5),
                               filled: true,
                               fillColor: Colors.white,
                               enabledBorder: OutlineInputBorder(
@@ -908,7 +855,6 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
                                 borderRadius: BorderRadius.circular(12),
                                 borderSide:  BorderSide(
                                   color: Colors.grey, // Purple when focused
-                                  width: 2,
                                 ),
                               ),
                               border: OutlineInputBorder(
@@ -916,7 +862,8 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
                               ),
                             ),
                             onChanged: (value) {
-                              searchProjects(value);
+                              searchController.text = value;
+                              applyFilters();
                             }
                         ),
                       ),
@@ -949,7 +896,6 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
                             borderRadius: BorderRadius.circular(12),
                             borderSide: const BorderSide(
                               color: Colors.grey, // Purple when focused
-                              width: 2,
                             ),
                           ),
                           border: OutlineInputBorder(
@@ -961,15 +907,16 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
                             .map(
                               (e) => DropdownMenuItem(
                             value: e,
-                            child: Text(e,style: TextStyle(fontSize: 14),),
+                            child: Text(e,style: TextStyle(fontSize: 12),),
                           ),
                         )
                             .toList(),
-                        onChanged: (value) {
-                          if (value != null) {
-                            filterProjects(value);
+                          onChanged: (value) {
+                            if (value != null) {
+                              filterValue = value;
+                              applyFilters();
+                            }
                           }
-                        },
                       ),
                     ),
                   ],
@@ -1003,20 +950,44 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
                     bottom: 10,
                   ),
                   child: Obx(() {
-                    final chartData = adminDashboardController.filteredBudgetVsSpendList
-                        .take(3)
-                        .toList();
 
-                    final axisValues = getYAxisValues(chartData);
+                    final chartData = List<BudgetVsSpend>.from(
+                      adminDashboardController.filteredBudgetVsSpendList,
+                    )
+                      ..sort((a, b) =>
+                          parseChartValue(b.budget).compareTo(parseChartValue(a.budget)));
 
-                    return SizedBox(
-                      height: 250,
+                    final axisValues = getYAxisValues( adminDashboardController.allBudgetVsSpendList,);
+
+                    return chartData.isEmpty
+                        ? const Center(
+                      child: Text(
+                        "No Data Available",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ):SizedBox(
+                      width: math.max(
+                        MediaQuery.of(context).size.width,
+                        math.max(
+                          adminDashboardController.allBudgetVsSpendList.length,
+                          3,
+                        ) *
+                            160.0,
+                      ),
                       child: SfCartesianChart(
+                        zoomPanBehavior: _zoomPanBehavior,
                         plotAreaBorderWidth: 0,
-                        legend:  Legend(isVisible: false),
+                        legend:  Legend(
+                          isVisible: false,
+                          position: LegendPosition.top,
+                        ),
                         margin: const EdgeInsets.only(top: 20, right: 10),
-
                         primaryXAxis: CategoryAxis(
+                          visibleMinimum: 0,
+                          visibleMaximum: 2,
                           majorGridLines: const MajorGridLines(width: 0),
                           majorTickLines: const MajorTickLines(size: 0),
                           axisLine: const AxisLine(width: 0),
@@ -1025,6 +996,12 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
                             fontWeight: FontWeight.w500,
                           ),
                           labelIntersectAction: AxisLabelIntersectAction.multipleRows,
+                          labelPlacement: LabelPlacement.betweenTicks,
+                          maximumLabelWidth: 90,
+                          labelRotation: 0,
+                          autoScrollingDelta:3,
+                          autoScrollingMode: AutoScrollingMode.start,
+                          interval: 1,
                         ),
 
                         primaryYAxis: NumericAxis(
@@ -1217,85 +1194,652 @@ class _BudgetVsSpendDialogState extends State<BudgetVsSpendDialog> {
     };
   }
   /// ---------- Search based on projects ----------
-  void searchProjects(String query) {
-    final search = query.trim().toLowerCase();
-
-    final sourceList = adminDashboardController.allBudgetVsSpendList;
-
-
-    if (search.isEmpty) {
-      filterProjects(filterValue); // Retain the selected dropdown filter
-      return;
-    }
-
-    adminDashboardController.filteredBudgetVsSpendList.assignAll(
-      sourceList.where((item) {
-        return (item.projectName ?? "")
-            .trim()
-            .toLowerCase()
-            .contains(search);
-      }).toList(),
-    );
-
-    // Apply the selected dropdown filter on the searched results
-    switch (filterValue) {
-      case "Under":
-        adminDashboardController.filteredBudgetVsSpendList.assignAll(
-          adminDashboardController.filteredBudgetVsSpendList.where((e) {
-            return parseChartValue(e.budget) < parseChartValue(e.spent);
-          }).toList(),
-        );
-        break;
-
-      case "Over":
-        adminDashboardController.filteredBudgetVsSpendList.assignAll(
-          adminDashboardController.filteredBudgetVsSpendList.where((e) {
-            return parseChartValue(e.spent) > parseChartValue(e.budget);
-          }).toList(),
-        );
-        break;
-
-      case "On Track":
-        adminDashboardController.filteredBudgetVsSpendList.assignAll(
-          adminDashboardController.filteredBudgetVsSpendList.where((e) {
-            return (parseChartValue(e.budget) - parseChartValue(e.spent)).abs() < 0.01;
-          }).toList(),
-        );
-        break;
-    }
-
-  }
+  // void searchProjects(String query) {
+  //   final search = query.trim().toLowerCase();
+  //
+  //   final sourceList = adminDashboardController.allBudgetVsSpendList;
+  //
+  //
+  //   if (search.isEmpty) {
+  //     filterProjects(filterValue); // Retain the selected dropdown filter
+  //     return;
+  //   }
+  //
+  //   adminDashboardController.filteredBudgetVsSpendList.assignAll(
+  //     sourceList.where((item) {
+  //       return (item.projectName ?? "")
+  //           .trim()
+  //           .toLowerCase()
+  //           .contains(search);
+  //     }).toList(),
+  //   );
+  //
+  //   // Apply the selected dropdown filter on the searched results
+  //   switch (filterValue) {
+  //     case "Under":
+  //       adminDashboardController.filteredBudgetVsSpendList.assignAll(
+  //         adminDashboardController.filteredBudgetVsSpendList.where((e) {
+  //           return parseChartValue(e.budget) < parseChartValue(e.spent);
+  //         }).toList(),
+  //       );
+  //       break;
+  //
+  //     case "Over":
+  //       adminDashboardController.filteredBudgetVsSpendList.assignAll(
+  //         adminDashboardController.filteredBudgetVsSpendList.where((e) {
+  //           return parseChartValue(e.spent) > parseChartValue(e.budget);
+  //         }).toList(),
+  //       );
+  //       break;
+  //
+  //     case "On Track":
+  //       adminDashboardController.filteredBudgetVsSpendList.assignAll(
+  //         adminDashboardController.filteredBudgetVsSpendList.where((e) {
+  //           return (parseChartValue(e.budget) - parseChartValue(e.spent)).abs() < 0.01;
+  //         }).toList(),
+  //       );
+  //       break;
+  //   }
+  //
+  // }
 
   /// Dropdown Allstatus, under, Over ---------
-  void filterProjects(String value) {
-    filterValue = value;
 
+  void applyFilters() {
+    List<BudgetVsSpend> list =
+    List.from(adminDashboardController.allBudgetVsSpendList);
+
+    // Search
+    if (searchController.text.trim().isNotEmpty) {
+      list = list.where((e) {
+        return (e.projectName ?? "")
+            .toLowerCase()
+            .contains(searchController.text.toLowerCase());
+      }).toList();
+    }
+
+    // Status Filter
     switch (filterValue) {
       case "Under":
-        adminDashboardController.filteredBudgetVsSpendList.assignAll(
-          adminDashboardController.filteredBudgetVsSpendList.where((e) {
-            return parseChartValue(e.budget) < parseChartValue(e.spent);
-          }).toList(),
-        );
+        list = list.where((e) =>
+        parseChartValue(e.spent) < parseChartValue(e.budget)).toList();
         break;
 
       case "Over":
-        adminDashboardController.filteredBudgetVsSpendList.assignAll(
-          adminDashboardController.filteredBudgetVsSpendList.where((e) {
-            return parseChartValue(e.budget) < parseChartValue(e.spent);
-          }).toList(),
-        );
+        list = list.where((e) =>
+        parseChartValue(e.spent) > parseChartValue(e.budget)).toList();
         break;
 
       case "On Track":
-        adminDashboardController.filteredBudgetVsSpendList.assignAll(
-          adminDashboardController.filteredBudgetVsSpendList.where((e) {
-            return (parseChartValue(e.budget) - parseChartValue(e.spent)).abs() < 0.01;
-          }).toList(),
-        );
+        list = list.where((e) =>
+        (parseChartValue(e.spent) - parseChartValue(e.budget)).abs() < 0.01).toList();
+        break;
+
+      case "All Status":
+      default:
         break;
     }
+
+    // Sort by budget (Highest first)
+    list.sort((a, b) =>
+        parseChartValue(b.budget).compareTo(parseChartValue(a.budget)));
+
+    adminDashboardController.filteredBudgetVsSpendList.assignAll(list);
+  }
+}
+
+class BudgetVsActualDialog extends StatefulWidget {
+  const BudgetVsActualDialog({super.key});
+
+  @override
+  State<BudgetVsActualDialog> createState() => _BudgetVsActualDialogState();
+}
+
+class _BudgetVsActualDialogState extends State<BudgetVsActualDialog> {
+
+  AdminDashboardController adminDashboardController = Get.put(AdminDashboardController());
+  final TextEditingController searchController = TextEditingController();
+  String filterValue = "All Status";
+
+  final List<String> filterItems = [
+    "All Status",
+    "Under",
+    "Over",
+    "On Track",
+  ];
+
+  late ZoomPanBehavior _zoomPanBehavior;
+
+  final ScrollController _horizontalScrollController = ScrollController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      adminDashboardController.filteredBudgetVsActualList.assignAll(
+          adminDashboardController.allBudgetVsActualList     );
+    });
+
+    _zoomPanBehavior = ZoomPanBehavior(
+      enablePanning: true,        // allows horizontal drag/scroll
+      enablePinching: true,       // pinch to zoom (optional)
+      zoomMode: ZoomMode.x,       // restrict zoom/pan to X-axis only
+      enableMouseWheelZooming: true,
+      enableDoubleTapZooming: false,
+      enableSelectionZooming: false,// desktop/web mouse-wheel support
+    );
+
+  }
+
+  @override
+  void dispose() {
+    _horizontalScrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        adminDashboardController.filteredBudgetVsActualList.assignAll(adminDashboardController.allBudgetVsActualList);
+        searchController.clear();
+        filterValue = "All Status";
+
+        return true;
+      },
+      child: Dialog(
+        insetPadding: const EdgeInsets.symmetric(
+          horizontal: 25,
+          vertical: 30,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * .85,
+          height: 430,
+          child: Column(
+            children: [
+
+              /// Header
+              Padding(
+                padding: const EdgeInsets.all(6),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 15),
+
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+
+                          Text(
+                            "Completion Vs Budget Actual",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+
+                    IconButton(
+                      onPressed: () {
+                        adminDashboardController.filteredBudgetVsActualList.assignAll(
+                          adminDashboardController.allBudgetVsActualList,
+                        );
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.close,size: 20,),
+                    ),
+                  ],
+                ),
+              ),
+
+              const Divider(height: 1),
+
+              /// Search & Filter
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 36,
+                        child: TextField(
+                            autocorrect: false,
+                            enableSuggestions: false,
+                            controller: searchController,
+                            cursorColor: Colors.black87,
+                            cursorWidth: 1,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.black,
+                              decoration: TextDecoration.none, // Removes text underline
+                            ),
+                            decoration: InputDecoration(
+                              isDense: true,
+                              hintText: "Search",
+                              hintStyle: TextStyle(
+                                fontSize: 13,
+                              ),
+                              prefixIcon:
+                              const Icon(Icons.search,color: Colors.grey,),
+                              contentPadding: EdgeInsets.all(5),
+                              filled: true,
+                              fillColor: Colors.white,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
+                              ),
+
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide:  BorderSide(
+                                  color: Colors.grey, // Purple when focused
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              searchController.text = value;
+                              applyProjectCompletionSearch();
+                            }
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(width: 15),
+
+                    SizedBox(
+                      width: 140,
+                      height: 36,
+                      child: DropdownButtonFormField<String>(
+                          value: filterValue,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            filled: true,
+                            isDense: true,
+                            fillColor: Colors.white,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: Colors.grey,
+                                width: 1,
+                              ),
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: Colors.grey, // Purple when focused
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.circular(12),
+                            ),
+                          ),
+                          items: filterItems
+                              .map(
+                                (e) => DropdownMenuItem(
+                              value: e,
+                              child: Text(e,style: TextStyle(fontSize: 12),),
+                            ),
+                          )
+                              .toList(),
+                          onChanged: (value) {
+                            if (value != null) {
+                              filterValue = value;
+                              applyProjectCompletionFilters();
+                            }
+                          }
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 20,
+                  bottom: 8,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _legend(
+                      const Color(0xffF97316),
+                      "Budget %",
+                    ),
+                    const SizedBox(width: 15),
+                    _legend(
+                      const Color(0xff2F5BEA),
+                      "Actual %",
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                    padding:
+                    const EdgeInsets.only(left: 5,
+                      right: 5,
+                      bottom: 10,
+                    ),
+                    child: Obx(() {
+
+                      final data = List<ProjectCompletion>.from(
+                        adminDashboardController.filteredBudgetVsActualList,
+                      );
+
+                      if (data.isEmpty) {
+                        return const Center(
+                          child: Text(
+                            "No Record Found",
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        );
+                      }
+
+                      final budgetPercentage = parse_Percentage(
+                        adminDashboardController
+                            .dashboardResponse
+                            .value
+                            ?.budgetUsed,
+                      );
+
+                      return data.isEmpty
+                          ? const Center(
+                        child: Text(
+                          "No Data Available",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ):SizedBox(
+                        width: math.max(
+                          MediaQuery.of(context).size.width,
+                          math.max(
+                            adminDashboardController.allBudgetVsActualList.length,
+                            3,
+                          ) *
+                              160.0,
+                        ),
+                        child: SfCartesianChart(
+                          zoomPanBehavior: _zoomPanBehavior,
+                          plotAreaBorderWidth: 0,
+                          legend:  Legend(
+                            isVisible: false,
+                            position: LegendPosition.top,
+                          ),
+                          margin: const EdgeInsets.only(top: 20, right: 10),
+                          primaryXAxis: CategoryAxis(
+                            visibleMinimum: 0,
+                            visibleMaximum: 2,
+                            majorGridLines: const MajorGridLines(width: 0),
+                            majorTickLines: const MajorTickLines(size: 0),
+                            axisLine: const AxisLine(width: 0),
+                            labelStyle: const TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            labelIntersectAction: AxisLabelIntersectAction.multipleRows,
+                            labelPlacement: LabelPlacement.betweenTicks,
+                            maximumLabelWidth: 90,
+                            labelRotation: 0,
+                            autoScrollingDelta:3,
+                            autoScrollingMode: AutoScrollingMode.start,
+                            interval: 1,
+                          ),
+
+                          primaryYAxis: NumericAxis(
+                            minimum: 0,
+                            maximum: 110,
+                            interval: 20,
+                            axisLine: const AxisLine(width: 0),
+                            labelFormat: '{value}%',
+                            majorTickLines: const MajorTickLines(size: 0),
+                            majorGridLines: MajorGridLines(
+                              color: Colors.grey.shade300,
+                            ),
+                            axisLabelFormatter: (AxisLabelRenderDetails details) {
+                              return ChartAxisLabel(
+                                '${details.value.toInt()}%',
+                                const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              );
+                            },
+                          ),
+                          series: <CartesianSeries>[
+                            ColumnSeries<ProjectCompletion, String>(
+                              name: "Budget %",
+                              dataSource: data,
+
+                              width: 0.8,
+                              spacing: 0.15,
+
+                              color: const Color(0xffF97316),
+
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                topRight: Radius.circular(8),
+                              ),
+
+                              xValueMapper: (ProjectCompletion item, _) => BaseUtitiles.formatProjectName(item.projectName ?? ""),
+
+                              yValueMapper: (ProjectCompletion item, _) => budgetPercentage,
+
+                              dataLabelMapper: (ProjectCompletion item, _) => '${budgetPercentage.toStringAsFixed(0)}%',
+
+                              dataLabelSettings:
+                              const DataLabelSettings(
+                                isVisible: true,
+
+                                labelAlignment:
+                                ChartDataLabelAlignment.outer,
+
+                                textStyle: TextStyle(
+                                  color: Color(0xffF97316),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+
+                            // ACTUAL
+                            ColumnSeries<ProjectCompletion, String>(
+                              name: "Actual %",
+                              dataSource: data,
+
+                              width: 0.8,
+                              spacing: 0.15,
+
+                              color: const Color(0xff2563EB),
+
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                topRight: Radius.circular(8),
+                              ),
+
+                              xValueMapper:
+                                  (ProjectCompletion item, _) =>
+                                  BaseUtitiles
+                                      .formatProjectName(
+                                    item.projectName ?? "",
+                                  ),
+
+                              yValueMapper:
+                                  (ProjectCompletion item, _) =>
+                              item.completionPercentage ??
+                                  0.0,
+
+                              dataLabelMapper:
+                                  (ProjectCompletion item, _) =>
+                              '${(item.completionPercentage ?? 0.0).toStringAsFixed(0)}%',
+
+
+                              dataLabelSettings:
+                              const DataLabelSettings(
+                                isVisible: true,
+
+                                labelAlignment:
+                                ChartDataLabelAlignment.outer,
+
+                                textStyle: TextStyle(
+                                  color: Color(0xff2563EB),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    })
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  double parse_Percentage(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 0.0;
+    }
+
+    return double.tryParse(
+      value.replaceAll('%', '').trim(),
+    ) ??
+        0.0;
+  }
+
+  Widget _legend(Color color, String text) {
+    return Row(
+      children: [
+        Container(
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 5),
+        Text(
+          text,
+          style: const TextStyle(fontSize: 12),
+        )
+      ],
+    );
   }
 
 
+  /// Dropdown Allstatus, under, Over ---------
+
+  void applyProjectCompletionSearch() {
+    List<ProjectCompletion> list =
+    List<ProjectCompletion>.from(
+      adminDashboardController.allBudgetVsActualList,
+    );
+
+    final searchText =
+    searchController.text.trim().toLowerCase();
+
+    if (searchText.isNotEmpty) {
+      list = list.where((e) {
+        return (e.projectName ?? "")
+            .toLowerCase()
+            .contains(searchText);
+      }).toList();
+    }
+
+    adminDashboardController.filteredBudgetVsActualList
+        .assignAll(list);
+  }
+
+  void applyProjectCompletionFilters() {
+    List<ProjectCompletion> list =
+    List<ProjectCompletion>.from(
+      adminDashboardController.allBudgetVsActualList,
+    );
+
+    final searchText =
+    searchController.text.trim().toLowerCase();
+
+    if (searchText.isNotEmpty) {
+      list = list.where((e) {
+        return (e.projectName ?? "")
+            .toLowerCase()
+            .contains(searchText);
+      }).toList();
+    }
+
+
+    final budget = parse_Percentage(
+      adminDashboardController
+          .dashboardResponse
+          .value
+          ?.budgetUsed,
+    );
+
+
+    switch (filterValue) {
+      case "Under":
+        list = list.where((e) {
+          final actual = e.completionPercentage ?? 0.0;
+
+          // Actual is HIGHER than budget
+          return actual < budget;
+        }).toList();
+        break;
+
+      case "Over":
+        list = list.where((e) {
+          final actual = e.completionPercentage ?? 0.0;
+
+          // Actual is LOWER than budget
+          return actual > budget;
+        }).toList();
+        break;
+
+      case "On Track":
+        list = list.where((e) {
+          final actual = e.completionPercentage ?? 0.0;
+
+          return (actual - budget).abs() < 0.01;
+        }).toList();
+        break;
+
+      case "All Status":
+      default:
+      // Do nothing.
+      // Entire list remains.
+        break;
+    }
+
+    adminDashboardController
+        .filteredBudgetVsActualList
+        .assignAll(list);
+  }
 }
