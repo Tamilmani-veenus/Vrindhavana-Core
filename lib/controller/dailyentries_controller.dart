@@ -85,6 +85,7 @@ class DailyEntriesController extends GetxController {
 
   Future getShowClickPopList(BuildContext context) async {
     store_ShowList.value = [];
+    await ClickUtils.run(() async {
     final value = await SubContAttendanceProvider.getSubcontAttenDetList(
         projectController.selectedProjectId.value,
         subcontractorController.selectedSubcontId.value);
@@ -92,7 +93,7 @@ class DailyEntriesController extends GetxController {
       if (value.success == true) {
         if (value.result!.isNotEmpty) {
           store_ShowList.value = value.result!;
-          Navigator.push(
+          await Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => Subcontractor_Site_Category(type: 'subcontAttendance',)));
@@ -105,6 +106,7 @@ class DailyEntriesController extends GetxController {
     } else {
       BaseUtitiles.showToast(RequestConstant.SOMETHINGWENT_WRONG);
     }
+    });
   }
 
   saveSubContDetTableDatas(BuildContext context) async {
@@ -132,11 +134,11 @@ class DailyEntriesController extends GetxController {
             OtHrsController[i].value.text.isEmpty
                 ? "0"
                 : OtHrsController[i].value.text);
-          subContDetModel.MrgOtAmt = OtHrsController[i].value.text != ""
-              ? double.parse(
-              (((element.wages / 8) * subContDetModel.MrgOtHrs!)
-                  .toStringAsFixed(2)))
-              : 0.0;
+        subContDetModel.MrgOtAmt = OtHrsController[i].value.text != ""
+            ? double.parse(
+            (((element.wages / 8) * subContDetModel.MrgOtHrs!)
+                .toStringAsFixed(2)))
+            : 0.0;
         subContDetModel.EvgOtHrs = 0.0;
         subContDetModel.EvgOtAmt = 0.0;
         subContDetModel.EvgExtrsAmt = 0.0;
@@ -168,7 +170,7 @@ class DailyEntriesController extends GetxController {
           subcontModelList.add(subContDetModel);
         }else{
           if (j == 0) {
-          subcontModelList.add(subContDetModel);
+            subcontModelList.add(subContDetModel);
           } else {
             BaseUtitiles.showToast("Entry already exist");
             j = 0;
@@ -269,10 +271,6 @@ class DailyEntriesController extends GetxController {
 
   Future getDetTablesDatas() async {
     var subCont = await subContAttendatanceDetService.SubContDetreadAll();
-    for (var row in subCont) {
-      print("rrrrrrrr...${row}");
-    }
-
     subContDetReadList = <SubContDetModel>[];
     readListdata.value.clear();
     subCont.forEach((user) {
@@ -349,13 +347,14 @@ class DailyEntriesController extends GetxController {
     for (var n = 0; n < readListdata.length; n++) {
       // textControllersInitiate();
       subContDetModel = SubContDetModel();
-      subContDetModel.id = readListdata[n].id;
+      if (AppClient.isVrindhavana) {
+        subContDetModel.id = readListdata[n].id;
+      }
       subContDetModel.reqDetId = readListdata[n].reqDetId;
       subContDetModel.catId = readListdata[n].catId;
       subContDetModel.catName = readListdata[n].catName;
       subContDetModel.wages = readListdata[n].wages;
       subContDetModel.nos = EntrySCreenNosControllers[n].value.text.toString();
-      print("wwww...${subContDetModel.nos}");
       subContDetModel.MrgOtHrs = double.parse(
           MrngOtHrsControllers[n].value.text != ""
               ? MrngOtHrsControllers[n].value.text
@@ -433,7 +432,7 @@ class DailyEntriesController extends GetxController {
             mrngOtAmt +
             evgOtAmt;
       } else {
-        netAmt = (nos * wages / 8) +
+        netAmt = (nos * wages ) +
             (extras * nos) +
             evgExtraAmt +
             mrngOtAmt +
@@ -601,6 +600,7 @@ class DailyEntriesController extends GetxController {
 
   Future subContEntryList_EditApi(int attendId, status,String MenuName, BuildContext context,
       {String? type}) async {
+    await ClickUtils.run(() async {
     var response =
     await SubContAttendanceProvider.subcont_entryList_editAPI(attendId,status);
     if (response != null) {
@@ -610,7 +610,7 @@ class DailyEntriesController extends GetxController {
           saveButton.value = type=="approve"?RequestConstant.APPROVAL:RequestConstant.RESUBMIT;
           await editSaveDetTable();
           await getDetTablesDatas();
-          return Navigator.pushReplacement(
+          await Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) => SubattendanceSiteEntry(heading: MenuName,)));
@@ -623,6 +623,7 @@ class DailyEntriesController extends GetxController {
     } else {
       BaseUtitiles.showToast("Something Went Wrong...");
     }
+    });
   }
 
   Future editSaveDetTable() async {
@@ -647,7 +648,6 @@ class DailyEntriesController extends GetxController {
         subContDetModel.siteId = val.siteId;
         subContDetModel.siteName = val.siteName;
         subcontModelList.add(subContDetModel);
-        print("wwww...${subcontModelList.length}");
       });
     }
     var savedatas =

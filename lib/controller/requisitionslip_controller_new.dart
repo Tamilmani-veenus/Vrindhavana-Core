@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
-
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:vrindhavanacore/controller/pendinglistcontroller.dart';
 import 'package:vrindhavanacore/controller/reports_controller.dart';
@@ -43,7 +39,7 @@ class  RequisitionSlipControllerNew extends GetxController{
   var leaveType = "".obs;
   var yearofLeavedays = ''.obs;
   var yearofPerHrs = ''.obs;
-
+  RxBool isHalfDay = false.obs;
 
   final ondutyDate=TextEditingController();
   final perDate=TextEditingController();
@@ -67,6 +63,7 @@ class  RequisitionSlipControllerNew extends GetxController{
   RxInt createdById = 0.obs;
   RxString saveButton=RequestConstant.SUBMIT.obs;
   RxString leaveTypeValue="-".obs;
+  RxString totalLeaveValue="".obs;
   RxList ReqSlipEtyList = [].obs;
   RxList mainentrylist = [].obs;
   RxList staffLeaveInfolist = [].obs;
@@ -168,8 +165,8 @@ class  RequisitionSlipControllerNew extends GetxController{
       permissionToDate: Date.text,
       permissionFromTime: Fromtime.text,
       permissionToTime: Totime.text,
-      permissionTimeHrs: int.tryParse(RequiredHrs.text),
-      permissionTimeMins: int.tryParse(RequiredMins.text),
+      permissionTimeHrs: int.tryParse(RequiredHrs.text) ?? 0,
+      permissionTimeMins: int.tryParse(RequiredMins.text) ?? 0,
       totalPermissionHours: double.tryParse(TotalHrs.text),
       createdBy: saveButton.value==RequestConstant.SUBMIT?int.tryParse(loginController.EmpId()):createdById.value,
       // createdDt: BaseUtitiles().convertToUtcIso(Reqdate.text),
@@ -178,6 +175,7 @@ class  RequisitionSlipControllerNew extends GetxController{
       verifyRemarks: "-",
       approveRemarks: "-",
       leaveType: leaveTypeValue.value,
+      isHalfDay: isHalfDay.value,
     ));
     final list = await RequisitionslipProvider.SaveReqslipScreenEntryAPI(body, reqId);
     if (list != null ) {
@@ -199,31 +197,32 @@ class  RequisitionSlipControllerNew extends GetxController{
 
   Future reqSlipVerifyApproveApi(context,data,type) async {
     String body = requisitonSlipsaveRequestToJson(RequisitonSlipsaveRequest(
-        id: data.id,
-        requisitionNo: data.requisitionNo,
-        requisitionType: data.requisitionTypeValue,
-        entryDate: BaseUtitiles().convertDate(data.entryDate),
-        staffId: data.staffId,
-        projectId: type=="Approve"||type=="Approve-Reject"?data.projId:data.Projectid,
-        leaveReason: data.LeaveReason,
-        leaveFromDate: BaseUtitiles().convertDate(data.leaveFromDate),
-        leaveToDate: BaseUtitiles().convertDate(data.leaveToDate),
-        totalLeaveDays: data.totalLeaveDays,
-        permissionReason: data.permissionReason,
-        permissionFromDate: BaseUtitiles().convertDate(data.permissionFromDate),
-        permissionToDate: BaseUtitiles().convertDate(data.permissionToDate),
-        permissionFromTime: type=="Approve"||type=="Approve-Reject"?data.PermissionFromTime:data.permissionFromTime,
-        permissionToTime: data.permissionToTime,
-        permissionTimeHrs: data.permissionTimeHrs,
-        permissionTimeMins: data.permissionTimeMins,
-        totalPermissionHours: data.totalPermissionHours,
-        createdBy: data.createdBy,
-        // createdDt: data.entryDateMobile,
-        verifyRemarks: type=="Verify"||type=="Verify-Reject"?remarksValue.text:"",
-        approveRemarks: type=="Approve"||type=="Approve-Reject"?remarksValue.text:"",
-        verifyStatus: type=="Verify-Reject"?"R":"Y",
-        approveStatus: type=="Approve-Reject"?"R":type=="Approve"?"Y":"N",
-        leaveType: data.LeaveType
+      id: data.id,
+      requisitionNo: data.requisitionNo,
+      requisitionType: data.requisitionTypeValue,
+      entryDate: BaseUtitiles().convertDate(data.entryDate),
+      staffId: data.staffId,
+      projectId: type=="Approve"||type=="Approve-Reject"?data.projId:data.Projectid,
+      leaveReason: data.LeaveReason,
+      leaveFromDate: BaseUtitiles().convertDate(data.leaveFromDate),
+      leaveToDate: BaseUtitiles().convertDate(data.leaveToDate),
+      totalLeaveDays: data.totalLeaveDays,
+      permissionReason: data.permissionReason,
+      permissionFromDate: BaseUtitiles().convertDate(data.permissionFromDate),
+      permissionToDate: BaseUtitiles().convertDate(data.permissionToDate),
+      permissionFromTime: type=="Approve"||type=="Approve-Reject"?data.PermissionFromTime:data.permissionFromTime,
+      permissionToTime: data.permissionToTime,
+      permissionTimeHrs: data.permissionTimeHrs,
+      permissionTimeMins: data.permissionTimeMins,
+      totalPermissionHours: data.totalPermissionHours,
+      createdBy: data.createdBy,
+      // createdDt: data.entryDateMobile,
+      verifyRemarks: type=="Verify"||type=="Verify-Reject"?remarksValue.text:"",
+      approveRemarks: type=="Approve"||type=="Approve-Reject"?remarksValue.text:"",
+      verifyStatus: type=="Verify-Reject"?"R":"Y",
+      approveStatus: type=="Approve-Reject"?"R":type=="Approve"?"Y":"N",
+      leaveType: data.LeaveType,
+      isHalfDay: data.isHalfDay
     ));
     final list = await RequisitionslipProvider.SaveReqslipScreenEntryAPI(body, data.id);
     if (list != null ) {
@@ -245,13 +244,14 @@ class  RequisitionSlipControllerNew extends GetxController{
 
   Future Requisitionslip_EditApi(int reqId,String MenuName, BuildContext context, status) async {
     ReqSlipEditList.value=[];
+    await ClickUtils.run(() async {
     var response = await RequisitionslipProvider.Requisitionslip_editAPI(reqId,status);
     if (response != null) {
       if (response.success == true) {
         ReqSlipEditList.value = [response.result];
         if (ReqSlipEditList.isNotEmpty) {
           saveButton.value=RequestConstant.RESUBMIT;
-          Navigator.pushReplacement(
+          await Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => RequisitionSlip_Entry(heading: MenuName,))
           );
@@ -264,6 +264,7 @@ class  RequisitionSlipControllerNew extends GetxController{
     } else {
       BaseUtitiles.showToast("Something went wrong..");
     }
+    });
   }
 
 
@@ -294,6 +295,7 @@ class  RequisitionSlipControllerNew extends GetxController{
     int totalDays = toDate.difference(fromDate).inDays + 1;
     totalDays = totalDays < 1 ? 1 : totalDays;
     Totaldays.text = totalDays.toString();
+    totalLeaveValue.value = totalDays.toString();
   }
 
 

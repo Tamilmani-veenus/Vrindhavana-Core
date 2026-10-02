@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import '../apimanager/apimanager.dart';
 import '../models/billdirectgstcalculations.dart';
 import '../models/termsandCondition_model.dart';
+import '../models/workOrderBoqEdit_model.dart';
 import '../models/workOrderBoqheaditems_model.dart';
 import '../models/workOrderBoqlist_model.dart';
 import '../utilities/apiconstant.dart';
@@ -37,6 +37,19 @@ class WorkOrderBoqProvider{
     }
     catch (error) {
       print("Error == $error");
+      return null;
+    }
+  }
+
+  static Future<WorkOrdBoqEditModel?> workOrder_entryList_editAPI(int workId,checksts) async {
+    try{
+      final value = await ApiManager.getAPICall("${ApiConstant.EDIT_WORKORDERDIRECT_API}?id=$workId&CheckEdit=$checksts");
+      print("AdvEntryList:" + value);
+      return workOrdBoqEditModelFromJson(value);
+    }
+    catch(e,F){
+      print("ERROR.....$e");
+      print("ERROR.....$F");
       return null;
     }
   }

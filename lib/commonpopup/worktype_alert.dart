@@ -21,7 +21,7 @@ class _WorkTypeAlertState extends State<WorkTypeAlert> {
 
   DailyEntriesController dailyEntriesController = Get.put(DailyEntriesController());
 
-  final list = (!AppClient.isAnusamm)?["NMR","RATE"]:["NMR","RATE","NO WORK"];
+  final list = (!AppClient.isAnusamm && !AppClient.isVrindhavana )?["NMR","RATE"]:["NMR","RATE","NO WORK"];
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +226,7 @@ class _ShiftAlertState extends State<ShiftAlert> {
                   height: MediaQuery.of(context).size.height * 0.18, // Set max height
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                       itemCount: list.length,
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
@@ -292,7 +292,7 @@ class WorkType_AttendRPT extends StatefulWidget {
 class _WorkType_AttendRPTState extends State<WorkType_AttendRPT> {
   AttendanceController attendanceController =Get.put(AttendanceController());
 
-  final list = (!AppClient.isAnusamm)?["NMR","RATE"]:["NMR","RATE","NO WORK"];
+  final list = (!AppClient.isAnusamm && !AppClient.isVrindhavana )?["NMR","RATE"]:["NMR","RATE","NO WORK"];
 
   @override
   Widget build(BuildContext context) {
@@ -413,8 +413,8 @@ class _wrkTypeAlertAllState extends State<wrkTypeAlertAll> {
                           dailyWrkDone_DPR_Controller.wrktype_DPR.value = "NMR";
                         }
                         else {
-                          dailyWrkDone_DPR_Controller.workType_DPR_Controller.text="RATE";
-                          dailyWrkDone_DPR_Controller.wrktype_DPR.value = "RAT";
+                        dailyWrkDone_DPR_Controller.workType_DPR_Controller.text="RATE";
+                        dailyWrkDone_DPR_Controller.wrktype_DPR.value = "RAT";
                         }
                         Navigator.pop(context);
                       },

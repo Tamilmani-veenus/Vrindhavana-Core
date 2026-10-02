@@ -74,7 +74,7 @@ class SubContAttendatanceDetService {
   }
 
   SubContDet_OrderBy() async {
-      return  await _dbManager.groupBySubcontTable();
+    return  await _dbManager.groupBySubcontTable();
 
   }
 

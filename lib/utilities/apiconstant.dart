@@ -66,6 +66,11 @@ class ApiConstant{
   static String DASHBOARD_API = BASE_URL_CORE + "api/DashBoard/GetMobileDashBoardView";
   static String LABOURDASHBOARD_API = BASE_URL_CORE + "api/DashBoard/LabourDashBoard";
   static String ADMINDASHBOARD_API = BASE_URL_CORE + "api/DashBoard/AdminDashBoard";
+  static String MATERIALDASHPROJWISE_API = BASE_URL_CORE + "api/DashBoard/DashBoardProjectWiseFilter";
+  static String MATERIALDASHMATHEAD_API = BASE_URL_CORE + "api/DashBoard/DashBoardMaterialHeadWise";
+  static String HRDASHBOARD_API = BASE_URL_CORE + "api/DashBoard/HRDashBoard";
+  static String HRDASHBOARDCARDS_API = BASE_URL_CORE + "api/DashBoard/HRDashBoardEmployeeName";
+
 
 
   static String PENDINGLISTAPI = BASE_URL_CORE + "api/Menu/GetMobilePendingList";
@@ -83,6 +88,7 @@ class ApiConstant{
   static String GETREPORTMATERIALDROPDOWNLIST = BASE_URL_CORE + "api/GenericMaster/GetMaterials";
   static String GETALLMATERIALDROPDOWNLIST = BASE_URL_CORE + "api/GenericMaster/GetAllMaterial";
   static String GETSUBCONTRACTLIST = BASE_URL_CORE + "api/GenericMaster/GetSubContractorByProject";
+  static String HRDASHBOARD_PLANNINGCALEN_API = BASE_URL_CORE + "api/DashBoard/GetAllMeetingScheduler";
 
   static String GETSUBCONTRACTLISTRPT = BASE_URL_CORE + "api/BOQReports/GetAllActiveSubContractorName";
   static String GETCOMPANYLISTRPT = BASE_URL_CORE + "api/GenericMaster/GetCompany";
@@ -90,6 +96,7 @@ class ApiConstant{
   static String GETBOQWRKORDERNOLIST = BASE_URL_CORE + "api/SubContractorWorkQtyBOQ/GetWorkOrderNoDd";
   static String GETINVOICENOLIST = BASE_URL_CORE + "api/SubContractorNMRBill/GetBillNo";
   static String SITEDROPDWONLISTAPI = BASE_URL_CORE + "api/GenericMaster/GetProjectWiseSiteList";
+  static String MATERIALDASHSUPWISE_API = BASE_URL_CORE + "api/DashBoard/DashBoardMaterialSupplierWise";
 
   static String TOSITEDROPDWONLISTAPI = BASE_URL_CORE + "api/GenericMaster/GetToSitesByFrSiteDd";
   static String GETMRNREPORTSLISTAPI = BASE_URL_CORE + "api/MaterialReqOrdMas/GetAllMRNReportViewListMas";
@@ -150,6 +157,7 @@ class ApiConstant{
   static String GET_WORKORDERBOQ_ENTRY_LIST = BASE_URL_CORE + "api/SubContractorWorkQtyBOQ/GetBillBOQDetLoad";
   static String EDIT_DIRECTBILL_API = BASE_URL_CORE + "api/SubContractorWorkQty/GetSubContractorWorkQtyById";
   static String EDIT_WORKORDERDIRECT_API = BASE_URL_CORE + "api/SubcontractWorkOrderMas/GetlSubcontractWorkOrderById";
+
 
   static String EDIT_BILLBOQ_API = BASE_URL_CORE + "api/SubContractorWorkQtyBOQ/GetSubContractorWorkQtyById";
   static String EDIT_INWARDPENDING_API = BASE_URL_CORE + "api/MaterialInward/GetInwardDetById";
@@ -257,6 +265,8 @@ class ApiConstant{
   static String GET_ONDUTY_PUNCHINOUT_APPRLIST = BASE_URL_CORE + "api/PunchInandOut/GetAllOnDutyApprovepending";
   static String GET_NONALLOT_PUNCHINOUT_APPRLIST = BASE_URL_CORE + "api/PunchInandOut/GetAllPunchinandoutApprovepending";
   static String GET_WORKORDERVERIFYLIST = BASE_URL_CORE + "api/SubcontractWorkOrderMas/GetAllSubcontractWorkOrderToBeVerifyData";
+  static String GET_WORKORDERBOQ_VERIFYLIST = BASE_URL_CORE + "api/SubcontractWorkOrderMas/GetWorkOrderVerificationPendingBOQ";
+
   static String GET_WORKORDERAPPROVALLIST = BASE_URL_CORE + "api/SubcontractWorkOrderMas/GetAllSubcontractWorkOrderVerifyData";
   static String GET_MANPOWERAPPROVALLIST = BASE_URL_CORE + "api/ManPower/GetManPowerApprovalPending";
 
@@ -319,6 +329,7 @@ class ApiConstant{
   static String PUT_DPR_NEW_UPDATE_API = BASE_URL_CORE + "api/SubContractorDailyWorkNew/UpdateDailyWorkNew";
   static String PUT_DIRECTBILL_UPDATE_API = BASE_URL_CORE + "api/SubContractorWorkQty/UpdateSubContractorWorkQty";
   static String PUT_WORKORDER_UPDATE_API = BASE_URL_CORE + "api/SubcontractWorkOrderMas/UpdateWorkOrder";
+  static String PUT_PLANNING_CALENDAR_API = BASE_URL_CORE + "api/DashBoard/UpdateMeetingScheduler";
 
   static String PUT_DIRECTBOQ_UPDATE_API = BASE_URL_CORE + "api/SubContractorWorkQtyBOQ/UpdateSubContractorWorkQty";
   static String PUT_POAPPROVAL_API = BASE_URL_CORE + "api/MaterialPurOrdMas/ApproveSelectedRowById";
