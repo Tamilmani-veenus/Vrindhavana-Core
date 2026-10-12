@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -306,7 +307,10 @@ class _MaterialHomeScreenState extends State<MaterialHomeScreen> {
                           return const SizedBox.shrink();
                         });
                       }
-                    })
+                    }),
+                     SizedBox(
+                      height:!Platform.isAndroid?100: 60,
+                    ),
                   ],
                 ),
               ),

@@ -69,7 +69,7 @@ class _TransferBetweenSites_EntryState extends State<TransferBetweenSites_Entry>
      if(transferBt_Site_Controller.saveButton.value == RequestConstant.RESUBMIT){
        transferBt_Site_Controller.editListApiDatas.value.forEach((element) {
          transferBt_Site_Controller.transId=element.id;
-         transferBt_Site_Controller.prearedbyText.text=element.employeeName;
+         transferBt_Site_Controller.prearedbyText.text=element.createdName;
          transferBt_Site_Controller.autoyrwiseText.text=element.transferNo.toString();
          transferBt_Site_Controller.entryDateText.text=element.entryDt.toString();
          projectController.projectname.text=element.projectName.toString();

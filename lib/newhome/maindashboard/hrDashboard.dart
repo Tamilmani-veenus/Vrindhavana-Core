@@ -48,7 +48,9 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
     _calendarMonth = DateTime.now();
 
     _updateCalendarDateRange();
-    hrDashboardController.getPlanningCalendar_List();
+    if (AppClient.isAnusamm){
+      hrDashboardController.getPlanningCalendar_List();
+    }
 
     _dotAnimationController = AnimationController(
       vsync: this,
@@ -158,7 +160,9 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
                 await hrDashboardController.getHrDashboardDetails();
                 await hrDashboardController.getHrCardsList();
                 await hrDashboardController.getPendingLeaveRequest();
-                await hrDashboardController.getPlanningCalendar_List();
+                if (AppClient.isAnusamm) {
+                  await hrDashboardController.getPlanningCalendar_List();
+                }
               },
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
@@ -329,7 +333,8 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
 
                             return InkWell(
                               borderRadius: BorderRadius.circular(18),
-                              onTap: () {
+                              onTap: AppClient.isAnusamm
+                                  ? () {
                                 _showEmployeeListDialog(
                                   context,
                                   title: item.title,
@@ -337,7 +342,8 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
                                   icon: item.icon,
                                   color: item.color,
                                 );
-                              },
+                              }
+                                  : null,
                               child: LabourCard(
                                 item: item,
                                 index: index,
@@ -558,7 +564,6 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
                     const SizedBox(height: 10,),
 
                     /// Leave Overview
-                   if (AppClient.isVrindhavana)
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(14),
@@ -728,7 +733,6 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
                     const SizedBox(height: 10,),
 
                     /// Today's punch overview
-                    if (AppClient.isVrindhavana)
                     Obx(() {
                       final totalPunchIn = hrDashboardController.hrCategoryList.value;
                       final data = hrDashboardController.hrTodayPunchViewList.value;
@@ -1036,52 +1040,52 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
                                           final item = entry.value;
                                           return GestureDetector(
                                             onTap: () {
+                                              if (AppClient.isAnusamm){
+                                                final String title =
+                                                item.title.toString().trim().toUpperCase();
 
-                                              final String title =
-                                              item.title.toString().trim().toUpperCase();
+                                                late String requisitionType;
 
-                                              late String requisitionType;
+                                                if (title == 'LEAVE REQUESTS') {
+                                                  requisitionType = 'LEAVE';
+                                                } else if (title == 'PERMISSION REQUESTS') {
+                                                  requisitionType = 'PERMISSION';
+                                                } else if (title == 'COMPENSATE LEAVES') {
+                                                  requisitionType = 'COMP OF LEAVE';
+                                                } else {
+                                                  requisitionType = 'ON DUTY';
+                                                }
 
-                                              if (title == 'LEAVE REQUESTS') {
-                                                requisitionType = 'LEAVE';
-                                              } else if (title == 'PERMISSION REQUESTS') {
-                                                requisitionType = 'PERMISSION';
-                                              } else if (title == 'COMPENSATE LEAVES') {
-                                                requisitionType = 'COMP OF LEAVE';
-                                              } else {
-                                                requisitionType = 'ON DUTY';
-                                              }
+                                                final filteredRequests = hrDashboardController
+                                                    .pendingLeaveReqTypes
+                                                    .where(
+                                                      (request) =>
+                                                  (request.requisitionType ?? '')
+                                                      .trim()
+                                                      .toUpperCase() ==
+                                                      requisitionType,
+                                                )
+                                                    .toList();
 
-                                              final filteredRequests = hrDashboardController
-                                                  .pendingLeaveReqTypes
-                                                  .where(
-                                                    (request) =>
-                                                (request.requisitionType ?? '')
-                                                    .trim()
-                                                    .toUpperCase() ==
-                                                    requisitionType,
-                                              )
-                                                  .toList();
+                                                late String screenTitle;
 
-                                              late String screenTitle;
+                                                if (requisitionType == 'LEAVE') {
+                                                  screenTitle = 'Pending Leave Requests';
+                                                } else if (requisitionType == 'PERMISSION') {
+                                                  screenTitle = 'Pending Permission Requests';
+                                                } else if (requisitionType == 'COMP OF LEAVE') {
+                                                  screenTitle = 'Compensate Leave Requests';
+                                                } else {
+                                                  screenTitle = 'On Duty Requests';
+                                                }
 
-                                              if (requisitionType == 'LEAVE') {
-                                                screenTitle = 'Pending Leave Requests';
-                                              } else if (requisitionType == 'PERMISSION') {
-                                                screenTitle = 'Pending Permission Requests';
-                                              } else if (requisitionType == 'COMP OF LEAVE') {
-                                                screenTitle = 'Compensate Leave Requests';
-                                              } else {
-                                                screenTitle = 'On Duty Requests';
-                                              }
-
-                                              Get.to(
-                                                    () => LeaveRequestCard(
-                                                  requests: filteredRequests,
-                                                  type: requisitionType,
-                                                  title: screenTitle,
-                                                ),
-                                              );
+                                                Get.to(
+                                                      () => LeaveRequestCard(
+                                                    requests: filteredRequests,
+                                                    type: requisitionType,
+                                                    title: screenTitle,
+                                                  ),
+                                                );}
                                             },
 
                                             child: Container(
@@ -1459,258 +1463,261 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
 
                     /// Planning calendar
                     if (AppClient.isAnusamm)
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: const Color(0xffE4E7EC),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.04),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: const Color(0xffE4E7EC),
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                              16,
-                              14,
-                              12,
-                              14,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(.04),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
                             ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Planner Calendar",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                          color: Color(0xff172B4D),
-                                        ),
-                                      ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
 
-                                      SizedBox(height: 10),
-
-                                      Text(
-                                        "Meetings, tasks & events",
-                                        style: TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xff98A2B3),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                16,
+                                14,
+                                12,
+                                14,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Planner Calendar",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                            color: Color(0xff172B4D),
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Center(
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Flexible(
-                                              child: FittedBox(
-                                                fit: BoxFit.scaleDown,
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  _calendarHeaderTitle(),
-                                                  // maxLines: 1,
-                                                  // overflow: TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Color(0xff172B4D),
+
+                                        SizedBox(height: 10),
+
+                                        Text(
+                                          "Meetings, tasks & events",
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xff98A2B3),
+                                          ),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Center(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Flexible(
+                                                child: FittedBox(
+                                                  fit: BoxFit.scaleDown,
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Text(
+                                                    _calendarHeaderTitle(),
+                                                    // maxLines: 1,
+                                                    // overflow: TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: Color(0xff172B4D),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
 
-                                            const SizedBox(width: 6),
+                                              const SizedBox(width: 6),
 
-                                            Container(
-                                              padding: const EdgeInsets.all(2),
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xffF2F4F7),
-                                                borderRadius: BorderRadius.circular(18),
+                                              Container(
+                                                padding: const EdgeInsets.all(2),
+                                                decoration: BoxDecoration(
+                                                  color: const Color(0xffF2F4F7),
+                                                  borderRadius: BorderRadius.circular(18),
+                                                ),
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    _calendarViewButton("month"),
+                                                    _calendarViewButton("week"),
+                                                    _calendarViewButton("day"),
+                                                  ],
+                                                ),
                                               ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  _calendarViewButton("month"),
-                                                  _calendarViewButton("week"),
-                                                  _calendarViewButton("day"),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-
-                                InkWell(
-                                  onTap: () async {
-                                    setState(() {
-                                      if (_calendarView == "month") {
-                                        _calendarMonth = DateTime(
-                                          _calendarMonth.year,
-                                          _calendarMonth.month - 1,
-                                          1,
-                                        );
-                                      } else if (_calendarView == "week") {
-                                        _calendarMonth = _calendarMonth.subtract(
-                                          const Duration(days: 7),
-                                        );
-                                      } else {
-                                        _calendarMonth = _calendarMonth.subtract(
-                                          const Duration(days: 1),
-                                        );
-                                      }
-
-                                      _updateCalendarDateRange();
-                                    });
-
-                                    await hrDashboardController.getPlanningCalendar_List();
-                                  },
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Icon(
-                                      Icons.chevron_left_rounded,
-                                      size: 18,
-                                      color: Color(0xff667085),
+                                            ],
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
-                                ),
 
-                                InkWell(
-                                  onTap: () async {
-                                    setState(() {
-                                      final now = DateTime.now();
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        if (_calendarView == "month") {
+                                          _calendarMonth = DateTime(
+                                            _calendarMonth.year,
+                                            _calendarMonth.month - 1,
+                                            1,
+                                          );
+                                        } else if (_calendarView == "week") {
+                                          _calendarMonth = _calendarMonth.subtract(
+                                            const Duration(days: 7),
+                                          );
+                                        } else {
+                                          _calendarMonth = _calendarMonth.subtract(
+                                            const Duration(days: 1),
+                                          );
+                                        }
 
-                                      _calendarMonth = DateTime(
-                                        now.year,
-                                        now.month,
-                                        1,
-                                      );
+                                        _updateCalendarDateRange();
+                                      });
 
-                                      _updateCalendarDateRange();
-                                    });
-
-                                    await hrDashboardController.getPlanningCalendar_List();
-                                  },
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 6,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xffEEF4FF),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: const Text(
-                                      "Today",
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                        color: Color(0xff155EEF),
+                                      if (AppClient.isAnusamm) {
+                                        await hrDashboardController.getPlanningCalendar_List();
+                                      }                                    },
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(5),
+                                      child: Icon(
+                                        Icons.chevron_left_rounded,
+                                        size: 18,
+                                        color: Color(0xff667085),
                                       ),
                                     ),
                                   ),
-                                ),
 
-                                InkWell(
-                                  onTap: () async {
-                                    setState(() {
-                                      if (_calendarView == "month") {
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        final now = DateTime.now();
+
                                         _calendarMonth = DateTime(
-                                          _calendarMonth.year,
-                                          _calendarMonth.month + 1,
+                                          now.year,
+                                          now.month,
                                           1,
                                         );
-                                      } else if (_calendarView == "week") {
-                                        _calendarMonth = _calendarMonth.add(
-                                          const Duration(days: 7),
-                                        );
-                                      } else {
-                                        _calendarMonth = _calendarMonth.add(
-                                          const Duration(days: 1),
-                                        );
-                                      }
 
-                                      _updateCalendarDateRange();
-                                    });
+                                        _updateCalendarDateRange();
+                                      });
 
-                                    await hrDashboardController.getPlanningCalendar_List();
-                                  },
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Icon(
-                                      Icons.chevron_right_rounded,
-                                      size: 18,
-                                      color: Color(0xff667085),
+                                      if (AppClient.isAnusamm) {
+                                        await hrDashboardController.getPlanningCalendar_List();
+                                      }                                    },
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 6,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffEEF4FF),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: const Text(
+                                        "Today",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xff155EEF),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
 
-                                const SizedBox(width: 6),
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        if (_calendarView == "month") {
+                                          _calendarMonth = DateTime(
+                                            _calendarMonth.year,
+                                            _calendarMonth.month + 1,
+                                            1,
+                                          );
+                                        } else if (_calendarView == "week") {
+                                          _calendarMonth = _calendarMonth.add(
+                                            const Duration(days: 7),
+                                          );
+                                        } else {
+                                          _calendarMonth = _calendarMonth.add(
+                                            const Duration(days: 1),
+                                          );
+                                        }
 
-                              ],
-                            ),
-                          ),
+                                        _updateCalendarDateRange();
+                                      });
 
-                          const Divider(
-                            height: 1,
-                            color: Color(0xffEAECF0),
-                          ),
-
-                          if (_calendarView == "month")
-                            Obx(() {
-                              final meetings =
-                              hrDashboardController.hrPlanningCalenList.toList();
-
-                              return Column(
-                                children: [
-                                  _buildMonthCalendar(meetings),
-
-                                  const Divider(
-                                    height: 1,
-                                    color: Color(0xffEAECF0),
+                                      if (AppClient.isAnusamm) {
+                                        await hrDashboardController.getPlanningCalendar_List();
+                                      }                                    },
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(5),
+                                      child: Icon(
+                                        Icons.chevron_right_rounded,
+                                        size: 18,
+                                        color: Color(0xff667085),
+                                      ),
+                                    ),
                                   ),
 
-                                  _buildUpcomingMeetings(meetings),
+                                  const SizedBox(width: 6),
+
                                 ],
-                              );
-                            }),
+                              ),
+                            ),
 
-                          if (_calendarView == "week")
-                            Obx(() {
-                              final meetings = hrDashboardController.hrPlanningCalenList.toList(); // 👈 sync read here
-                              return _buildWeekCalendar(meetings);
-                            }),
+                            const Divider(
+                              height: 1,
+                              color: Color(0xffEAECF0),
+                            ),
+
+                            if (_calendarView == "month")
+                              Obx(() {
+                                final meetings =
+                                hrDashboardController.hrPlanningCalenList.toList();
+
+                                return Column(
+                                  children: [
+                                    _buildMonthCalendar(meetings),
+
+                                    const Divider(
+                                      height: 1,
+                                      color: Color(0xffEAECF0),
+                                    ),
+
+                                    _buildUpcomingMeetings(meetings),
+                                  ],
+                                );
+                              }),
+
+                            if (_calendarView == "week")
+                              Obx(() {
+                                final meetings = hrDashboardController.hrPlanningCalenList.toList(); // 👈 sync read here
+                                return _buildWeekCalendar(meetings);
+                              }),
 
 
-                          if (_calendarView == "day")
-                            Obx(() {
-                              final meetings = hrDashboardController.hrPlanningCalenList.toList(); // 👈 sync read here
-                              return _buildDayCalendar(meetings);
-                            }),
+                            if (_calendarView == "day")
+                              Obx(() {
+                                final meetings = hrDashboardController.hrPlanningCalenList.toList(); // 👈 sync read here
+                                return _buildDayCalendar(meetings);
+                              }),
 
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
                     const SizedBox(height: 10,),
 
                     SizedBox(height: 100,)
@@ -4367,8 +4374,9 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
           _updateCalendarDateRange();
         });
 
-        await hrDashboardController.getPlanningCalendar_List();
-      },
+        if (AppClient.isAnusamm) {
+          await hrDashboardController.getPlanningCalendar_List();
+        }      },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -4526,8 +4534,10 @@ class _HrDashboardState extends State<HrDashboard> with SingleTickerProviderStat
           _updateCalendarDateRange();
         });
 
-        await hrDashboardController.getPlanningCalendar_List();
-      },
+        if (AppClient.isAnusamm) {
+          await hrDashboardController.getPlanningCalendar_List();
+        }
+        },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(
           15,
