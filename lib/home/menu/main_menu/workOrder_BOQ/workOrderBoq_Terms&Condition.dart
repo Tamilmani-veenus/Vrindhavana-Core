@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 import 'package:vrindhavanacore/controller/workOrderBoq_Controller.dart';
 import 'package:vrindhavanacore/models/termsandCondition_model.dart';
 import 'package:vrindhavanacore/utilities/requestconstant.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import '../../../../utilities/baseutitiles.dart';
-// import 'package:flutter_switch/flutter_switch.dart';
-
 
 class TermsConditionsDialog extends StatefulWidget {
   const TermsConditionsDialog({super.key});
@@ -619,29 +618,28 @@ class _StageWiseTermsDialogState extends State<StageWiseTermsDialog>
                                   //     ),
                                   //   ],
                                   // ),
-
-                                  // FlutterSwitch(
-                                  //   width: 85,
-                                  //   height: 36,
-                                  //   toggleSize: 20,
-                                  //   value: isActive,
-                                  //   borderRadius: 20,
-                                  //   padding: 4,
-                                  //   activeColor: Colors.green,
-                                  //   inactiveColor: Colors.red,
-                                  //   activeText: "Active",
-                                  //   inactiveText: "Inactive",
-                                  //   showOnOff: true,
-                                  //   activeTextColor: Colors.white,
-                                  //   inactiveTextColor: Colors.white,
-                                  //   activeTextFontWeight: FontWeight.w600,
-                                  //   inactiveTextFontWeight: FontWeight.w600,
-                                  //   onToggle: (value) {
-                                  //     setState(() {
-                                  //       isActive = value;
-                                  //     });
-                                  //   },
-                                  // ),
+                                  FlutterSwitch(
+                                    width: 85,
+                                    height: 36,
+                                    toggleSize: 20,
+                                    value: isActive,
+                                    borderRadius: 20,
+                                    padding: 4,
+                                    activeColor: Colors.green,
+                                    inactiveColor: Colors.red,
+                                    activeText: "Active",
+                                    inactiveText: "Inactive",
+                                    showOnOff: true,
+                                    activeTextColor: Colors.white,
+                                    inactiveTextColor: Colors.white,
+                                    activeTextFontWeight: FontWeight.w600,
+                                    inactiveTextFontWeight: FontWeight.w600,
+                                    onToggle: (value) {
+                                      setState(() {
+                                        isActive = value;
+                                      });
+                                    },
+                                  ),
                                   const SizedBox(height: 10),
                                   isEdit
                                       ? SizedBox()

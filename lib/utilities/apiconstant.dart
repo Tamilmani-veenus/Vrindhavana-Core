@@ -47,7 +47,6 @@ class AppClient {
   static bool get isVrindhavana => packageName == "com.veenus.vrindhavana";
   static bool get isRKCPL => packageName == "com.veenus.rkcpl";
   static bool get isPrahkurti => packageName == "com.veenus.prahkurti";
-  static bool get isIOSProjects => packageName == "com.veenus.iosprojects";
 }
 
 class ApiConstant{
@@ -70,11 +69,17 @@ class ApiConstant{
   static String MATERIALDASHMATHEAD_API = BASE_URL_CORE + "api/DashBoard/DashBoardMaterialHeadWise";
   static String HRDASHBOARD_API = BASE_URL_CORE + "api/DashBoard/HRDashBoard";
   static String HRDASHBOARDCARDS_API = BASE_URL_CORE + "api/DashBoard/HRDashBoardEmployeeName";
+  static String MATERIALDASHSUPWISE_API = BASE_URL_CORE + "api/DashBoard/DashBoardMaterialSupplierWise";
+  static String PUT_PLANNING_CALENDAR_API = BASE_URL_CORE + "api/DashBoard/UpdateMeetingScheduler";
+  static String HRDASHBOARD_PLANNINGCALEN_API = BASE_URL_CORE + "api/DashBoard/GetAllMeetingScheduler";
 
 
 
   static String PENDINGLISTAPI = BASE_URL_CORE + "api/Menu/GetMobilePendingList";
   static String REQNOLISTAPI = BASE_URL_CORE + "api/MaterialPurOrdMas/GetReqMasDataByPO";
+  static String NMRLISTAPPROVEAPI = BASE_URL_CORE + "api/SubContractorNMRBill/VerifyOrApproveNMRBill";
+  static String DIRECTLISTAPPROVEAPI = BASE_URL_CORE + "api/SubContractorWorkQty/VerifyOrApproveBillDirect";
+  static String WOLISTAPPROVEAPI = BASE_URL_CORE + "api/SubcontractWorkOrderMas/VerifyOrApproveWOBill";
   static String REQNORENTALWORKLISTAPI = BASE_URL_CORE + "api/MaterialRentalWork/GetReqMasByWoId";
 
   static String GETMRNFINALAPROVALAPI = BASE_URL_CORE + "api/MaterialPreApprovalRequest/GetFinalApproveMasById";
@@ -88,7 +93,6 @@ class ApiConstant{
   static String GETREPORTMATERIALDROPDOWNLIST = BASE_URL_CORE + "api/GenericMaster/GetMaterials";
   static String GETALLMATERIALDROPDOWNLIST = BASE_URL_CORE + "api/GenericMaster/GetAllMaterial";
   static String GETSUBCONTRACTLIST = BASE_URL_CORE + "api/GenericMaster/GetSubContractorByProject";
-  static String HRDASHBOARD_PLANNINGCALEN_API = BASE_URL_CORE + "api/DashBoard/GetAllMeetingScheduler";
 
   static String GETSUBCONTRACTLISTRPT = BASE_URL_CORE + "api/BOQReports/GetAllActiveSubContractorName";
   static String GETCOMPANYLISTRPT = BASE_URL_CORE + "api/GenericMaster/GetCompany";
@@ -96,7 +100,6 @@ class ApiConstant{
   static String GETBOQWRKORDERNOLIST = BASE_URL_CORE + "api/SubContractorWorkQtyBOQ/GetWorkOrderNoDd";
   static String GETINVOICENOLIST = BASE_URL_CORE + "api/SubContractorNMRBill/GetBillNo";
   static String SITEDROPDWONLISTAPI = BASE_URL_CORE + "api/GenericMaster/GetProjectWiseSiteList";
-  static String MATERIALDASHSUPWISE_API = BASE_URL_CORE + "api/DashBoard/DashBoardMaterialSupplierWise";
 
   static String TOSITEDROPDWONLISTAPI = BASE_URL_CORE + "api/GenericMaster/GetToSitesByFrSiteDd";
   static String GETMRNREPORTSLISTAPI = BASE_URL_CORE + "api/MaterialReqOrdMas/GetAllMRNReportViewListMas";
@@ -199,6 +202,7 @@ class ApiConstant{
   static String GET_APPTYPE_API = BASE_URL_CORE + "api/MaterialReqOrdMas/ApprovalType";
   static String GETMATERIALLIST = BASE_URL_CORE + "api/MaterialReqOrdMas/GetMRNMatByReqTypeProNdSite";
   static String CHECKMATERIALLISTBALQTY = BASE_URL_CORE + "api/Admin/Getmaterialcheckingbalqty";
+  static String CHECKBALQTYPROSITE = BASE_URL_CORE + "api/MaterialQtyFixingMas/CheckBalQtyForProAndSite";
   static String GETCONSUMPTION_ENTRY_LIST = BASE_URL_CORE + "api/MaterialExpenseMas/GetAllMaterialExpenses";
   static String GETSTOCKMATERIALLIST = BASE_URL_CORE + "api/MaterialExpenseMas/GetMaterialBasedOnProjAndSite";
   static String GETCONSTYPELIST = BASE_URL_CORE + "api/MaterialExpenseMas/GetExpenseTypeAll";
@@ -330,7 +334,6 @@ class ApiConstant{
   static String PUT_DPR_NEW_UPDATE_API = BASE_URL_CORE + "api/SubContractorDailyWorkNew/UpdateDailyWorkNew";
   static String PUT_DIRECTBILL_UPDATE_API = BASE_URL_CORE + "api/SubContractorWorkQty/UpdateSubContractorWorkQty";
   static String PUT_WORKORDER_UPDATE_API = BASE_URL_CORE + "api/SubcontractWorkOrderMas/UpdateWorkOrder";
-  static String PUT_PLANNING_CALENDAR_API = BASE_URL_CORE + "api/DashBoard/UpdateMeetingScheduler";
 
   static String PUT_DIRECTBOQ_UPDATE_API = BASE_URL_CORE + "api/SubContractorWorkQtyBOQ/UpdateSubContractorWorkQty";
   static String PUT_POAPPROVAL_API = BASE_URL_CORE + "api/MaterialPurOrdMas/ApproveSelectedRowById";
