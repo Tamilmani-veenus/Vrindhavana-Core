@@ -38,9 +38,9 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
     DateTime currentDate = DateTime.now();
     labourDashboardController.labourEntryFromDate.text =
-        BaseUtitiles.formatDate(currentDate);
+        currentDate.toString().substring(0, 10);
     labourDashboardController.labourEntryToDate.text =
-        BaseUtitiles.formatDate(currentDate);
+        currentDate.toString().substring(0, 10);
 
     _tooltipBehavior = TooltipBehavior(
       enable: true,
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen>
 
                               if (Frdate != null) {
                                 labourDashboardController.labourEntryFromDate
-                                    .text = BaseUtitiles.formatDate(Frdate);
+                                    .text = Frdate.toString().substring(0, 10);
 
                                 setState(() {});
 
@@ -284,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen>
 
                               if (Todate != null) {
                                 labourDashboardController.labourEntryToDate
-                                    .text = BaseUtitiles.formatDate(Todate);
+                                    .text = Todate.toString().substring(0, 10);
 
                                 setState(() {});
 
