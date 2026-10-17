@@ -197,7 +197,7 @@ class _SignInPageState extends State<SignInPage> {
                           prefixIcon: IconButton(
                             icon: Icon(
                               _isObscure?Icons.visibility_off:
-                                   Icons.visibility,
+                              Icons.visibility,
                               color: Colors.indigo,
                             ),
                             onPressed: () {

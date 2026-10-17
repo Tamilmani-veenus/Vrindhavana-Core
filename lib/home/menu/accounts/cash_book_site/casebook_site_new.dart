@@ -10,7 +10,9 @@ import '../../../../controller/bottomsheet_Controllers.dart';
 import '../../../../controller/cashbook_site_controller.dart';
 import '../../../../controller/expensencecontroller.dart';
 import '../../../../controller/projectcontroller.dart';
+import '../../../../controller/reports_controller.dart';
 import '../../../../utilities/baseutitiles.dart';
+import '../../../../utilities/common_date_fields.dart';
 import '../../../../utilities/requestconstant.dart';
 
 class CashBook_Site extends StatefulWidget {
@@ -33,15 +35,25 @@ class _CashBook_SiteState extends State<CashBook_Site> {
 
   BottomsheetControllers bottomsheetControllers = Get.put(BottomsheetControllers());
 
+  ReportsController reportsController = Get.put(ReportsController());
+
+
   @override
   void initState() {
     // TODO: implement initState
     DateTime currentDate = DateTime.now();
-    DateTime lastDayOfMonth = new DateTime(currentDate.year, currentDate.month - 1, 0);
-    cashBookSiteController.cashbooksite_frdateController.text = lastDayOfMonth.toString().substring(0, 10);
-    cashBookSiteController.cashbooksite_todateController.text = currentDate.toString().substring(0, 10);
-    projectController.projectname.text="--SELECT--";
-    projectController.selectedProjectId.value=0;
+    DateTime firstDayOfMonth =
+    DateTime(currentDate.year, currentDate.month, 1);
+
+    cashBookSiteController.cashbooksite_frdateController.text =
+        firstDayOfMonth.toString().substring(0, 10);
+
+    cashBookSiteController.cashbooksite_todateController.text =
+        currentDate.toString().substring(0, 10);
+    reportsController.companyName.text = "--ALL--";
+    reportsController.selectedCompanyId.value = 0;
+    reportsController.projectname.text = "--SELECT--";
+    reportsController.selectedProjectId.value = 0;
     cashBookSiteController.cashsiteDatas.clear();
     cashBookSiteController.totalDebit.text = "0.0";
     cashBookSiteController.totalCredit.text ="0.0";
@@ -92,145 +104,42 @@ class _CashBook_SiteState extends State<CashBook_Site> {
                         ],
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(color: Colors.white70, width: 1),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                elevation: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 3),
-                                  child: TextFormField(
-                                    readOnly: true,
-                                    controller: cashBookSiteController.cashbooksite_frdateController,
-                                    cursorColor: Colors.black,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.zero,
-                                      border: InputBorder.none,
-                                      labelText: "From Date",
-                                      labelStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: RequestConstant.App_Font_SIZE),
-                                      prefixIconConstraints:
-                                      BoxConstraints(minWidth: 0, minHeight: 0),
-                                      prefixIcon: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 8, horizontal: 8),
-                                          child: ConstIcons.date),
-                                    ),
-                                    onTap: () async {
-                                      cashBookSiteController.cashsiteDatas.clear();
-                                      var Frdate = await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(1900),
-                                          lastDate: DateTime(2100),
-                                          builder: (context, child) {
-                                            return Theme(data: Theme.of(context).copyWith(
-                                              colorScheme: ColorScheme.light(
-                                                primary: Theme.of(context).primaryColor, // header background color
-                                                onPrimary: Colors.white, // header text color
-                                                onSurface: Colors.black, // body text color
-                                              ),
-                                              textButtonTheme: TextButtonThemeData(
-                                                style: TextButton.styleFrom(
-                                                  primary: Colors.black, // button text color
-                                                ),
-                                              ),
-                                            ),
-                                              child: child!,
-                                            );
-                                          });
-                                      cashBookSiteController.cashbooksite_frdateController.text = Frdate.toString().substring(0, 10);
-
-                                    },
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Select Date';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              width: BaseUtitiles.getWidthtofPercentage(context, 38),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(color: Colors.white70, width: 1),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                elevation: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 3),
-                                  child: TextFormField(
-                                    readOnly: true,
-                                    controller: cashBookSiteController.cashbooksite_todateController,
-                                    cursorColor: Colors.black,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.zero,
-                                      border: InputBorder.none,
-                                      labelText: "ToDate",
-                                      labelStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: RequestConstant.App_Font_SIZE),
-                                      prefixIconConstraints:
-                                      BoxConstraints(minWidth: 0, minHeight: 0),
-                                      prefixIcon: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 8, horizontal: 8),
-                                          child: ConstIcons.date),
-                                    ),
-                                    onTap: () async {
-                                      cashBookSiteController.cashsiteDatas.clear();
-                                      var Todate = await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(1900),
-                                          lastDate: DateTime(2100),
-                                          builder: (context, child) {
-                                            return Theme(data: Theme.of(context).copyWith(
-                                              colorScheme: ColorScheme.light(
-                                                primary: Theme.of(context).primaryColor, // header background color
-                                                onPrimary: Colors.white, // header text color
-                                                onSurface: Colors.black, // body text color
-                                              ),
-                                              textButtonTheme: TextButtonThemeData(
-                                                style: TextButton.styleFrom(
-                                                  primary: Colors.black, // button text color
-                                                ),
-                                              ),
-                                            ),
-                                              child: child!,
-                                            );
-                                          });
-                                      cashBookSiteController.cashbooksite_todateController.text = Todate.toString().substring(0, 10);
-                                    },
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Select Date';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                    CommonDateFields(
+                      date1: CommonDateFieldConfig(
+                        title: "From Date",
+                        value:cashBookSiteController.cashbooksite_frdateController.text,
+                        controller: cashBookSiteController.cashbooksite_frdateController,
+                        selectable: true,
+                        initialDate: DateTime.tryParse(
+                            cashBookSiteController.cashbooksite_frdateController.text) ??
+                            DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime.now(),
+                        onChanged: (date) {
+                          setState(() {
+                            cashBookSiteController.cashbooksite_frdateController.text =
+                                CommonDateUtils.formatApiDate(date);
+                          });
+                        },
+                      ),
+                      date2: CommonDateFieldConfig(
+                        title: "To Date",
+                        value:cashBookSiteController.cashbooksite_todateController.text,
+                        controller: cashBookSiteController.cashbooksite_todateController,
+                        selectable: true,
+                        initialDate: DateTime.tryParse(
+                            cashBookSiteController.cashbooksite_todateController.text) ??
+                            DateTime.now(),
+                        firstDate: DateTime.tryParse(
+                            cashBookSiteController.cashbooksite_frdateController.text) ??
+                            DateTime.now(),
+                        lastDate: DateTime.now(),
+                        onChanged: (date) {
+                          setState(() {
+                            cashBookSiteController.cashbooksite_todateController.text =
+                                CommonDateUtils.formatApiDate(date);
+                          });
+                        },
                       ),
                     ),
                     Container(
@@ -246,13 +155,13 @@ class _CashBook_SiteState extends State<CashBook_Site> {
                           const EdgeInsets.only(top: 3, left: 10, bottom: 5),
                           child: TextFormField(
                             readOnly: true,
-                            controller: projectController.projectname,
+                            controller: reportsController.companyName,
                             cursorColor: Colors.black,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
                               contentPadding: EdgeInsets.zero,
                               border: InputBorder.none,
-                              labelText: "ProjectName",
+                              labelText: "Company Name",
                               labelStyle: TextStyle(
                                   color: Colors.grey,
                                   fontSize: RequestConstant.Lable_Font_SIZE),
@@ -261,22 +170,54 @@ class _CashBook_SiteState extends State<CashBook_Site> {
                               prefixIcon: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 8),
-                                  child: ConstIcons.staffName),
+                                  child: ConstIcons.billType
+
+                              ),
                             ),
                             onTap: () async {
-
-                              await projectController.getProjectList();
-                              if (mounted) {
-                                bottomsheetControllers.ProjectName(context, projectController.getdropDownvalue.value);
-                              }
-                              FocusScope.of(context).unfocus();
-
+                              await reportsController.getCompanyReportList(type: "MRNReqTracker");
+                              bottomsheetControllers.CompanyName(context, reportsController.getCompanyDropDownvalue.value,type: "cashbook");
                             },
-                            validator: (value) {
-                              if (value!.isEmpty || value == "--SELECT--") {
-                                return '\u26A0 Required';
-                              }
-                              return null;
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.white70, width: 1),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        elevation: 3,
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.only(top: 3, left: 10, bottom: 5),
+                          child: TextFormField(
+                            readOnly: true,
+                            controller: reportsController.projectname,
+                            cursorColor: Colors.black,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              border: InputBorder.none,
+                              labelText: "Project Name",
+                              labelStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: RequestConstant.Lable_Font_SIZE),
+                              prefixIconConstraints:
+                              BoxConstraints(minWidth: 0, minHeight: 0),
+                              prefixIcon: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 8),
+                                  child: ConstIcons.projectName
+
+                              ),
+                            ),
+                            onTap: () async {
+                              await reportsController.getReportProjectList(type: "cashbook");
+                              bottomsheetControllers.projectNameReport(context, reportsController.getProjectdropDownvalue.value);
                             },
                           ),
                         ),
@@ -303,7 +244,7 @@ class _CashBook_SiteState extends State<CashBook_Site> {
                                   fontWeight: FontWeight.bold,
                                   fontSize: RequestConstant.Lable_Font_SIZE,
                                   color: Colors.white
-                              ),
+                                      ),
                             ),
                           ),
                           onTap: () async {
@@ -526,7 +467,7 @@ class _CashBook_SiteState extends State<CashBook_Site> {
                                     Expanded(
                                       flex: 3,
                                       child: Text(
-                                        cashBookSiteController.cashsiteDatas.value[index].vocdate.toString(),
+                                        cashBookSiteController.cashsiteDatas.value[index].vocDate.toString(),
                                         textAlign: TextAlign.left,
                                       ),
                                     ),
